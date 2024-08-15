@@ -13,6 +13,8 @@ Generator version: 7.7.0
 # Common files
 require 'PCP-server-Ruby-SDK/api_client'
 require 'PCP-server-Ruby-SDK/api_error'
+require 'PCP-server-Ruby-SDK/api_model'
+require 'PCP-server-Ruby-SDK/api_enum'
 require 'PCP-server-Ruby-SDK/version'
 require 'PCP-server-Ruby-SDK/configuration'
 
