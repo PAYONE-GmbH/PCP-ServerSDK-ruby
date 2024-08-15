@@ -66,12 +66,12 @@ PLATFORMS
 
 DEPENDENCIES
   PCP-ServerSDK-ruby!
-  minitest (~> 5.24.1, >= 5.24.0)
+  minitest (~> 5.24.1)
   pry-byebug
   rake (~> 13.0.1)
   rubocop (~> 1.65)
-  simplecov (~> 0.21.2, >= 0.21.2)
-  simplecov-cobertura (~> 2.1.0, >= 2.1.0)
+  simplecov (~> 0.21.2)
+  simplecov-cobertura (~> 2.1.0)
 
 BUNDLED WITH
    2.5.15
