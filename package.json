@@ -1,0 +1,20 @@
+{
+  "name": "pcp-serversdk-ruby",
+  "author": "PAYONE GmbH",
+  "description": "PCPServerSDK - the Ruby gem for the Commerce Platform API",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby.git"
+  },
+  "scripts": {
+    "changelog": "conventional-changelog -i CHANGELOG.md -s -r 0 --config ./changelog.config.js"
+  },
+  "version": "0.0.1",
+  "devDependencies": {
+    "@commitlint/cli": "19.4.0",
+    "@commitlint/config-conventional": "19.2.2",
+    "conventional-changelog-cli": "5.0.0",
+    "lefthook": "1.7.12"
+  }
+}
