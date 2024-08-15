@@ -8,12 +8,10 @@ class TestOrderLineDetailsResult < Minitest::Test
     result = PCPServerSDK::Models::OrderLineDetailsResult.new
     result.product_code = 'identifier'
     result.product_price = 1299
-    result.product_type = PCPServerSDK::ProductType::GOODS
+    result.product_type = PCPServerSDK::Models::ProductType::GOODS
     result.quantity = 2
     result.tax_amount = 19
     result.id = 'u1234'
-
-    cartItemOrderStatus = PCPServerSDK::Models::CartItemOrderStatus.new
     result.status = []
 
 

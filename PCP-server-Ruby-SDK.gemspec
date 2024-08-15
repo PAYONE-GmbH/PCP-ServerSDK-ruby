@@ -13,10 +13,10 @@ Generator version: 7.7.0
 =end
 
 $:.push File.expand_path("../lib", __FILE__)
-require "PCP-server-Ruby-SDK/version"
+require "PCP-ServerSDK-ruby/version"
 
 Gem::Specification.new do |s|
-  s.name        = "PCP-server-Ruby-SDK"
+  s.name        = "PCP-ServerSDK-ruby"
   s.version     = PCPServerSDK::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["PAYONE GmbH"]
@@ -31,6 +31,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'httpx', '~> 1.0', '>= 1.0.0'
 
   s.add_development_dependency 'minitest', '~> 5.24.1', '>= 5.24.0'
+  s.add_development_dependency 'simplecov', '~> 0.21.2', '>= 0.21.2'
+  s.add_development_dependency 'simplecov-cobertura', '~> 2.1.0', '>= 2.1.0'
 
   s.files         = `find *`.split("\n").uniq.sort.select { |f| !f.empty? }
   s.test_files    = `find spec/*`.split("\n")

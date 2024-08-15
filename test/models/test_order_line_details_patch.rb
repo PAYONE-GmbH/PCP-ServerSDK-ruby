@@ -10,7 +10,7 @@ class TestOrderLineDetailsPatch < Minitest::Test
     patch = PCPServerSDK::Models::OrderLineDetailsPatch.new
     patch.product_code = 'code'
     patch.product_price = 480
-    patch.product_type = PCPServerSDK::ProductType::GOODS
+    patch.product_type = PCPServerSDK::Models::ProductType::GOODS
     patch.quantity = 1
     patch.tax_amount = 19
     patch.id = 'product-id'
@@ -29,7 +29,7 @@ class TestOrderLineDetailsPatch < Minitest::Test
     patch = PCPServerSDK::Models::OrderLineDetailsPatch.new
     patch.product_code = 'code'
     patch.product_price = 480
-    patch.product_type = PCPServerSDK::ProductType::GOODS
+    patch.product_type = PCPServerSDK::Models::ProductType::GOODS
     patch.quantity = 1
     patch.tax_amount = 19
     patch.id = 'product-id'
