@@ -24,9 +24,6 @@ jobs:
           ruby-version: "3.2"
           bundler-cache: true
 
-      - name: Install dependencies
-        run: bundle install
-
       - name: Lint via rubocop
         run:
           rake rubocop
@@ -45,9 +42,6 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
 
-      - name: Install dependencies
-        run: bundle install
-
       - name: Test
         run: |
-          rake test
+          bundle exec rake -- test
