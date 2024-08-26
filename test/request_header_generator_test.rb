@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'test_helper'
 require_relative '../lib/PCP-server-Ruby-SDK/request_header_generator'
 
 class TestRequestHeaderGenerator < Minitest::Test

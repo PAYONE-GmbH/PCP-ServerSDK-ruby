@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'test_helper'
 
 require_relative '../../lib/PCP-server-Ruby-SDK/errors/api_error_response_exception'
 

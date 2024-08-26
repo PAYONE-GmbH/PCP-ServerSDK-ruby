@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'test_helper'
 require_relative '../../lib/PCP-server-Ruby-SDK/queries/get_commerce_cases_query'
 
 class TestGetCommerceCasesQuery < Minitest::Test

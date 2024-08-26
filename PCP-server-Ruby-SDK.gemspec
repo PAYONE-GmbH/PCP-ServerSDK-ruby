@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'openssl'
 
   s.add_development_dependency 'minitest', '~> 5.24.1', '>= 5.24.0'
+  s.add_development_dependency 'simplecov', '~> 0.22.0' 
 
   s.files         = `find *`.split("\n").uniq.sort.select { |f| !f.empty? }
   s.test_files    = `find spec/*`.split("\n")

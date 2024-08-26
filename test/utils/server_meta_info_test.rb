@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'test_helper'
 
 require_relative '../../lib/PCP-server-Ruby-SDK/utils/server_meta_info'
 
