@@ -35,8 +35,7 @@ class CommerceCaseApiClient < BaseApiClient
     
     request_init = {
       method: 'GET',
-      headers: {
-      }
+      headers: {}
     }
 
     make_api_call(url.to_s, request_init)
@@ -53,8 +52,7 @@ class CommerceCaseApiClient < BaseApiClient
 
     request_init = {
       method: 'GET',
-      headers: {
-      }
+      headers: {}
     }
 
     make_api_call(url.to_s, request_init)

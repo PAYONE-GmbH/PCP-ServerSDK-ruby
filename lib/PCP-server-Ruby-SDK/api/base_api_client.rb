@@ -17,7 +17,7 @@ class BaseApiClient
     @request_header_generator = RequestHeaderGenerator.new(config)
   end
 
-  protected
+protected
 
   def get_request_header_generator
     @request_header_generator
@@ -69,7 +69,7 @@ class BaseApiClient
     parsed
   end
 
-  private
+private
 
   def build_http_request(uri, request_init, headers)
     method = request_init[:method].to_s.upcase

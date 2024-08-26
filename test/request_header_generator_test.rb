@@ -2,7 +2,6 @@ require 'test_helper'
 require_relative '../lib/PCP-server-Ruby-SDK/request_header_generator'
 
 class TestRequestHeaderGenerator < Minitest::Test
-
   def setup 
     @TEST_API_KEY = 'KEY'
     @TEST_API_SECRET = 'Super duper Ethan Hunt level secret'
@@ -54,8 +53,7 @@ class TestRequestHeaderGenerator < Minitest::Test
   def test_add_date_header_if_missing
     request_header_generator = RequestHeaderGenerator.new(@config)
 
-    headers = {
-    }
+    headers = {}
 
     updated_request = request_header_generator.generate_additional_request_headers('http://awesome-api.com/v1/commerce_cases', { method: :post, headers: headers })
 
@@ -69,8 +67,7 @@ class TestRequestHeaderGenerator < Minitest::Test
   def test_add_server_meta_info_header_if_missing
     request_header_generator = RequestHeaderGenerator.new(@config)
 
-    headers = {
-    }
+    headers = {}
 
     updated_request = request_header_generator.generate_additional_request_headers('http://awesome-api.com/v1/commerce_cases', { method: :post, headers: headers })
 
@@ -89,8 +86,7 @@ class TestRequestHeaderGenerator < Minitest::Test
   def test_add_client_meta_info_header_if_missing
     request_header_generator = RequestHeaderGenerator.new(@config)
 
-    headers = {
-    }
+    headers = {}
 
     updated_request = request_header_generator.generate_additional_request_headers('http://awesome-api.com/v1/commerce_cases', { method: :post, headers: headers })
 
@@ -105,5 +101,4 @@ class TestRequestHeaderGenerator < Minitest::Test
 
     assert_equal base64, client_meta_info_header
   end
-end  
-
+end

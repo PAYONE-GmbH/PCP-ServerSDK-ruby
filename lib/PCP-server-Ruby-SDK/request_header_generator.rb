@@ -30,7 +30,7 @@ class RequestHeaderGenerator
     request.merge(headers: headers)
   end
 
-  private
+private
 
   def get_auth_header(url, request, headers)
     # 1. method

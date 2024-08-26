@@ -31,5 +31,3 @@ def run
 end
 
 run
-
-# MERCHANT_ID="P1_18352_2013244" API_KEY="MERCHANT_SECURED_KEY_1" API_SECRET="b0d9a98d-235e-4b0a-9b0c-eb87272d1454" COMMERCE_CASE_ID="test" CHECKOUT_ID="test2" ruby -Ilib example-app/example.rb 

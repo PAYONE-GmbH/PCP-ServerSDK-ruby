@@ -40,7 +40,7 @@ class PaymentInformationApiClient < BaseApiClient
     make_api_call(url.to_s, request_init)
   end
 
-  private
+private
 
   def validate_ids(merchant_id, commerce_case_id, checkout_id)
     raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
