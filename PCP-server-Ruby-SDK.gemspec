@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["PAYONE GmbH"]
   s.email       = [""]
-  s.homepage    = "https://openapi-generator.tech"
+  s.homepage    = "https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby"
   s.summary     = "Commerce Platform API Ruby Gem"
   s.description = "RESTful API for the creation of Commerce Cases with Checkouts and the execution of Payments. "
   s.license     = "MIT"
@@ -29,6 +29,9 @@ Gem::Specification.new do |s|
   s.metadata = {}
 
   s.add_runtime_dependency 'httpx', '~> 1.0', '>= 1.0.0'
+  s.add_runtime_dependency 'net-http'
+  s.add_runtime_dependency 'json'
+  s.add_runtime_dependency 'openssl'
 
   s.add_development_dependency 'minitest', '~> 5.24.1', '>= 5.24.0'
 
