@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'net-http'
   s.add_runtime_dependency 'json'
   s.add_runtime_dependency 'openssl'
+  s.add_runtime_dependency 'base64'
 
   s.add_development_dependency 'minitest', '~> 5.24.1', '>= 5.24.0'
   s.add_development_dependency 'simplecov', '~> 0.22.0' 
