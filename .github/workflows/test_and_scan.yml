@@ -44,6 +44,13 @@ jobs:
         run: |
           bundle exec rake -- test
 
+      - name: Store coverage report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage/.resultset.json
+
   sonar:
     runs-on: ubuntu-20.04
     needs: test   
@@ -51,11 +58,23 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: "3.0" 
         bundler-cache: true 
+
+    - name: Download coverage report
+      uses: actions/download-artifact@v3
+      with:
+        name: coverage-report
+        path: coverage
+
+    - name: Check
+      run: |
+        ls -la coverage
+        cat coverage/.resultset.json
 
     - name: Run SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@v3.0.0
