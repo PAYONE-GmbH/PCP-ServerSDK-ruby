@@ -42,14 +42,14 @@ jobs:
 
       - name: Test
         run: |
-          bundle exec rake -- test
+          bundle exec rake -- spec
 
       - name: Store coverage report
         if: always()
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: coverage/.resultset.json
+          path: coverage/coverage.json
 
   sonar:
     runs-on: ubuntu-20.04
@@ -74,7 +74,7 @@ jobs:
     - name: Check
       run: |
         ls -la coverage
-        cat coverage/.resultset.json
+        cat coverage/coverage.json
 
     - name: Run SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@v3.0.0
