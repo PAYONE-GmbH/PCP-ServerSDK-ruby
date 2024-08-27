@@ -25,10 +25,9 @@ Gem::Specification.new do |s|
   s.summary     = "Commerce Platform API Ruby Gem"
   s.description = "RESTful API for the creation of Commerce Cases with Checkouts and the execution of Payments. "
   s.license     = "MIT"
-  s.required_ruby_version = ">= 2.7"
+  s.required_ruby_version = ">= 3.0"
   s.metadata = {}
 
-  s.add_runtime_dependency 'httpx', '~> 1.0', '>= 1.0.0'
   s.add_runtime_dependency 'net-http'
   s.add_runtime_dependency 'json'
   s.add_runtime_dependency 'openssl'
@@ -38,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov', '~> 0.22.0' 
 
   s.files         = `find *`.split("\n").uniq.sort.select { |f| !f.empty? }
-  s.test_files    = `find spec/*`.split("\n")
+  s.test_files    = `find test/*`.split("\n")
   s.executables   = []
   s.require_paths = ["lib"]
 end
