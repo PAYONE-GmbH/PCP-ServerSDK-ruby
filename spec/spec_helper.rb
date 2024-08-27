@@ -38,13 +38,14 @@ SimpleCov.start do
   add_filter '/lib/PCP-server-Ruby-SDK/version.rb' 
   add_filter '/lib/PCP-server-Ruby-SDK/models' 
   add_filter '/example-app/'
+  add_filter '/spec/'
 
-  SimpleCov.formatters = [
-    SimpleCov::Formatter::SonarCloudFormatter,
-    SimpleCov::Formatter::HTMLFormatter,
-  ]
+  # SimpleCov.formatters = [
+  #   SimpleCov::Formatter::SonarCloudFormatter,
+  #   SimpleCov::Formatter::HTMLFormatter,
+  # ]
 
   use_merging false
 end
 
-require 'minitest/autorun'
+require 'rspec'
