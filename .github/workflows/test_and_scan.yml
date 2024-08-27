@@ -58,7 +58,6 @@ jobs:
         bundler-cache: true 
 
     - name: Run SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@v3.0.0
       env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Reference the SONAR_TOKEN secret
-      run: |
-        sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }} 
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
