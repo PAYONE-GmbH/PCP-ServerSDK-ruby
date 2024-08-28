@@ -44,6 +44,11 @@ jobs:
         run: |
           bundle exec rake -- spec
 
+      - name: fix code coverage paths
+        working-directory: ./coverage
+        run: |
+          sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace@g' coverage.json
+
       - name: Store coverage report
         if: always()
         uses: actions/upload-artifact@v3
