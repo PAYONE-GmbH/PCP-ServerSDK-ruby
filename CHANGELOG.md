@@ -1,3 +1,9 @@
+## [0.0.1](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v0.1.0...v0.0.1) (2024-08-28)
+
+### Bug Fixes
+
+* fix: build gem before publishing it ([6ac4ba2e0c49ddcee2fa85b519482fe639607b41](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/commit/6ac4ba2e0c49ddcee2fa85b519482fe639607b41))
+
 ## 0.0.1 (2024-08-28)
 
 ### Bug Fixes
