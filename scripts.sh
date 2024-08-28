@@ -62,6 +62,8 @@ version() {
 clear() {
     echo "Removing temp directories..."
     rm -f PCP-server-Ruby-SDK-*.gem
+    rm -f Gemfile.lock
+    rm -rf node_modules/
     echo "All temp directories have been removed."
 }
 
