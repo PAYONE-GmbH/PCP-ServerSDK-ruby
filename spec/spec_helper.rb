@@ -12,11 +12,11 @@ SimpleCov.start do
   add_group 'Queries', 'lib/PCP-server-Ruby-SDK/queries'
     
   track_files = '{app,lib}/**/*.rb'
-end
 
-SimpleCov.formatters = [
-  SimpleCov::Formatter::JSONFormatter,
-  SimpleCov::Formatter::HTMLFormatter,
-]
+  SimpleCov.formatters = [
+    SimpleCov::Formatter::JSONFormatter,
+    SimpleCov::Formatter::HTMLFormatter,
+  ]
+end
 
 require 'rspec'
