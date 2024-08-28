@@ -16,7 +16,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "PCP-server-Ruby-SDK/version"
 
 Gem::Specification.new do |s|
-  s.name        = "PCP-server-Ruby-SDK"
+  s.name        = "pcp-server-ruby-sdk"
   s.version     = PCPServerSDK::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["PAYONE GmbH"]
