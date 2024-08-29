@@ -1,3 +1,5 @@
+## [0.0.1](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v0.0.5...v0.0.1) (2024-08-29)
+
 ## [0.0.1](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v0.0.4...v0.0.1) (2024-08-28)
 
 ## [0.0.1](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v0.1.0...v0.0.1) (2024-08-28)
