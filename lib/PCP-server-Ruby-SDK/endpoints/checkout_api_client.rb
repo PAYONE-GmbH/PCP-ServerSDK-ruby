@@ -23,6 +23,7 @@ module PCPServerSDK
       def create_checkout_request(merchant_id, commerce_case_id, payload)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
         raise TypeError, COMMERCE_CASE_ID_REQUIRED_ERROR if commerce_case_id.nil? || commerce_case_id.empty?
+        raise TypeError, PAYLOAD_REQUIRED_ERROR if payload.nil?
 
         url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts")
         
@@ -89,6 +90,7 @@ module PCPServerSDK
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
         raise TypeError, COMMERCE_CASE_ID_REQUIRED_ERROR if commerce_case_id.nil? || commerce_case_id.empty?
         raise TypeError, CHECKOUT_ID_REQUIRED_ERROR if checkout_id.nil? || checkout_id.empty?
+        raise TypeError, PAYLOAD_REQUIRED_ERROR if payload.nil?
 
         url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts/#{checkout_id}")
         

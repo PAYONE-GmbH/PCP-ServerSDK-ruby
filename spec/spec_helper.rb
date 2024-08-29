@@ -19,4 +19,10 @@ SimpleCov.start do
   ]
 end
 
+RSpec.configure do |config|
+  config.before(:each) do
+    $stdout = STDOUT
+  end
+end
+
 require 'rspec'

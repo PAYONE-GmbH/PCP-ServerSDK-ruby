@@ -10,6 +10,7 @@ require_relative '../errors/api_response_retrieval_exception'
 MERCHANT_ID_REQUIRED_ERROR = 'Merchant ID is required'
 COMMERCE_CASE_ID_REQUIRED_ERROR = 'Commerce Case ID is required'
 CHECKOUT_ID_REQUIRED_ERROR = 'Checkout ID is required'
+PAYLOAD_REQUIRED_ERROR = 'Payload is required'
 
 
 module PCPServerSDK
@@ -35,6 +36,7 @@ module PCPServerSDK
       # @param [String] url
       # @param [Hash] request_init
       def make_api_call(url, request_init)
+        puts "sdf"
         uri = URI.parse(url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = uri.scheme == 'https'
@@ -42,38 +44,44 @@ module PCPServerSDK
         modified_request = @request_header_generator.generate_additional_request_headers(url, request_init || {})
         
         request = build_http_request(uri, modified_request)
-        response = http.request(request)
-        
-        body = response.body
+        response = get_response(request)    
+        puts response.body    
+        handle_error(response)
 
-        begin
-          parsed = JSON.parse(body)
-        rescue StandardError => e
-          raise PCPServerSDK::Errors::ApiResponseRetrievalException.new(response.code.to_i, parsed, e)
-        end
-        
-        unless response.is_a?(Net::HTTPSuccess)
-          if is_error_response(body)
-            begin
-              parsedError = deserialize_json(parsed, PCPServerSDK::Models::ErrorResponse)
-              raise PCPServerSDK::Errors::ApiErrorResponseException.new(response.code.to_i, body, parsedError.errors)
-            rescue StandardError => e
-              raise PCPServerSDK::Errors::ApiResponseRetrievalException.new(response.code.to_i, parsed, e)
-            end            
-          else
-            raise PCPServerSDK::Errors::ApiResponseRetrievalException.new(response.code.to_i, body)
-          end
-        end
-        
-        parsed
+        JSON.parse(response.body)
       end
-
 
       def deserialize_json(json, klass)
         klass.build_from_hash((json))
       end
 
     private
+
+      def get_response(request)
+        http.request(request) 
+      end
+
+      def handle_error(response)
+        if response.code.to_i.between?(200, 299)
+          return
+        end
+        puts response.code
+    
+        response_body = response.body
+    
+        if response_body.empty?
+          raise PCPServerSDK::Errors::ApiResponseRetrievalException.new(response.code, response_body)
+        end
+    
+        begin
+          puts response_body
+          error = deserialize_json(response_body, PCPServerSDK::Models::ErrorResponse)
+          puts "#{error} 2"
+          raise PCPServerSDK::Errors::ApiErrorResponseException.new(response.code, response_body, error.errors)
+        rescue JSON::ParserError => e
+          raise PCPServerSDK::Errors::ApiResponseRetrievalException.new(response.code, response_body, e)
+        end
+      end
 
       def build_http_request(uri, request_init)
         method = request_init[:method].to_s.upcase
