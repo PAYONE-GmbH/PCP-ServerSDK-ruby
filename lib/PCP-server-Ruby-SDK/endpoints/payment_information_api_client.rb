@@ -2,7 +2,6 @@ require 'net/http'
 require 'json'
 require 'uri'
 require_relative 'base_api_client'
-require_relative '../models/payment_information_request'
 require_relative '../models/payment_information_response'
 
 class PaymentInformationApiClient < BaseApiClient
@@ -12,6 +11,12 @@ class PaymentInformationApiClient < BaseApiClient
     super(config)
   end
 
+  # Create a payment information
+  # @param merchant_id [String] The merchant identifier
+  # @param commerce_case_id [String] The commerce case identifier
+  # @param checkout_id [String] The checkout identifier
+  # @param payload [PaymentInformationRequest] The payment information request
+  # @return [PaymentInformationResponse] The payment information response
   def create_payment_information(merchant_id, commerce_case_id, checkout_id, payload)
     validate_ids(merchant_id, commerce_case_id, checkout_id)
 
@@ -23,9 +28,16 @@ class PaymentInformationApiClient < BaseApiClient
       body: JSON.generate(payload)
     }
 
-    make_api_call(url.to_s, request_init)
+    response = make_api_call(url.to_s, request_init)
+    deserialize_json(response, PaymentInformationResponse)
   end
 
+  # Get a payment information
+  # @param merchant_id [String] The merchant identifier
+  # @param commerce_case_id [String] The commerce case identifier
+  # @param checkout_id [String] The checkout identifier
+  # @param payment_information_id [String] The payment information identifier
+  # @return [PaymentInformationResponse] The payment information response
   def get_payment_information(merchant_id, commerce_case_id, checkout_id, payment_information_id)
     validate_ids(merchant_id, commerce_case_id, checkout_id)
     raise TypeError, PAYMENT_INFORMATION_ID_REQUIRED_ERROR if payment_information_id.nil? || payment_information_id.empty?
@@ -37,7 +49,8 @@ class PaymentInformationApiClient < BaseApiClient
       headers: {}
     }
 
-    make_api_call(url.to_s, request_init)
+    response = make_api_call(url.to_s, request_init)
+    deserialize_json(response, PaymentInformationResponse)
   end
 
 private

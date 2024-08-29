@@ -1,10 +1,10 @@
 # Api
-require_relative './PCP-server-Ruby-SDK/api/base_api_client'
-require_relative 'PCP-server-Ruby-SDK/api/checkout_api_client'
-require_relative 'PCP-server-Ruby-SDK/api/commerce_case_api_client'
-require_relative 'PCP-server-Ruby-SDK/api/order_management_checkout_actions_api_client'
-require_relative 'PCP-server-Ruby-SDK/api/payment_execution_api_client'
-require_relative 'PCP-server-Ruby-SDK/api/payment_information_api_client'
+require_relative 'PCP-server-Ruby-SDK/endpoints/base_api_client'
+require_relative 'PCP-server-Ruby-SDK/endpoints/checkout_api_client'
+require_relative 'PCP-server-Ruby-SDK/endpoints/commerce_case_api_client'
+require_relative 'PCP-server-Ruby-SDK/endpoints/order_management_checkout_actions_api_client'
+require_relative 'PCP-server-Ruby-SDK/endpoints/payment_execution_api_client'
+require_relative 'PCP-server-Ruby-SDK/endpoints/payment_information_api_client'
 
 # Errors
 require_relative 'PCP-server-Ruby-SDK/errors/api_error_response_exception'

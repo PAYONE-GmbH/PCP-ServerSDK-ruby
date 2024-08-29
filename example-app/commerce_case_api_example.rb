@@ -1,5 +1,4 @@
-require 'pcp-server-ruby-sdk'
-
+require_relative '../lib/PCP-server-Ruby-SDK.rb'
 class CommerceCaseApiExample
   attr_accessor :client, :merchant_id, :commerce_case_id
 
@@ -20,15 +19,18 @@ class CommerceCaseApiExample
     query = GetCommerceCasesQuery.new
     query.set_offset(2)
     query.set_size(2)
+    puts query
+  
     res = @client.get_commerce_cases_request(@merchant_id, query)
-    
-    puts JSON.pretty_generate(res)
+    puts res[0].class
+    # puts JSON.pretty_generate(res)
   end
 
   def run_get_one
     res = @client.get_commerce_case_request(@merchant_id, @commerce_case_id)
-    
-    puts JSON.pretty_generate(res)
+    puts res.customer.billing_address.house_number
+
+    # puts JSON.pretty_generate(res)
   end
 
   def run_update_one

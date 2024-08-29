@@ -57,7 +57,8 @@ communicator_configuration = CommunicatorConfiguration.new(
   api_key,
   api_secret,
   'https://api.preprod.commerce.payone.com'
-)```
+)
+```
 
 With the configuration you can create an API client for each reource you want to interact with. For example to create a commerce case you can use the `CommerceCaseApiClient`.
 

@@ -27,9 +27,7 @@ protected
     @config
   end
 
-  def make_api_call(url, request_init, &parse_body)
-    parse_body ||= BaseApiClient.method(:parse_json)
-
+  def make_api_call(url, request_init)
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = uri.scheme == 'https'
@@ -58,15 +56,9 @@ protected
     parsed
   end
 
-  def self.parse_void
-    nil
-  end
 
-  def self.parse_json(body)
-    parsed = JSON.parse(body)
-    raise TypeError, 'Parsed JSON is not an object' unless parsed.is_a?(Hash)
-    
-    parsed
+  def deserialize_json(json, klass)
+    klass.build_from_hash((json))
   end
 
 private
@@ -80,6 +72,11 @@ private
     when 'POST'
       req = Net::HTTP::Post.new(uri)
       req.body = request_init[:body] if request_init[:body]
+    when 'PATCH'
+      req = Net::HTTP::Patch.new(uri)
+      req.body = request_init[:body] if request_init[:body]
+    when 'DELETE'
+      req = Net::HTTP::Delete.new(uri)
     else
       raise ArgumentError, "Unsupported HTTP method: #{method}"
     end

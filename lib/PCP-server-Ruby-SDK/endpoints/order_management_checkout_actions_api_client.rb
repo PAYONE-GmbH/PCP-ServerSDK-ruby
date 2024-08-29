@@ -2,13 +2,9 @@ require 'net/http'
 require 'json'
 require 'uri'
 require_relative 'base_api_client'
-require_relative '../models/cancel_request'
 require_relative '../models/cancel_response'
-require_relative '../models/deliver_request'
 require_relative '../models/deliver_response'
-require_relative '../models/order_request'
 require_relative '../models/order_response'
-require_relative '../models/return_request'
 require_relative '../models/return_response'
 
 class OrderManagementCheckoutActionsApiClient < BaseApiClient
@@ -16,6 +12,12 @@ class OrderManagementCheckoutActionsApiClient < BaseApiClient
     super(config)
   end
 
+  # Create an order
+  # @param merchant_id [String] The merchant identifier
+  # @param commerce_case_id [String] The commerce case identifier
+  # @param checkout_id [String] The checkout identifier
+  # @param payload [OrderRequest] The order request
+  # @return [OrderResponse] The order response
   def create_order(merchant_id, commerce_case_id, checkout_id, payload)
     validate_ids(merchant_id, commerce_case_id, checkout_id)
 
@@ -27,9 +29,16 @@ class OrderManagementCheckoutActionsApiClient < BaseApiClient
       body: JSON.generate(payload)
     }
 
-    make_api_call(url.to_s, request_init)
+    response = make_api_call(url.to_s, request_init)
+    deserialize_json(response, OrderResponse)
   end
 
+  # Deliver an order
+  # @param merchant_id [String] The merchant identifier
+  # @param commerce_case_id [String] The commerce case identifier
+  # @param checkout_id [String] The checkout identifier
+  # @param payload [DeliverRequest] The deliver request
+  # @return [DeliverResponse] The deliver response
   def deliver_order(merchant_id, commerce_case_id, checkout_id, payload)
     validate_ids(merchant_id, commerce_case_id, checkout_id)
 
@@ -41,9 +50,16 @@ class OrderManagementCheckoutActionsApiClient < BaseApiClient
       body: JSON.generate(payload)
     }
 
-    make_api_call(url.to_s, request_init)
+    response = make_api_call(url.to_s, request_init)
+    deserialize_json(response, DeliverResponse)
   end
 
+  # Return an order
+  # @param merchant_id [String] The merchant identifier
+  # @param commerce_case_id [String] The commerce case identifier
+  # @param checkout_id [String] The checkout identifier
+  # @param payload [ReturnRequest] The return request
+  # @return [ReturnResponse] The return response
   def return_order(merchant_id, commerce_case_id, checkout_id, payload)
     validate_ids(merchant_id, commerce_case_id, checkout_id)
 
@@ -55,9 +71,16 @@ class OrderManagementCheckoutActionsApiClient < BaseApiClient
       body: JSON.generate(payload)
     }
 
-    make_api_call(url.to_s, request_init)
+    response = make_api_call(url.to_s, request_init)
+    deserialize_json(response, ReturnResponse)
   end
 
+  # Cancel an order
+  # @param merchant_id [String] The merchant identifier
+  # @param commerce_case_id [String] The commerce case identifier
+  # @param checkout_id [String] The checkout identifier
+  # @param payload [CancelRequest] The cancel request
+  # @return [CancelResponse] The cancel response
   def cancel_order(merchant_id, commerce_case_id, checkout_id, payload)
     validate_ids(merchant_id, commerce_case_id, checkout_id)
 
@@ -69,7 +92,8 @@ class OrderManagementCheckoutActionsApiClient < BaseApiClient
       body: JSON.generate(payload)
     }
 
-    make_api_call(url.to_s, request_init)
+    response = make_api_call(url.to_s, request_init)
+    deserialize_json(response, CancelResponse)
   end
 
 private

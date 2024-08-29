@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'pcp-server-ruby-sdk'
+require_relative '../lib/PCP-server-Ruby-SDK.rb'
 require_relative 'commerce_case_api_example'
 
 def run
@@ -24,9 +24,9 @@ def run
   commerce_case_api_client_example = CommerceCaseApiExample.new(communicator_configuration)
 
   # commerce_case_api_client_example.run_post_one
-  commerce_case_api_client_example.run_get_all
+  # commerce_case_api_client_example.run_get_all
 
-  # commerce_case_api_client_example.run_get_one
+  commerce_case_api_client_example.run_get_one
   # commerce_case_api_client_example.run_update_one
 end
 
