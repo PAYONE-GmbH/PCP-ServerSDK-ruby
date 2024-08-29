@@ -43,7 +43,7 @@ module PCPServerSDK
         modified_request = @request_header_generator.generate_additional_request_headers(url, request_init || {})
         
         request = build_http_request(uri, modified_request)
-        response = get_response(request)    
+        response = get_response(http, request)    
         handle_error(response)
 
         JSON.parse(response.body)
@@ -55,7 +55,11 @@ module PCPServerSDK
 
     private
 
-      def get_response(request)
+      # Get the response
+      # @param [Net::HTTP] http
+      # @param [Net::HTTP::Request] request
+      # @return [Net::HTTP::Response]
+      def get_response(http, request)
         http.request(request) 
       end
 
@@ -65,7 +69,7 @@ module PCPServerSDK
         end
     
         response_body = response.body
-    
+
         if response_body.empty?
           raise PCPServerSDK::Errors::ApiResponseRetrievalException.new(response.code, response_body)
         end
@@ -78,6 +82,10 @@ module PCPServerSDK
         end
       end
 
+      # Build an HTTP request
+      # @param [URI] uri
+      # @param [Hash] request_init
+      # @return [Net::HTTP::Request]
       def build_http_request(uri, request_init)
         method = request_init[:method].to_s.upcase
 
