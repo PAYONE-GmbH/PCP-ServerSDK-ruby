@@ -39,8 +39,14 @@ version() {
 
     # Update the version in the version.rb file
     if [ -f $VERSION_FILE_PATH ]; then
-        sed -i "" "s/VERSION = \".*\"/VERSION = \"$NEW_VERSION\"/" $VERSION_FILE_PATH
-        echo "Updated version in $VERSION_FILE_PATH to $NEW_VERSION"
+        sed -i '' "s/VERSION = '.*'/VERSION = '$NEW_VERSION'/" "$VERSION_FILE_PATH"
+        
+        if grep -q "VERSION = '$NEW_VERSION'" "$VERSION_FILE_PATH"; then
+        echo "Version updated successfully to $NEW_VERSION in $VERSION_FILE_PATH"
+        else
+        echo "Failed to update the version in $VERSION_FILE_PATH"
+        exit 1
+        fi
     else
         echo "Version file not found at $VERSION_FILE_PATH"
         exit 1
