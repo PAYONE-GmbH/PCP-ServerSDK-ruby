@@ -18,8 +18,8 @@ module PCPServerSDK
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
-      # @param payload [OrderRequest] The order request
-      # @return [OrderResponse] The order response
+      # @param payload [PCPServerSDK::Models::OrderRequest] The order request
+      # @return [PCPServerSDK::Models::OrderResponse] The order response
       def create_order(merchant_id, commerce_case_id, checkout_id, payload)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
 
@@ -32,15 +32,15 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, OrderResponse)
+        deserialize_json(response, PCPServerSDK::Models::OrderResponse)
       end
 
       # Deliver an order
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
-      # @param payload [DeliverRequest] The deliver request
-      # @return [DeliverResponse] The deliver response
+      # @param payload [PCPServerSDK::Models::DeliverRequest] The deliver request
+      # @return [PCPServerSDK::Models::DeliverResponse] The deliver response
       def deliver_order(merchant_id, commerce_case_id, checkout_id, payload)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
 
@@ -53,15 +53,15 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, DeliverResponse)
+        deserialize_json(response, PCPServerSDK::Models::DeliverResponse)
       end
 
       # Return an order
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
-      # @param payload [ReturnRequest] The return request
-      # @return [ReturnResponse] The return response
+      # @param payload [PCPServerSDK::Models::ReturnRequest] The return request
+      # @return [PCPServerSDK::Models::ReturnResponse] The return response
       def return_order(merchant_id, commerce_case_id, checkout_id, payload)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
 
@@ -74,15 +74,15 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, ReturnResponse)
+        deserialize_json(response, PCPServerSDK::Models::ReturnResponse)
       end
 
       # Cancel an order
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
-      # @param payload [CancelRequest] The cancel request
-      # @return [CancelResponse] The cancel response
+      # @param payload [PCPServerSDK::Models::CancelRequest] The cancel request
+      # @return [PCPServerSDK::Models::CancelResponse] The cancel response
       def cancel_order(merchant_id, commerce_case_id, checkout_id, payload)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
 
@@ -95,7 +95,7 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, CancelResponse)
+        deserialize_json(response, PCPServerSDK::Models::CancelResponse)
       end
 
     private

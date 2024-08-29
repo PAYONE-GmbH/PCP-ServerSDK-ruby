@@ -31,14 +31,17 @@ module PCPServerSDK
         @config
       end
 
+      # Make an API call
+      # @param [String] url
+      # @param [Hash] request_init
       def make_api_call(url, request_init)
         uri = URI.parse(url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = uri.scheme == 'https'
         
-        headers = @request_header_generator.generate_additional_request_headers(url, request_init || {})
+        modified_request = @request_header_generator.generate_additional_request_headers(url, request_init || {})
         
-        request = build_http_request(uri, request_init, headers)
+        request = build_http_request(uri, modified_request)
         response = http.request(request)
         
         body = response.body
@@ -46,14 +49,19 @@ module PCPServerSDK
         begin
           parsed = JSON.parse(body)
         rescue StandardError => e
-          raise ApiResponseRetrievalException.new(response.code.to_i, parsed, e)
+          raise PCPServerSDK::Errors::ApiResponseRetrievalException.new(response.code.to_i, parsed, e)
         end
         
         unless response.is_a?(Net::HTTPSuccess)
           if is_error_response(body)
-            raise ApiErrorResponseException.new(response.code.to_i, body, parsed['errors'] || [])
+            begin
+              parsedError = deserialize_json(parsed, PCPServerSDK::Models::ErrorResponse)
+              raise PCPServerSDK::Errors::ApiErrorResponseException.new(response.code.to_i, body, parsedError.errors)
+            rescue StandardError => e
+              raise PCPServerSDK::Errors::ApiResponseRetrievalException.new(response.code.to_i, parsed, e)
+            end            
           else
-            raise ApiResponseRetrievalException.new(response.code.to_i, body)
+            raise PCPServerSDK::Errors::ApiResponseRetrievalException.new(response.code.to_i, body)
           end
         end
         
@@ -67,7 +75,7 @@ module PCPServerSDK
 
     private
 
-      def build_http_request(uri, request_init, headers)
+      def build_http_request(uri, request_init)
         method = request_init[:method].to_s.upcase
 
         case method
@@ -85,7 +93,7 @@ module PCPServerSDK
           raise ArgumentError, "Unsupported HTTP method: #{method}"
         end
 
-        headers[:headers].each do |key, value|
+        request_init[:headers].each do |key, value|
           req[key] = value
         end
 

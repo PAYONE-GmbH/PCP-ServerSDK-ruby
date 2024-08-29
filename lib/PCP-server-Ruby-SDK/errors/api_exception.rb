@@ -5,6 +5,10 @@ module PCPServerSDK
     class ApiException < StandardError
       attr_reader :status_code, :response_body
 
+      # The constructor
+      # @param [Integer] status_code
+      # @param [String] response_body
+      # @param [StandardError] cause
       def initialize(status_code, response_body, cause = nil)
         super(response_body)
         @status_code = status_code

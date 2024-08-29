@@ -18,8 +18,8 @@ module PCPServerSDK
       # Create a checkout
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
-      # @param payload [CreateCheckoutRequest] The checkout request
-      # @return [CreateCheckoutResponse] The checkout response
+      # @param payload [PCPServerSDK::Models::CreateCheckoutRequest] The checkout request
+      # @return [PCPServerSDK::Models::CreateCheckoutResponse] The checkout response
       def create_checkout_request(merchant_id, commerce_case_id, payload)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
         raise TypeError, COMMERCE_CASE_ID_REQUIRED_ERROR if commerce_case_id.nil? || commerce_case_id.empty?
@@ -33,14 +33,14 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, CreateCheckoutResponse)
+        deserialize_json(response, PCPServerSDK::Models::CreateCheckoutResponse)
       end
 
       # Get a checkout
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
-      # @return [CheckoutResponse] The checkout response
+      # @return [PCPServerSDK::Models::CheckoutResponse] The checkout response
       def get_checkout_request(merchant_id, commerce_case_id, checkout_id)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
         raise TypeError, COMMERCE_CASE_ID_REQUIRED_ERROR if commerce_case_id.nil? || commerce_case_id.empty?
@@ -54,13 +54,13 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, CheckoutResponse)
+        deserialize_json(response, PCPServerSDK::Models::CheckoutResponse)
       end
 
       # Get checkouts
       # @param merchant_id [String] The merchant identifier
-      # @param query_params [GetCheckoutsQuery] The query parameters
-      # @return [CheckoutsResponse] The checkouts response
+      # @param query_params [PCPServerSDK::Models::GetCheckoutsQuery] The query parameters
+      # @return [PCPServerSDK::Models::CheckoutsResponse] The checkouts response
       def get_checkouts_request(merchant_id, query_params = nil)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
 
@@ -76,14 +76,14 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, CheckoutsResponse)
+        deserialize_json(response, PCPServerSDK::Models::CheckoutsResponse)
       end
 
       # Update a checkout
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
-      # @param payload [UpdateCheckoutRequest] The checkout request
+      # @param payload [PCPServerSDK::Models::UpdateCheckoutRequest] The checkout request
       # @return [nil]
       def update_checkout_request(merchant_id, commerce_case_id, checkout_id, payload)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?

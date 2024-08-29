@@ -45,7 +45,7 @@ gem install PCP-server-Ruby-SDK
 
 ### General
 
-To use this SDK you need to construct a `CommunicatorConfiguration` which encapsulate everything needed to connect to the PAYONE Commerce Platform.
+To use this SDK you need to construct a `PCPServerSDK::CommunicatorConfiguration` which encapsulate everything needed to connect to the PAYONE Commerce Platform.
 
 ```rb
 require 'pcp-server-ruby-sdk'
@@ -53,25 +53,25 @@ require 'pcp-server-ruby-sdk'
 api_key = ENV['API_KEY']
 api_secret = ENV['API_SECRET']
 
-communicator_configuration = CommunicatorConfiguration.new(
+communicator_configuration = PCPServerSDK::CommunicatorConfiguration.new(
   api_key,
   api_secret,
   'https://api.preprod.commerce.payone.com'
 )
 ```
 
-With the configuration you can create an API client for each reource you want to interact with. For example to create a commerce case you can use the `CommerceCaseApiClient`.
+With the configuration you can create an API client for each reource you want to interact with. For example to create a commerce case you can use the `PCPServerSDK::Endpoints::`.
 
 ```rb
 require 'pcp-server-ruby-sdk'
 
-client = CommerceCaseApiClient.new(communicator_configuration)
+client = PCPServerSDK::Endpoints::.new(communicator_configuration)
 ```
 
-All payloads and reponses are availabe as ruby classes within the `pcp-server-ruby-sdk` package. The serialization and deserialization is handled by the SDK internally. For example, to create an empty commerce case you can pass a `CreateCommerceCaseRequest` instance:
+All payloads and reponses are availabe as ruby classes within the `pcp-server-ruby-sdk` package. The serialization and deserialization is handled by the SDK internally. For example, to create an empty commerce case you can pass a `PCPServerSDK::Models::CreateCommerceCaseRequest` instance:
 
 ```rb
-createCommerceCaseRequest = CreateCommerceCaseRequest.new
+createCommerceCaseRequest = PCPServerSDK::Models::CreateCommerceCaseRequest.new
 createCommerceCaseResponse = client.create_commerce_case_request('merchant_id', createCommerceCaseRequest);
 ```
 
@@ -79,10 +79,10 @@ The models directly map to the API as described in [PAYONE Commerce Platform API
 
 ### Error Handling
 
-When making a request any client may throw a `ApiException`. There two subtypes of this exception:
+When making a request any client may throw a `PCPServerSDK::Errors::ApiException`. There two subtypes of this exception:
 
-- `ApiErrorReponseException`: This exception is thrown when the API returns an well-formed error response. The given errors are deserialized into `APIError` objects which are availble via the `get_errors` method on the exception. They usually contain useful information about what is wrong in your request or the state of the resource.
-- `ApiResponseRetrievalException`: This exception is a catch-all exception for any error that cannot be turned into a helpful error response. This includes malformed responses or unknown responses.
+- `PCPServerSDK::Errors::ApiErrorReponseException`: This exception is thrown when the API returns an well-formed error response. The given errors are deserialized into `PCPServerSDK::Models::APIError` objects which are availble via the `get_errors` method on the exception. They usually contain useful information about what is wrong in your request or the state of the resource.
+- `PCPServerSDK::Errors::ApiResponseRetrievalException`: This exception is a catch-all exception for any error that cannot be turned into a helpful error response. This includes malformed responses or unknown responses.
 
 Network errors are not wrap, you can should handle the standard `IOExeption`.
 

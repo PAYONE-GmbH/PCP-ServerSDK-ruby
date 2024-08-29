@@ -16,8 +16,8 @@ module PCPServerSDK
 
       # Create a commerce case
       # @param merchant_id [String] The merchant identifier
-      # @param payload [CreateCommerceCaseRequest] The commerce case request
-      # @return [CreateCommerceCaseResponse] The commerce case response
+      # @param payload [PCPServerSDK::Models::CreateCommerceCaseRequest] The commerce case request
+      # @return [PCPServerSDK::Models::CreateCommerceCaseResponse] The commerce case response
       def create_commerce_case_request(merchant_id, payload)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
 
@@ -30,13 +30,13 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, CreateCommerceCaseResponse)
+        deserialize_json(response, PCPServerSDK::Models::CreateCommerceCaseResponse)
       end
 
       # Get a commerce case
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
-      # @return [CommerceCaseResponse] The commerce case response
+      # @return [PCPServerSDK::Models::CommerceCaseResponse] The commerce case response
       def get_commerce_case_request(merchant_id, commerce_case_id)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
         raise TypeError, COMMERCE_CASE_ID_REQUIRED_ERROR if commerce_case_id.nil? || commerce_case_id.empty?
@@ -49,13 +49,13 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, CommerceCaseResponse)
+        deserialize_json(response, PCPServerSDK::Models::CommerceCaseResponse)
       end
 
       # Get commerce cases
       # @param merchant_id [String] The merchant identifier
-      # @param query_params [GetCommerceCasesQuery] The query parameters
-      # @return [Array<CommerceCaseResponse>] The commerce cases
+      # @param query_params [PCPServerSDK::Models::GetCommerceCasesQuery] The query parameters
+      # @return [Array<PCPServerSDK::Models::CommerceCaseResponse>] The commerce cases
       def get_commerce_cases_request(merchant_id, query_params = nil)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
 
@@ -71,13 +71,13 @@ module PCPServerSDK
         }
 
         request = make_api_call(url.to_s, request_init)
-        request.map { |r| deserialize_json(r, CommerceCaseResponse) }
+        request.map { |r| deserialize_json(r, PCPServerSDK::Models::CommerceCaseResponse) }
       end
 
       # Update a commerce case
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
-      # @param customer [Customer] The customer
+      # @param customer [PCPServerSDK::Models::Customer] The customer
       # @return [nil]
       def update_commerce_case_request(merchant_id, commerce_case_id, customer)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?

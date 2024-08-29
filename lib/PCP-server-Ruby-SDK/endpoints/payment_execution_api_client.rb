@@ -21,8 +21,8 @@ module PCPServerSDK
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
-      # @param payload [PaymentExecutionRequest] The payment execution request
-      # @return [CreatePaymentResponse] The create payment response
+      # @param payload [PCPServerSDK::Models::PaymentExecutionRequest] The payment execution request
+      # @return [PCPServerSDK::Models::CreatePaymentResponse] The create payment response
       def create_payment(merchant_id, commerce_case_id, checkout_id, payload)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
 
@@ -35,7 +35,7 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, CreatePaymentResponse)
+        deserialize_json(response, PCPServerSDK::Models::CreatePaymentResponse)
       end
 
       # Capture a payment
@@ -43,8 +43,8 @@ module PCPServerSDK
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
       # @param payment_execution_id [String] The payment execution identifier
-      # @param payload [CapturePaymentRequest] The capture payment request
-      # @return [CapturePaymentResponse] The capture payment response
+      # @param payload [PCPServerSDK::Models::CapturePaymentRequest] The capture payment request
+      # @return [PCPServerSDK::Models::CapturePaymentResponse] The capture payment response
       def capture_payment(merchant_id, commerce_case_id, checkout_id, payment_execution_id, payload)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
         raise TypeError, PAYMENT_EXECUTION_ID_REQUIRED_ERROR if payment_execution_id.nil? || payment_execution_id.empty?
@@ -58,7 +58,7 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, CapturePaymentResponse)
+        deserialize_json(response, PCPServerSDK::Models::CapturePaymentResponse)
       end
 
       # Cancel a payment
@@ -66,8 +66,8 @@ module PCPServerSDK
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
       # @param payment_execution_id [String] The payment execution identifier
-      # @param payload [CancelPaymentRequest] The cancel payment request
-      # @return [CancelPaymentResponse] The cancel payment response
+      # @param payload [PCPServerSDK::Models::CancelPaymentRequest] The cancel payment request
+      # @return [PCPServerSDK::Models::CancelPaymentResponse] The cancel payment response
       def cancel_payment(merchant_id, commerce_case_id, checkout_id, payment_execution_id, payload)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
         raise TypeError, PAYMENT_EXECUTION_ID_REQUIRED_ERROR if payment_execution_id.nil? || payment_execution_id.empty?
@@ -81,7 +81,7 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, CancelPaymentResponse)
+        deserialize_json(response, PCPServerSDK::Models::CancelPaymentResponse)
       end
 
       # Refund a payment
@@ -89,8 +89,8 @@ module PCPServerSDK
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
       # @param payment_execution_id [String] The payment execution identifier
-      # @param payload [RefundRequest] The refund request
-      # @return [RefundPaymentResponse] The refund payment response
+      # @param payload [PCPServerSDK::Models::RefundRequest] The refund request
+      # @return [PCPServerSDK::Models::RefundPaymentResponse] The refund payment response
       def refund_payment(merchant_id, commerce_case_id, checkout_id, payment_execution_id, payload)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
         raise TypeError, PAYMENT_EXECUTION_ID_REQUIRED_ERROR if payment_execution_id.nil? || payment_execution_id.empty?
@@ -104,7 +104,7 @@ module PCPServerSDK
         }
       
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, RefundPaymentResponse)
+        deserialize_json(response, PCPServerSDK::Models::RefundPaymentResponse)
       end
 
       # Complete a payment
@@ -112,8 +112,8 @@ module PCPServerSDK
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
       # @param payment_execution_id [String] The payment execution identifier
-      # @param payload [CompletePaymentRequest] The complete payment request
-      # @return [CompletePaymentResponse] The complete payment response
+      # @param payload [PCPServerSDK::Models::CompletePaymentRequest] The complete payment request
+      # @return [PCPServerSDK::Models::CompletePaymentResponse] The complete payment response
       def complete_payment(merchant_id, commerce_case_id, checkout_id, payment_execution_id, payload)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
         raise TypeError, PAYMENT_EXECUTION_ID_REQUIRED_ERROR if payment_execution_id.nil? || payment_execution_id.empty?
@@ -127,7 +127,7 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, CompletePaymentResponse)
+        deserialize_json(response, PCPServerSDK::Models::CompletePaymentResponse)
       end
 
     private

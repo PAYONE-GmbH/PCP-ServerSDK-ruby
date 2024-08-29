@@ -19,8 +19,8 @@ module PCPServerSDK
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
-      # @param payload [PaymentInformationRequest] The payment information request
-      # @return [PaymentInformationResponse] The payment information response
+      # @param payload [PCPServerSDK::Models::PaymentInformationRequest] The payment information request
+      # @return [PCPServerSDK::Models::PaymentInformationResponse] The payment information response
       def create_payment_information(merchant_id, commerce_case_id, checkout_id, payload)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
 
@@ -33,7 +33,7 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, PaymentInformationResponse)
+        deserialize_json(response, PCPServerSDK::Models::PaymentInformationResponse)
       end
 
       # Get a payment information
@@ -41,7 +41,7 @@ module PCPServerSDK
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
       # @param payment_information_id [String] The payment information identifier
-      # @return [PaymentInformationResponse] The payment information response
+      # @return [PCPServerSDK::Models::PaymentInformationResponse] The payment information response
       def get_payment_information(merchant_id, commerce_case_id, checkout_id, payment_information_id)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
         raise TypeError, PAYMENT_INFORMATION_ID_REQUIRED_ERROR if payment_information_id.nil? || payment_information_id.empty?
@@ -54,7 +54,7 @@ module PCPServerSDK
         }
 
         response = make_api_call(url.to_s, request_init)
-        deserialize_json(response, PaymentInformationResponse)
+        deserialize_json(response, PCPServerSDK::Models::PaymentInformationResponse)
       end
 
     private
