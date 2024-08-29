@@ -44,7 +44,7 @@ jobs:
 
   sonar:
     runs-on: ubuntu-20.04
-    needs: test   
+    needs: [lint, test]   
     
     steps:
     - name: Checkout code

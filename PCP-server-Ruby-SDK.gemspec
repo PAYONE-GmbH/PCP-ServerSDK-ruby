@@ -2,7 +2,7 @@
 
 
 $:.push File.expand_path("../lib", __FILE__)
-require "PCP-server-Ruby-SDK.rb"
+require "PCP-server-Ruby-SDK"
 
 Gem::Specification.new do |s|
   s.name        = "pcp-server-ruby-sdk"
