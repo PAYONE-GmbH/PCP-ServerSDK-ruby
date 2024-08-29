@@ -78,13 +78,6 @@ jobs:
         name: coverage-report
         path: coverage
 
-    - name: Check
-      run: |
-        pwd
-        ls -la coverage
-        ls -la .
-        cat coverage/coverage.json
-
     - name: Run SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@v3.0.0
       env:
