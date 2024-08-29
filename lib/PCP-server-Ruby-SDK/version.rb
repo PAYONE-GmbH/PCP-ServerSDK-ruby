@@ -11,5 +11,5 @@ Generator version: 7.7.0
 =end
 
 module PCPServerSDK
-  VERSION = '0.1.0'
+  VERSION = '0.0.6'
 end
