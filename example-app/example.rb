@@ -15,7 +15,7 @@ def run
     exit(1)
   end
 
-  communicator_configuration = CommunicatorConfiguration.new(
+  communicator_configuration = PCPServerSDK::CommunicatorConfiguration.new(
     api_key,
     api_secret,
     'https://api.preprod.commerce.payone.com'

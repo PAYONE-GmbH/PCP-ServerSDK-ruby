@@ -1,13 +1,13 @@
 require 'spec_helper'
 require_relative '../../lib/PCP-server-Ruby-SDK/queries/get_checkouts_query'
 
-RSpec.describe GetCheckoutsQuery do
+RSpec.describe PCPServerSDK::Queries::GetCheckoutsQuery do
   before(:each) do
-    @query = GetCheckoutsQuery.new
+    @query = PCPServerSDK::Queries::GetCheckoutsQuery.new
   end
 
   it 'should do something' do
-    query = GetCheckoutsQuery.new
+    query = PCPServerSDK::Queries::GetCheckoutsQuery.new
     expect(query.instance_variable_get(:@include_payment_product_id)).to eq([])
   end
 

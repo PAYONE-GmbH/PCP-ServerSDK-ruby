@@ -1,8 +1,8 @@
 require 'spec_helper'
 require_relative '../../lib/PCP-server-Ruby-SDK/queries/get_commerce_cases_query'
 
-RSpec.describe GetCommerceCasesQuery do
-  let(:query) { GetCommerceCasesQuery.new }
+RSpec.describe PCPServerSDK::Queries::GetCommerceCasesQuery do
+  let(:query) { PCPServerSDK::Queries::GetCommerceCasesQuery.new }
 
   it 'sets default include_checkout_status' do
     expect(query.include_checkout_status).to eq([])

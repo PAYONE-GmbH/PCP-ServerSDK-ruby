@@ -1,9 +1,9 @@
 require 'spec_helper'
 require_relative '../../lib/PCP-server-Ruby-SDK/utils/server_meta_info'
 
-RSpec.describe ServerMetaInfo do
+RSpec.describe PCPServerSDK::Utils::ServerMetaInfo do
   let(:integrator) { 'TestIntegrator' }
-  let(:server_meta_info) { ServerMetaInfo.new(integrator) }
+  let(:server_meta_info) { PCPServerSDK::Utils::ServerMetaInfo.new(integrator) }
 
   describe '#initialize' do
     it 'sets the platform identifier' do

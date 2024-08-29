@@ -4,60 +4,66 @@ require 'uri'
 require_relative 'base_api_client'
 require_relative '../models/payment_information_response'
 
-class PaymentInformationApiClient < BaseApiClient
-  PAYMENT_INFORMATION_ID_REQUIRED_ERROR = 'Payment Information ID is required'
+module PCPServerSDK
+  module Endpoints
+    
 
-  def initialize(config)
-    super(config)
-  end
+    class PaymentInformationApiClient < BaseApiClient
+      PAYMENT_INFORMATION_ID_REQUIRED_ERROR = 'Payment Information ID is required'
 
-  # Create a payment information
-  # @param merchant_id [String] The merchant identifier
-  # @param commerce_case_id [String] The commerce case identifier
-  # @param checkout_id [String] The checkout identifier
-  # @param payload [PaymentInformationRequest] The payment information request
-  # @return [PaymentInformationResponse] The payment information response
-  def create_payment_information(merchant_id, commerce_case_id, checkout_id, payload)
-    validate_ids(merchant_id, commerce_case_id, checkout_id)
+      def initialize(config)
+        super(config)
+      end
 
-    url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts/#{checkout_id}/payment-informations")
+      # Create a payment information
+      # @param merchant_id [String] The merchant identifier
+      # @param commerce_case_id [String] The commerce case identifier
+      # @param checkout_id [String] The checkout identifier
+      # @param payload [PaymentInformationRequest] The payment information request
+      # @return [PaymentInformationResponse] The payment information response
+      def create_payment_information(merchant_id, commerce_case_id, checkout_id, payload)
+        validate_ids(merchant_id, commerce_case_id, checkout_id)
 
-    request_init = {
-      method: 'POST',
-      headers: { 'Content-Type' => 'application/json' },
-      body: JSON.generate(payload)
-    }
+        url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts/#{checkout_id}/payment-informations")
 
-    response = make_api_call(url.to_s, request_init)
-    deserialize_json(response, PaymentInformationResponse)
-  end
+        request_init = {
+          method: 'POST',
+          headers: { 'Content-Type' => 'application/json' },
+          body: JSON.generate(payload)
+        }
 
-  # Get a payment information
-  # @param merchant_id [String] The merchant identifier
-  # @param commerce_case_id [String] The commerce case identifier
-  # @param checkout_id [String] The checkout identifier
-  # @param payment_information_id [String] The payment information identifier
-  # @return [PaymentInformationResponse] The payment information response
-  def get_payment_information(merchant_id, commerce_case_id, checkout_id, payment_information_id)
-    validate_ids(merchant_id, commerce_case_id, checkout_id)
-    raise TypeError, PAYMENT_INFORMATION_ID_REQUIRED_ERROR if payment_information_id.nil? || payment_information_id.empty?
+        response = make_api_call(url.to_s, request_init)
+        deserialize_json(response, PaymentInformationResponse)
+      end
 
-    url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts/#{checkout_id}/payment-informations/#{payment_information_id}")
+      # Get a payment information
+      # @param merchant_id [String] The merchant identifier
+      # @param commerce_case_id [String] The commerce case identifier
+      # @param checkout_id [String] The checkout identifier
+      # @param payment_information_id [String] The payment information identifier
+      # @return [PaymentInformationResponse] The payment information response
+      def get_payment_information(merchant_id, commerce_case_id, checkout_id, payment_information_id)
+        validate_ids(merchant_id, commerce_case_id, checkout_id)
+        raise TypeError, PAYMENT_INFORMATION_ID_REQUIRED_ERROR if payment_information_id.nil? || payment_information_id.empty?
 
-    request_init = {
-      method: 'GET',
-      headers: {}
-    }
+        url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts/#{checkout_id}/payment-informations/#{payment_information_id}")
 
-    response = make_api_call(url.to_s, request_init)
-    deserialize_json(response, PaymentInformationResponse)
-  end
+        request_init = {
+          method: 'GET',
+          headers: {}
+        }
 
-private
+        response = make_api_call(url.to_s, request_init)
+        deserialize_json(response, PaymentInformationResponse)
+      end
 
-  def validate_ids(merchant_id, commerce_case_id, checkout_id)
-    raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
-    raise TypeError, COMMERCE_CASE_ID_REQUIRED_ERROR if commerce_case_id.nil? || commerce_case_id.empty?
-    raise TypeError, CHECKOUT_ID_REQUIRED_ERROR if checkout_id.nil? || checkout_id.empty?
+    private
+
+      def validate_ids(merchant_id, commerce_case_id, checkout_id)
+        raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
+        raise TypeError, COMMERCE_CASE_ID_REQUIRED_ERROR if commerce_case_id.nil? || commerce_case_id.empty?
+        raise TypeError, CHECKOUT_ID_REQUIRED_ERROR if checkout_id.nil? || checkout_id.empty?
+      end
+    end
   end
 end

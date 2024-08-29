@@ -7,7 +7,7 @@ SimpleCov.start do
   add_filter '/spec/'
   
   add_group 'Errors', '/lib/PCP-server-Ruby-SDK/errors'
-  add_group 'API', 'lib/PCP-server-Ruby-SDK/api'
+  add_group 'ENDPOINTS', 'lib/PCP-server-Ruby-SDK/endpoints'
   add_group 'Utils', 'lib/PCP-server-Ruby-SDK/utils'
   add_group 'Queries', 'lib/PCP-server-Ruby-SDK/queries'
     

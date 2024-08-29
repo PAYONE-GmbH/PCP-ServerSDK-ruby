@@ -3,7 +3,7 @@ class CommerceCaseApiExample
   attr_accessor :client, :merchant_id, :commerce_case_id
 
   def initialize(config)
-    @client = CommerceCaseApiClient.new(config)
+    @client = PCPServerSDK::Endpoints::CommerceCaseApiClient.new(config)
     @merchant_id = ENV['MERCHANT_ID']
     @commerce_case_id = ENV['COMMERCE_CASE_ID']
   end

@@ -1,11 +1,11 @@
 require 'spec_helper'
 require_relative '../lib/PCP-server-Ruby-SDK/communicator_configuration'
 
-RSpec.describe CommunicatorConfiguration do
+RSpec.describe PCPServerSDK::CommunicatorConfiguration do
   let(:api_key) { 'test_api_key' }
   let(:api_secret) { 'test_api_secret' }
   let(:host) { 'test_host' }
-  let(:config) { CommunicatorConfiguration.new(api_key, api_secret, host) }
+  let(:config) { PCPServerSDK::CommunicatorConfiguration.new(api_key, api_secret, host) }
 
   describe '#initialize' do
     it 'sets api_key' do
