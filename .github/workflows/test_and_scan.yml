@@ -23,8 +23,7 @@ jobs:
           bundler-cache: true
 
       - name: Lint via rubocop
-        run:
-          bundle exec rake -- rubocop
+        run: ./scripts.sh lint          
 
   test:
     runs-on: ubuntu-20.04
@@ -41,22 +40,7 @@ jobs:
           bundler-cache: true
 
       - name: Test
-        run: |
-          bundle exec rake -- spec
-
-      - name: fix code coverage paths
-        working-directory: ./coverage
-        run: |
-          sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace@g' coverage.json
-
-      - name: Store coverage report
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: coverage/coverage.json
-          retention-days: 7
-          if-no-files-found: error
+        run: ./scripts.sh test  
 
   sonar:
     runs-on: ubuntu-20.04
@@ -72,11 +56,13 @@ jobs:
         ruby-version: "3.0" 
         bundler-cache: true 
 
-    - name: Download coverage report
-      uses: actions/download-artifact@v3
-      with:
-        name: coverage-report
-        path: coverage
+    - name: Test
+      run: ./scripts.sh test  
+
+    - name: fix code coverage paths
+      working-directory: ./coverage
+      run: |
+          sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace@g' coverage.json
 
     - name: Run SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@v3.0.0
