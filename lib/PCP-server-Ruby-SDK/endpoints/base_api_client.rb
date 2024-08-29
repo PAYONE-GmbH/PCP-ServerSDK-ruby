@@ -36,7 +36,6 @@ module PCPServerSDK
       # @param [String] url
       # @param [Hash] request_init
       def make_api_call(url, request_init)
-        puts "sdf"
         uri = URI.parse(url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = uri.scheme == 'https'
@@ -45,7 +44,6 @@ module PCPServerSDK
         
         request = build_http_request(uri, modified_request)
         response = get_response(request)    
-        puts response.body    
         handle_error(response)
 
         JSON.parse(response.body)
@@ -65,7 +63,6 @@ module PCPServerSDK
         if response.code.to_i.between?(200, 299)
           return
         end
-        puts response.code
     
         response_body = response.body
     
@@ -74,9 +71,7 @@ module PCPServerSDK
         end
     
         begin
-          puts response_body
           error = deserialize_json(response_body, PCPServerSDK::Models::ErrorResponse)
-          puts "#{error} 2"
           raise PCPServerSDK::Errors::ApiErrorResponseException.new(response.code, response_body, error.errors)
         rescue JSON::ParserError => e
           raise PCPServerSDK::Errors::ApiResponseRetrievalException.new(response.code, response_body, e)
