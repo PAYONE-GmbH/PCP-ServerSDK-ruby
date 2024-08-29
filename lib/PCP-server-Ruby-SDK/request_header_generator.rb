@@ -20,6 +20,9 @@ module PCPServerSDK
       @config = config
     end
 
+    # Generate additional request headers
+    # @param [String] url
+    # @param [Hash] request
     def generate_additional_request_headers(url, request)
       headers = request[:headers] || {}
 
@@ -33,6 +36,10 @@ module PCPServerSDK
 
   private
 
+    # Get the authorization header
+    # @param [String] url
+    # @param [Hash] request
+    # @param [Hash] headers
     def get_auth_header(url, request, headers)
       # 1. method
       string_to_sign = "#{request[:method].to_s.upcase}\n"
