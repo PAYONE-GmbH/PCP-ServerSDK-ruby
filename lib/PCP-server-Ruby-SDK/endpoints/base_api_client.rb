@@ -24,10 +24,6 @@ module PCPServerSDK
 
     protected
 
-      def get_request_header_generator
-        @request_header_generator
-      end
-
       def get_config
         @config
       end
