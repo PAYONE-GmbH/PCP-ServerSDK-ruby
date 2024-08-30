@@ -110,18 +110,6 @@ module PCPServerSDK
 
         req
       end
-
-      def is_error_response(parsed)
-        return false unless parsed.is_a?(Hash)
-        
-        if parsed.key?('errorId') && !parsed['errorId'].is_a?(String)
-          return false
-        end
-        if parsed.key?('errors') && !parsed['errors'].is_a?(Array)
-          return false
-        end
-        true
-      end
     end
   end
 end
