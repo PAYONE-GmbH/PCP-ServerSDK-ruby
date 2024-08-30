@@ -84,7 +84,7 @@ module PCPServerSDK
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
-      # @param payload [PCPServerSDK::Models::UpdateCheckoutRequest] The checkout request
+      # @param payload [PCPServerSDK::Models::PatchCheckoutRequest] The checkout request
       # @return [nil]
       def update_checkout_request(merchant_id, commerce_case_id, checkout_id, payload)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?

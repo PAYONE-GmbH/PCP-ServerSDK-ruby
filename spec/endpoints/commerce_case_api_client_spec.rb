@@ -14,7 +14,7 @@ RSpec.describe PCPServerSDK::Endpoints::CommerceCaseApiClient do
   let(:error_body) {
     PCPServerSDK::Models::ErrorResponse.new(
       errors: [PCPServerSDK::Models::APIError.new(error_code: '1', message: 'Error 1').to_body]
-    ).to_body
+    ).to_body.to_json
   }
 
   describe '#create_commerce_case_request' do
@@ -48,14 +48,14 @@ RSpec.describe PCPServerSDK::Endpoints::CommerceCaseApiClient do
     end
 
     context 'when request is unsuccessful (500)' do
-      let(:response) { double('Response', body: error_body, code: '500') }
+      let(:response) { double('Response', body: '{}', code: '500') }
 
       before do
         allow(client).to receive(:get_response).and_return(response)
       end
 
-      it 'raises an PCPServerSDK::Errors::ApiErrorResponseException' do
-        expect { client.create_commerce_case_request('1', payload) }.to raise_error(PCPServerSDK::Errors::ApiErrorResponseException)
+      it 'raises an PCPServerSDK::Errors::ApiResponseRetrievalException' do
+        expect { client.create_commerce_case_request('1', payload) }.to raise_error(PCPServerSDK::Errors::ApiResponseRetrievalException)
       end
     end
 
@@ -95,14 +95,14 @@ RSpec.describe PCPServerSDK::Endpoints::CommerceCaseApiClient do
     end
 
     context 'when request is unsuccessful (500)' do
-      let(:response) { double('Response', body: error_body, code: '500') }
+      let(:response) { double('Response', body: '{}', code: '500') }
 
       before do
         allow(client).to receive(:get_response).and_return(response)
       end
 
-      it 'raises an PCPServerSDK::Errors::ApiErrorResponseException' do
-        expect { client.get_commerce_case_request('1', '2') }.to raise_error(PCPServerSDK::Errors::ApiErrorResponseException)
+      it 'raises an PCPServerSDK::Errors::ApiResponseRetrievalException' do
+        expect { client.get_commerce_case_request('1', '2') }.to raise_error(PCPServerSDK::Errors::ApiResponseRetrievalException)
       end
     end
 
@@ -143,14 +143,14 @@ RSpec.describe PCPServerSDK::Endpoints::CommerceCaseApiClient do
     end
 
     context 'when request is unsuccessful (500)' do
-      let(:response) { double('Response', body: error_body, code: '500') }
+      let(:response) { double('Response', body: '{}', code: '500') }
 
       before do
         allow(client).to receive(:get_response).and_return(response)
       end
 
-      it 'raises an PCPServerSDK::Errors::ApiErrorResponseException' do
-        expect { client.get_commerce_cases_request('1') }.to raise_error(PCPServerSDK::Errors::ApiErrorResponseException)
+      it 'raises an PCPServerSDK::Errors::ApiResponseRetrievalException' do
+        expect { client.get_commerce_cases_request('1') }.to raise_error(PCPServerSDK::Errors::ApiResponseRetrievalException)
       end
     end
 
@@ -189,14 +189,14 @@ RSpec.describe PCPServerSDK::Endpoints::CommerceCaseApiClient do
     end
 
     context 'when request is unsuccessful (500)' do
-      let(:response) { double('Response', body: error_body, code: '500') }
+      let(:response) { double('Response', body: '{}', code: '500') }
 
       before do
         allow(client).to receive(:get_response).and_return(response)
       end
 
-      it 'raises an PCPServerSDK::Errors::ApiErrorResponseException' do
-        expect { client.update_commerce_case_request('1', '2', customer) }.to raise_error(PCPServerSDK::Errors::ApiErrorResponseException)
+      it 'raises an PCPServerSDK::Errors::ApiResponseRetrievalException' do
+        expect { client.update_commerce_case_request('1', '2', customer) }.to raise_error(PCPServerSDK::Errors::ApiResponseRetrievalException)
       end
     end
 

@@ -22,7 +22,7 @@ lint() {
 # Function to run tests
 test() {
     echo "Running tests..."
-    bundle exec rake -- spec
+    bundle exec rake spec
     echo "Tests complete."
 }
 
@@ -89,7 +89,7 @@ publish() {
 
 run() {
     echo "Running the package..."
-    # TODO
+    ruby example-app/example.rb
 }
 
 # Check the first argument passed to the script

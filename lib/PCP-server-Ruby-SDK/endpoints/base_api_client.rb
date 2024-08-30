@@ -67,14 +67,14 @@ module PCPServerSDK
         if response.code.to_i.between?(200, 299)
           return
         end
-    
-        response_body = response.body
 
+        response_body = JSON.parse(response.body)
+       
         if response_body.empty?
           raise PCPServerSDK::Errors::ApiResponseRetrievalException.new(response.code, response_body)
         end
     
-        begin
+        begin  
           error = deserialize_json(response_body, PCPServerSDK::Models::ErrorResponse)
           raise PCPServerSDK::Errors::ApiErrorResponseException.new(response.code, response_body, error.errors)
         rescue JSON::ParserError => e
