@@ -1,13 +1,8 @@
 require 'spec_helper'
 require 'net/http'
 require 'json'
-require_relative '../../lib/PCP-server-Ruby-SDK/endpoints/checkout_api_client'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/checkout_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/checkouts_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/create_checkout_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/patch_checkout_request'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/error_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/api_error'
+require_relative '../../lib/PCP-server-Ruby-SDK.rb'
+
 
 RSpec.describe PCPServerSDK::Endpoints::CheckoutApiClient do
   let(:config) { double("PCPServerSDK::CommunicatorConfiguration", api_key: "", api_secret: "", host: 'https://api.example.com') }

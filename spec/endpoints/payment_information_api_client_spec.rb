@@ -1,10 +1,8 @@
 require 'spec_helper'
 require 'net/http'
 require 'json'
-require_relative '../../lib/PCP-server-Ruby-SDK/endpoints/payment_information_api_client'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/payment_information_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/error_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/api_error'
+require_relative '../../lib/PCP-server-Ruby-SDK.rb'
+
 
 RSpec.describe PCPServerSDK::Endpoints::PaymentInformationApiClient do
   let(:config) { double("PCPServerSDK::CommunicatorConfiguration", api_key: "", api_secret: "", host: 'https://api.example.com') }

@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../../lib/PCP-server-Ruby-SDK/queries/get_checkouts_query'
+require_relative '../../lib/PCP-server-Ruby-SDK.rb'
 
 RSpec.describe PCPServerSDK::Queries::GetCheckoutsQuery do
   before(:each) do

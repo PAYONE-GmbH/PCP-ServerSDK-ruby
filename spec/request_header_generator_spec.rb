@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../lib/PCP-server-Ruby-SDK/request_header_generator'
+require_relative '../lib/PCP-server-Ruby-SDK.rb'
 
 RSpec.describe PCPServerSDK::RequestHeaderGenerator do
   before(:each) do

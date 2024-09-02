@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../lib/PCP-server-Ruby-SDK/communicator_configuration'
+require_relative '../lib/PCP-server-Ruby-SDK.rb'
 
 RSpec.describe PCPServerSDK::CommunicatorConfiguration do
   let(:api_key) { 'test_api_key' }

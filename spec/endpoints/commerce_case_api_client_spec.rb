@@ -1,12 +1,8 @@
 require 'spec_helper'
 require 'net/http'
 require 'json'
-require_relative '../../lib/PCP-server-Ruby-SDK/endpoints/commerce_case_api_client'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/commerce_case_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/create_commerce_case_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/customer'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/error_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/api_error'
+require_relative '../../lib/PCP-server-Ruby-SDK.rb'
+
 
 RSpec.describe PCPServerSDK::Endpoints::CommerceCaseApiClient do
   let(:config) { double("PCPServerSDK::CommunicatorConfiguration", api_key: "", api_secret: "", host: 'https://api.example.com') }

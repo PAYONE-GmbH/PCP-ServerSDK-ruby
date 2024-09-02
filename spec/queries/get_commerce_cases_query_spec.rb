@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../../lib/PCP-server-Ruby-SDK/queries/get_commerce_cases_query'
+require_relative '../../lib/PCP-server-Ruby-SDK.rb'
 
 RSpec.describe PCPServerSDK::Queries::GetCommerceCasesQuery do
   let(:query) { PCPServerSDK::Queries::GetCommerceCasesQuery.new }

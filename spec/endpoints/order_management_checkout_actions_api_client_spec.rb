@@ -1,13 +1,8 @@
 require 'spec_helper'
 require 'net/http'
 require 'json'
-require_relative '../../lib/PCP-server-Ruby-SDK/endpoints/order_management_checkout_actions_api_client'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/cancel_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/deliver_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/order_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/return_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/error_response'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/api_error'
+require_relative '../../lib/PCP-server-Ruby-SDK.rb'
+
 
 RSpec.describe PCPServerSDK::Endpoints::OrderManagementCheckoutActionsApiClient do
   let(:config) { double("PCPServerSDK::CommunicatorConfiguration", api_key: "", api_secret: "", host: 'https://api.example.com') }

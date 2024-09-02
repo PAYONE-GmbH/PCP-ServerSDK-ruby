@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative '../../lib/PCP-server-Ruby-SDK/errors/api_exception'
+require_relative '../../lib/PCP-server-Ruby-SDK.rb'
 
 RSpec.describe PCPServerSDK::Errors::ApiException do
   let(:status_code) { 404 }
