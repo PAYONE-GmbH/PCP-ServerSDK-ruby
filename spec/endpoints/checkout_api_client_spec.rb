@@ -20,19 +20,19 @@ RSpec.describe PCPServerSDK::Endpoints::CheckoutApiClient do
   describe '#create_checkout_request' do
     let(:payload) { double('PCPServerSDK::Models::CreateCheckoutRequest') }
 
-    # context 'when request is successful' do
-    #   let(:response) { double('Response', body: '{}', code: 200) }
-    #   let(:expected_response) { PCPServerSDK::Models::CreateCheckoutResponse.new }
+    context 'when request is successful' do
+      let(:response) { double('Response', body: '{}', code: 200) }
+      let(:expected_response) { PCPServerSDK::Models::CreateCheckoutResponse.new }
 
-    #   before do
-    #     allow(client).to receive(:get_response).and_return(response)
-    #   end
+      before do
+        allow(client).to receive(:get_response).and_return(response)
+      end
 
-    #   it 'returns a successful response' do
-    #     result = client.create_checkout_request('1', '2', payload)
-    #     expect(result).to eq(expected_response)
-    #   end
-    # end
+      it 'returns a successful response' do
+        result = client.create_checkout_request('1', '2', payload)
+        expect(result).to eq(expected_response)
+      end
+    end
 
     context 'when request is unsuccessful (400)' do
       puts "error_body: #{:error_body}"
