@@ -151,6 +151,8 @@ require_relative 'PCP-server-Ruby-SDK/queries/get_commerce_cases_query'
 # Utils
 require_relative 'PCP-server-Ruby-SDK/utils/server_meta_info'
 
+require_relative 'PCP-server-Ruby-SDK/transformer/apple_pay_transformer'
+
 # Common 
 require_relative 'PCP-server-Ruby-SDK/communicator_configuration'
 require_relative 'PCP-server-Ruby-SDK/request_header_generator'

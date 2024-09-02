@@ -1,18 +1,8 @@
 require 'rspec'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/apple_payment_data_token_header_information'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/apple_payment_data_token_information'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/apple_payment_token_version'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/applepay/apple_pay_payment'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/applepay/apple_pay_payment_token'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/applepay/apple_pay_payment_data'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/applepay/apple_pay_payment_data_header'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/applepay/apple_pay_payment_method'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/mobile_payment_method_specific_input'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/network'
-require_relative '../../lib/PCP-server-Ruby-SDK/models/payment_product320_specific_input'
-require_relative '../../lib/PCP-server-Ruby-SDK/transformer/apple_pay_transformer'
+require_relative '../../lib/PCP-server-Ruby-SDK.rb'
 
-RSpec.describe 'transform_apple_pay_payment_to_mobile_payment_method_specific_input' do
+
+RSpec.describe PCPServerSDK::Transformer::ApplePayTransformer do
   let(:header) do
     PCPServerSDK::Models::ApplePayPaymentDataHeader.new(
       public_key_hash: 'publicKeyHash123',
@@ -50,7 +40,7 @@ RSpec.describe 'transform_apple_pay_payment_to_mobile_payment_method_specific_in
   end
 
   it 'transforms ApplePayPayment to MobilePaymentMethodSpecificInput correctly' do
-    result = transform_apple_pay_payment_to_mobile_payment_method_specific_input(payment)
+    result = PCPServerSDK::Transformer::ApplePayTransformer.transform_apple_pay_payment_to_mobile_payment_method_specific_input(payment)
 
     expected_result = PCPServerSDK::Models::MobilePaymentMethodSpecificInput.new(
       payment_product_id: 302,
@@ -73,11 +63,11 @@ RSpec.describe 'transform_apple_pay_payment_to_mobile_payment_method_specific_in
 
   it 'raises an error for unknown network' do
     payment.token.payment_method.network = 'UNKNOWN'
-    expect { transform_apple_pay_payment_to_mobile_payment_method_specific_input(payment) }.to raise_error(TypeError)
+    expect { PCPServerSDK::Transformer::ApplePayTransformer.transform_apple_pay_payment_to_mobile_payment_method_specific_input(payment) }.to raise_error(TypeError)
   end
 
   it 'raises an error for unknown version' do
     payment.token.payment_data.version = 'UNKNOWN'
-    expect { transform_apple_pay_payment_to_mobile_payment_method_specific_input(payment) }.to raise_error(TypeError)
+    expect { PCPServerSDK::Transformer::ApplePayTransformer.transform_apple_pay_payment_to_mobile_payment_method_specific_input(payment) }.to raise_error(TypeError)
   end
 end
