@@ -10,37 +10,33 @@ require_relative '../models/mobile_payment_method_specific_input'
 require_relative '../models/network'
 require_relative '../models/payment_product320_specific_input'
 
-
 module PCPServerSDK
   module Transformer
-    class ApplePayTransformer
-      # Transforms an ApplePayPayment to a MobilePaymentMethodSpecificInput
-      # @param [PCPServerSDK::Models::ApplePayPayment] payment
-      # @return [PCPServerSDK::Models::MobilePaymentMethodSpecificInput]
-      def self.transform_apple_pay_payment_to_mobile_payment_method_specific_input(payment)
-        token = payment.token || PCPServerSDK::Models::ApplePayPaymentToken.new
-        payment_data = token.payment_data || PCPServerSDK::Models::ApplePayPaymentData.new
-        header = payment_data.header || PCPServerSDK::Models::ApplePayPaymentDataHeader.new
-        payment_method = token.payment_method || PCPServerSDK::Models::ApplePayPaymentMethod.new
+    # Transforms an ApplePayPayment to a MobilePaymentMethodSpecificInput
+    # @param [PCPServerSDK::Models::ApplePayPayment] payment
+    # @return [PCPServerSDK::Models::MobilePaymentMethodSpecificInput]
+    def self.transform_apple_pay_payment_to_mobile_payment_method_specific_input(payment)
+      token = payment.token || PCPServerSDK::Models::ApplePayPaymentToken.new
+      payment_data = token.payment_data || PCPServerSDK::Models::ApplePayPaymentData.new
+      header = payment_data.header || PCPServerSDK::Models::ApplePayPaymentDataHeader.new
+      payment_method = token.payment_method || PCPServerSDK::Models::ApplePayPaymentMethod.new
 
-        PCPServerSDK::Models::MobilePaymentMethodSpecificInput.new(
-          payment_product_id: 302,
-          public_key_hash: header.public_key_hash,
-          ephemeral_key: header.ephemeral_public_key,
-          payment_product302_specific_input: PCPServerSDK::Models::PaymentProduct320SpecificInput.new(
-            network: PCPServerSDK::Models::Network.from_string(payment_method.network.to_s),
-            token: PCPServerSDK::Models::ApplePaymentDataTokenInformation.new(
-              version: PCPServerSDK::Models::ApplePaymentTokenVersion.from_string(payment_data.version.to_s),
-              signature: payment_data.signature,
-              header: PCPServerSDK::Models::ApplePaymentDataTokenHeaderInformation.new(
-                transaction_id: header.transaction_id,
-                application_data: header.application_data
-              )
+      PCPServerSDK::Models::MobilePaymentMethodSpecificInput.new(
+        payment_product_id: 302,
+        public_key_hash: header.public_key_hash,
+        ephemeral_key: header.ephemeral_public_key,
+        payment_product302_specific_input: PCPServerSDK::Models::PaymentProduct320SpecificInput.new(
+          network: PCPServerSDK::Models::Network.from_string(payment_method.network.to_s),
+          token: PCPServerSDK::Models::ApplePaymentDataTokenInformation.new(
+            version: PCPServerSDK::Models::ApplePaymentTokenVersion.from_string(payment_data.version.to_s),
+            signature: payment_data.signature,
+            header: PCPServerSDK::Models::ApplePaymentDataTokenHeaderInformation.new(
+              transaction_id: header.transaction_id,
+              application_data: header.application_data
             )
           )
         )
-      end
+      )
     end
-   
   end
 end
