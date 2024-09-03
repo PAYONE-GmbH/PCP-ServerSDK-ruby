@@ -14,4 +14,4 @@ jobs:
       - name: Build Gem
         run: ./scripts.sh build
       - name: Publish Gem
-        run: ./scripts.sh publish ${{ secrets.RUBYGEMS_TOKEN }}
+        run: ./scripts.sh publish ${{ secrets.RUBYGEMS_API_KEY }}
