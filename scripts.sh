@@ -83,11 +83,11 @@ publish() {
     fi
     echo "Uploading the package..."
     # Set the environment variable for RubyGems
-    GEM_HOST_API_KEY=$2
+    export GEM_HOST_API_KEY=$2
     VERSION=$(git describe --tags --abbrev=0 | sed 's/^v//')
     GEM_NAME=pcp-server-ruby-sdk-$VERSION.gem
     # Push the gem to RubyGems
-    gem push $GEM_NAME --key $GEM_HOST_API_KEY
+    gem push $GEM_NAME
     echo "Upload complete."
 }
 
