@@ -9,7 +9,7 @@ module PCPServerSDK
     
       def initialize(integrator = '')
         @platform_identifier = "#{RbConfig::CONFIG['host_os']}, ruby version is: #{RUBY_VERSION}"
-        @sdk_identifier = 'RubyServerSDK/v1.0.0' # Adjust version as needed
+        @sdk_identifier = "RubyServerSDK/v#{PCPServerSDK::VERSION}" # Adjust version as needed
         @sdk_creator = 'PAYONE GmbH'
         @integrator = integrator
       end

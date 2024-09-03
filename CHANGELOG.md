@@ -1,3 +1,13 @@
+## [0.0.1](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v0.0.6...v0.0.1) (2024-09-02)
+
+### Bug Fixes
+
+* fix: update version script to actually set the version ([9193d60c4e3f3160ef628c8e093573394a802bc4](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/commit/9193d60c4e3f3160ef628c8e093573394a802bc4))
+
+### Features
+
+* feat: add apple pay transformer and tests ([110182da3735202d0d3ee2b6bde2f57739221d49](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/commit/110182da3735202d0d3ee2b6bde2f57739221d49))
+
 ## [0.0.1](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v0.0.5...v0.0.1) (2024-08-29)
 
 ## [0.0.1](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v0.0.4...v0.0.1) (2024-08-28)

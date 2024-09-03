@@ -36,7 +36,7 @@ Welcome to the Ruby SDK for the PAYONE Commerce Platform! This repository contai
 ## Installation
 
 ```sh
-gem install PCP-server-Ruby-SDK
+gem install pcp-server-ruby-sdk
 ```
 
 **[back to top](#table-of-contents)**
@@ -60,12 +60,12 @@ communicator_configuration = PCPServerSDK::CommunicatorConfiguration.new(
 )
 ```
 
-With the configuration you can create an API client for each reource you want to interact with. For example to create a commerce case you can use the `PCPServerSDK::Endpoints::`.
+With the configuration you can create an API client for each reource you want to interact with. For example to create a commerce case you can use the `PCPServerSDK::Endpoints::CommerceCaseApiClient`.
 
 ```rb
 require 'pcp-server-ruby-sdk'
 
-client = PCPServerSDK::Endpoints::.new(communicator_configuration)
+client = PCPServerSDK::Endpoints::CommerceCaseApiClient.new(communicator_configuration)
 ```
 
 All payloads and reponses are availabe as ruby classes within the `pcp-server-ruby-sdk` package. The serialization and deserialization is handled by the SDK internally. For example, to create an empty commerce case you can pass a `PCPServerSDK::Models::CreateCommerceCaseRequest` instance:
@@ -92,12 +92,14 @@ For most [payment methods](https://docs.payone.com/pcp/commerce-platform-payment
 
 ### Apple Pay
 
-When a client is successfully made a payment via ApplePay it receives a [ApplePayPayment](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypayment). This structure is accessible as the `ApplePayPayment` class. You can use the `ApplePayTransformer` to map an `ApplePayPayment` to a `MobilePaymentMethodSpecificInput` which can be used for payment executions or order requests. The transformer has a static method `transformApplePayPaymentToMobilePaymentMethodSpecificInput()` which takes an `ApplePayPayment` and returns a `MobilePaymentMethodSpecificInput`. The transformer does not check if the response is complete, if anything is missing the field will be set to `null`.
+When a client is successfully made a payment via ApplePay it receives a [ApplePayPayment](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypayment). This structure is accessible as the `PCPServerSDK::Models::ApplePayPayment` class. You can use the `PCPServerSDK::Transformer::ApplePayTransformer` to map an `PCPServerSDK::Models::ApplePayPayment` to a `PCPServerSDK::Models::MobilePaymentMethodSpecificInput` which can be used for payment executions or order requests. The transformer has a static method `PCPServerSDK::Transformer::transformApplePayPaymentToMobilePaymentMethodSpecificInput` which takes an `PCPServerSDK::Models::ApplePayPayment` and returns a `PCPServerSDK::Models::MobilePaymentMethodSpecificInput`. The transformer does not check if the response is complete, if anything is missing the field will be set to `null`.
 
 ```rb
 require 'pcp-server-ruby-sdk'
 
-# TODO
+payment = PCPServerSDK::Models::ApplePayPayment.new(get_json_string_from_request_somehow)
+# input is of type PCPServerSDK::Models::MobilePaymentMethodSpecificInput
+input = PCPServerSDK::Transformer::transformApplePayPaymentToMobilePaymentMethodSpecificInput(payment)
 ```
 
 **[back to top](#table-of-contents)**
