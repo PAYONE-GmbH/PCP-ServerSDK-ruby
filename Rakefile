@@ -12,7 +12,5 @@ desc "Build and release the gem to RubyGems"
 task :release => [:rubocop, :spec, :build] do
   version = `git tag --list`.split("\n").last
   puts "Releasing version #{version}"
-  system("git tag -a v#{version} -m 'Version #{version}'")
-  system("git push origin --tags")
   system("gem push pkg/#{File.basename(Dir.glob("*.gemspec").first, ".gemspec")}-#{version}.gem")
 end
