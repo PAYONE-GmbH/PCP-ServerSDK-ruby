@@ -10,11 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Release Gem
-        uses: cadwallion/publish-rubygems-action@master
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
-          RELEASE_COMMAND: rake release
+        uses: actions/checkout@v4      
+      - name: Build Gem
+        run: ./scripts.sh build
+      - name: Publish Gem
+        run: ./scripts.sh publish ${{ secrets.RUBYGEMS_TOKEN }}

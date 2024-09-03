@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 install() {
     echo "Installing dependencies..."
@@ -74,16 +75,19 @@ clear() {
 }
 
 publish() {
-    # example: ./scripts.sh publish <NuGet token>
-    # check if the NuGet token is passed
+    # example: ./scripts.sh publish <RubyGems token>
+    # check if the RubyGems token is passed
     if [ -z "$2" ]; then
-        echo "Please provide the NuGet token."
+        echo "Please provide the RubyGems token."
         exit 1
     fi
     echo "Uploading the package..."
-    TOKEN=$2
-
-    # TODO
+    # Set the environment variable for RubyGems
+    GEM_HOST_API_KEY=$2
+    VERSION=$(git describe --tags --abbrev=0 | sed 's/^v//')
+    GEM_NAME=pcp-server-ruby-sdk-$VERSION.gem
+    # Push the gem to RubyGems
+    gem push $GEM_NAME
     echo "Upload complete."
 }
 
