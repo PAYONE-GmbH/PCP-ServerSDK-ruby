@@ -130,6 +130,53 @@ module PCPServerSDK
         deserialize_json(response, PCPServerSDK::Models::CompletePaymentResponse)
       end
 
+      # Pause a payment
+      # @param merchant_id [String] The merchant identifier
+      # @param commerce_case_id [String] The commerce case identifier
+      # @param checkout_id [String] The checkout identifier
+      # @param payment_execution_id [String] The payment execution identifier
+      # @param payload [PCPServerSDK::Models::PausePaymentRequest] The pause payment request
+      # @return [PCPServerSDK::Models::PausePaymentResponse] The pause payment response
+      def pause_payment(merchant_id, commerce_case_id, checkout_id, payment_execution_id, payload)
+        validate_ids(merchant_id, commerce_case_id, checkout_id)
+        raise TypeError, PAYMENT_EXECUTION_ID_REQUIRED_ERROR if payment_execution_id.nil? || payment_execution_id.empty?
+
+        url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts/#{checkout_id}/payment-executions/#{payment_execution_id}/pause")
+
+        request_init = {
+          method: 'POST',
+          headers: { 'Content-Type' => 'application/json' },
+          body: JSON.generate(payload)
+        }
+
+        response = make_api_call(url.to_s, request_init)
+        deserialize_json(response, PCPServerSDK::Models::PausePaymentResponse)
+      end
+
+      # Refresh a payment
+      # @param merchant_id [String] The merchant identifier
+      # @param commerce_case_id [String] The commerce case identifier
+      # @param checkout_id [String] The checkout identifier
+      # @param payment_execution_id [String] The payment execution identifier
+      # @param payload [PCPServerSDK::Models::RefreshPaymentRequest] The refresh payment request
+      # @return [PCPServerSDK::Models::PaymentExecution] The refreshed payment execution
+      def refresh_payment(merchant_id, commerce_case_id, checkout_id, payment_execution_id, payload)
+        validate_ids(merchant_id, commerce_case_id, checkout_id)
+        raise TypeError, PAYMENT_EXECUTION_ID_REQUIRED_ERROR if payment_execution_id.nil? || payment_execution_id.empty?
+
+        url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts/#{checkout_id}/payment-executions/#{payment_execution_id}/refresh")
+
+        request_init = {
+          method: 'POST',
+          headers: { 'Content-Type' => 'application/json' },
+          body: JSON.generate(payload)
+        }
+
+        response = make_api_call(url.to_s, request_init)
+        deserialize_json(response, PCPServerSDK::Models::PaymentExecution)
+      end
+
+
     private
 
       def validate_ids(merchant_id, commerce_case_id, checkout_id)

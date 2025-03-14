@@ -12,7 +12,7 @@ RSpec.describe PCPServerSDK::Utils::ServerMetaInfo do
     end
 
     it 'sets the SDK identifier' do
-      expect(server_meta_info.sdk_identifier).to eq('RubyServerSDK/v1.0.0')
+      expect(server_meta_info.sdk_identifier).to eq("RubyServerSDK/v#{PCPServerSDK::VERSION}")
     end
 
     it 'sets the SDK creator' do
@@ -33,7 +33,7 @@ RSpec.describe PCPServerSDK::Utils::ServerMetaInfo do
     end
 
     it 'includes the SDK identifier' do
-      expect(json_output['sdk_identifier']).to eq('RubyServerSDK/v1.0.0')
+      expect(json_output['sdk_identifier']).to eq("RubyServerSDK/v#{PCPServerSDK::VERSION}")
     end
 
     it 'includes the SDK creator' do

@@ -22,13 +22,19 @@ module PCPServerSDK
 
       attr_accessor :financing_payment_method_specific_input
 
+      attr_accessor :bank_payout_method_specific_input
+
       attr_accessor :payment_channel
 
       attr_accessor :references
 
+      attr_accessor :previous_payment
+
+      attr_accessor :creation_date_time
+
+      attr_accessor :last_updated
+
       attr_accessor :events
-
-
 
       class EnumAttributeValidator
         attr_reader :datatype
@@ -62,8 +68,12 @@ module PCPServerSDK
           :'redirect_payment_method_specific_input' => :'redirectPaymentMethodSpecificInput',
           :'sepa_direct_debit_payment_method_specific_input' => :'sepaDirectDebitPaymentMethodSpecificInput',
           :'financing_payment_method_specific_input' => :'financingPaymentMethodSpecificInput',
+          :'bank_payout_method_specific_input' => :'bankPayoutMethodSpecificInput',
           :'payment_channel' => :'paymentChannel',
           :'references' => :'references',
+          :'previous_payment' => :'previousPayment',
+          :'creation_date_time' => :'creationDateTime',
+          :'last_updated' => :'lastUpdated',
           :'events' => :'events'
         }
       end
@@ -83,8 +93,12 @@ module PCPServerSDK
           :'redirect_payment_method_specific_input' => :'RedirectPaymentMethodSpecificInput',
           :'sepa_direct_debit_payment_method_specific_input' => :'SepaDirectDebitPaymentMethodSpecificInput',
           :'financing_payment_method_specific_input' => :'FinancingPaymentMethodSpecificInput',
+          :'bank_payout_method_specific_input' => :'BankPayoutMethodSpecificInput',
           :'payment_channel' => :'PaymentChannel',
           :'references' => :'References',
+          :'previous_payment' => :'String',
+          :'creation_date_time' => :'Time',
+          :'last_updated' => :'Time',
           :'events' => :'Array<PaymentEvent>'
         }
       end
@@ -138,12 +152,28 @@ module PCPServerSDK
           self.financing_payment_method_specific_input = attributes[:'financing_payment_method_specific_input']
         end
 
+        if attributes.key?(:'bank_payout_method_specific_input')
+          self.bank_payout_method_specific_input = attributes[:'bank_payout_method_specific_input']
+        end
+
         if attributes.key?(:'payment_channel')
           self.payment_channel = attributes[:'payment_channel']
         end
 
         if attributes.key?(:'references')
           self.references = attributes[:'references']
+        end
+
+        if attributes.key?(:'previous_payment')
+          self.previous_payment = attributes[:'previous_payment']
+        end
+
+        if attributes.key?(:'creation_date_time')
+          self.creation_date_time = attributes[:'creation_date_time']
+        end
+
+        if attributes.key?(:'last_updated')
+          self.last_updated = attributes[:'last_updated']
         end
 
         if attributes.key?(:'events')
@@ -154,7 +184,6 @@ module PCPServerSDK
       end
 
       # Checks equality by comparing each attribute.
-      # @param [Object] Object to be compared
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
@@ -165,21 +194,26 @@ module PCPServerSDK
             redirect_payment_method_specific_input == o.redirect_payment_method_specific_input &&
             sepa_direct_debit_payment_method_specific_input == o.sepa_direct_debit_payment_method_specific_input &&
             financing_payment_method_specific_input == o.financing_payment_method_specific_input &&
+            bank_payout_method_specific_input == o.bank_payout_method_specific_input &&
             payment_channel == o.payment_channel &&
             references == o.references &&
+            previous_payment == o.previous_payment &&
+            creation_date_time == o.creation_date_time &&
+            last_updated == o.last_updated &&
             events == o.events
       end
 
       # @see the `==` method
-      # @param [Object] Object to be compared
       def eql?(o)
         self == o
       end
 
       # Calculates hash code according to all attributes.
-      # @return [Integer] Hash code
       def hash
-        [payment_execution_id, payment_id, card_payment_method_specific_input, mobile_payment_method_specific_input, redirect_payment_method_specific_input, sepa_direct_debit_payment_method_specific_input, financing_payment_method_specific_input, payment_channel, references, events].hash
+        [payment_execution_id, payment_id, card_payment_method_specific_input, mobile_payment_method_specific_input,
+         redirect_payment_method_specific_input, sepa_direct_debit_payment_method_specific_input,
+         financing_payment_method_specific_input, bank_payout_method_specific_input, payment_channel, references,
+         previous_payment, creation_date_time, last_updated, events].hash
       end
 
       # Builds the object from hash

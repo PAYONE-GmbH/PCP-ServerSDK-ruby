@@ -1,48 +1,25 @@
-
 require 'date'
 require 'time'
 
-# Object containing additional Information needed for Apple Pay payment transactions.
 module PCPServerSDK
   module Models
-    class PaymentProduct320SpecificInput
-      attr_accessor :network
+    # Object containing the specific input details for SEPA transfers.
+    class BankPayoutMethodSpecificInput
+      # Payment product identifier - please check product documentation for a full overview of possible values.
+      attr_accessor :payment_product_id
 
-      attr_accessor :token
-
-
-
-      class EnumAttributeValidator
-        attr_reader :datatype
-        attr_reader :allowable_values
-
-        def initialize(datatype, allowable_values)
-          @allowable_values = allowable_values.map do |value|
-            case datatype.to_s
-            when /Integer/i
-              value.to_i
-            when /Float/i
-              value.to_f
-            else
-              value
-            end
-          end
-        end
-
-        def valid?(value)
-          !value || allowable_values.include?(value)
-        end
-      end
+      # SEPA Transfer Payment Product 772 Specific Input
+      attr_accessor :payment_product772_specific_input
 
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
-          :'network' => :'network',
-          :'token' => :'token'
+          :'payment_product_id' => :'paymentProductId',
+          :'payment_product772_specific_input' => :'paymentProduct772SpecificInput'
         }
       end
 
-      # Returns all the JSON keys this model knows about
+      # Returns all the JSON keys this model knows about.
       def self.acceptable_attributes
         attribute_map.values
       end
@@ -50,65 +27,68 @@ module PCPServerSDK
       # Attribute type mapping.
       def self.openapi_types
         {
-          :'network' => :'String',
-          :'token' => :'ApplePaymentDataTokenInformation'
+          :'payment_product_id' => :'Integer',
+          :'payment_product772_specific_input' => :'SepaTransferPaymentProduct772SpecificInput'
         }
       end
 
-      # List of attributes with nullable: true
+      # List of attributes with nullable: true.
       def self.openapi_nullable
-        Set.new([
-        ])
+        Set.new([])
       end
 
-      # Initializes the object
-      # @param [Hash] attributes Model attributes in the form of hash
+      # Initializes the object.
+      # @param [Hash] attributes Model attributes in the form of hash.
       def initialize(attributes = {})
         if (!attributes.is_a?(Hash))
-          fail ArgumentError, "The input argument (attributes) must be a hash in `PaymentProduct320SpecificInput` initialize method"
+          fail ArgumentError, "The input argument (attributes) must be a hash in `BankPayoutMethodSpecificInput` initialize method"
         end
 
-        # check to see if the attribute exists and convert string to symbol for hash key
+        # Check to see if the attribute exists and convert string to symbol for hash key.
         attributes = attributes.each_with_object({}) { |(k, v), h|
           if (!self.class.attribute_map.key?(k.to_sym))
-            fail ArgumentError, "`#{k}` is not a valid attribute in `PaymentProduct320SpecificInput`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+            fail ArgumentError, "`#{k}` is not a valid attribute in `BankPayoutMethodSpecificInput`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
           end
           h[k.to_sym] = v
         }
 
-        if attributes.key?(:'network')
-          self.network = attributes[:'network']
+        if attributes.key?(:'payment_product_id')
+          self.payment_product_id = attributes[:'payment_product_id']
+        else
+          self.payment_product_id = nil
         end
 
-        if attributes.key?(:'token')
-          self.token = attributes[:'token']
+        if attributes.key?(:'payment_product772_specific_input')
+          self.payment_product772_specific_input = attributes[:'payment_product772_specific_input']
+        else
+          self.payment_product772_specific_input = nil
         end
       end
 
       # Checks equality by comparing each attribute.
-      # @param [Object] Object to be compared
+      # @param [Object] Object to be compared.
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
-            network == o.network &&
-            token == o.token
+          payment_product_id == o.payment_product_id &&
+          payment_product772_specific_input == o.payment_product772_specific_input
       end
 
-      # @see the `==` method
-      # @param [Object] Object to be compared
+      # @see the `==` method.
+      # @param [Object] Object to be compared.
       def eql?(o)
         self == o
       end
 
       # Calculates hash code according to all attributes.
-      # @return [Integer] Hash code
+      # @return [Integer] Hash code.
       def hash
-        [network, token].hash
+        [payment_product_id, payment_product772_specific_input].hash
       end
 
-      # Builds the object from hash
-      # @param [Hash] attributes Model attributes in the form of hash
-      # @return [Object] Returns the model itself
+      # Builds the object from hash.
+      # @param [Hash] attributes Model attributes in the form of hash.
+      # @return [Object] Returns the model itself.
       def self.build_from_hash(attributes)
         return nil unless attributes.is_a?(Hash)
         attributes = attributes.transform_keys(&:to_sym)
@@ -117,8 +97,6 @@ module PCPServerSDK
           if attributes.key?(attribute_map[key]) && attributes[attribute_map[key]].nil?
             transformed_hash["#{key}"] = nil
           elsif type =~ /\AArray<(.*)>/i
-            # check to ensure the input is an array given that the attribute
-            # is documented as an array but the input is not
             if attributes[attribute_map[key]].is_a?(Array)
               transformed_hash["#{key}"] = attributes[attribute_map[key]].map { |v| _deserialize($1, v) }
             end
@@ -129,10 +107,10 @@ module PCPServerSDK
         new(transformed_hash)
       end
 
-      # Deserializes the data based on type
-      # @param string type Data type
-      # @param string value Value to be deserialized
-      # @return [Object] Deserialized data
+      # Deserializes the data based on type.
+      # @param string type Data type.
+      # @param string value Value to be deserialized.
+      # @return [Object] Deserialized data.
       def self._deserialize(type, value)
         case type.to_sym
         when :Time
@@ -152,7 +130,6 @@ module PCPServerSDK
             false
           end
         when :Object
-          # generic object (usually a Hash), return directly
           value
         when /\AArray<(?<inner_type>.+)>\z/
           inner_type = Regexp.last_match[:inner_type]
@@ -166,26 +143,25 @@ module PCPServerSDK
             end
           end
         else # model
-          # models (e.g. Pet) or oneOf
           klass = PCPServerSDK::Models.const_get(type)
           klass.respond_to?(:openapi_any_of) || klass.respond_to?(:openapi_one_of) ? klass.build(value) : klass.build_from_hash(value)
         end
       end
 
-      # Returns the string representation of the object
-      # @return [String] String presentation of the object
+      # Returns the string representation of the object.
+      # @return [String] String presentation of the object.
       def to_s
         to_hash.to_s
       end
 
-      # to_body is an alias to to_hash (backward compatibility)
-      # @return [Hash] Returns the object in the form of hash
+      # to_body is an alias to to_hash (backward compatibility).
+      # @return [Hash] Returns the object in the form of hash.
       def to_body
         to_hash
       end
 
-      # Returns the object in the form of hash
-      # @return [Hash] Returns the object in the form of hash
+      # Returns the object in the form of hash.
+      # @return [Hash] Returns the object in the form of hash.
       def to_hash
         hash = {}
         self.class.attribute_map.each_pair do |attr, param|
@@ -200,10 +176,10 @@ module PCPServerSDK
         hash
       end
 
-      # Outputs non-array value in the form of hash
-      # For object, use to_hash. Otherwise, just return the value
-      # @param [Object] value Any valid value
-      # @return [Hash] Returns the value in the form of hash
+      # Outputs non-array value in the form of hash.
+      # For object, use to_hash. Otherwise, just return the value.
+      # @param [Object] value Any valid value.
+      # @return [Hash] Returns the value in the form of hash.
       def _to_hash(value)
         if value.is_a?(Array)
           value.compact.map { |v| _to_hash(v) }
