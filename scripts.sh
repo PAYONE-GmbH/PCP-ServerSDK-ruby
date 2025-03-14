@@ -37,23 +37,16 @@ version() {
     NEW_VERSION=$2
 
     VERSION_FILE_PATH="./lib/PCP-server-Ruby-SDK/version.rb"
+    PACKAGE_JSON_PATH="./package.json"
+    PACKAGE_LOCK_JSON_PATH="./package-lock.json"
 
-    # Update the version in the version.rb file
-    if [ -f $VERSION_FILE_PATH ]; then
-        sed -i '' "s/VERSION = '.*'/VERSION = '$NEW_VERSION'/" "$VERSION_FILE_PATH"
-
-        if grep -q "VERSION = '$NEW_VERSION'" "$VERSION_FILE_PATH"; then
-            echo "Version updated successfully to $NEW_VERSION in $VERSION_FILE_PATH"
-        else
-            echo "Failed to update the version in $VERSION_FILE_PATH"
-            exit 1
-        fi
-    else
-        echo "Version file not found at $VERSION_FILE_PATH"
-        exit 1
-    fi
+    sed -i '' "s/VERSION = '.*'/VERSION = '$NEW_VERSION'/" "$VERSION_FILE_PATH"
+    sed -i "" "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" ${PACKAGE_JSON_PATH}
+    sed -i "" "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" ${PACKAGE_LOCK_JSON_PATH}
 
     # Commit and tag the changes
+    git add $PACKAGE_JSON_PATH
+    git add $PACKAGE_LOCK_JSON_PATH
     git add $VERSION_FILE_PATH
     npm install
     npm run changelog
