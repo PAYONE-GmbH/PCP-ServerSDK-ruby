@@ -1,7 +1,7 @@
-
 require 'date'
 require 'time'
 
+# Current high-level status of the payment in a human-readable form.
 module PCPServerSDK
   module Models
     class StatusValue
@@ -9,6 +9,8 @@ module PCPServerSDK
       CANCELLED = "CANCELLED".freeze
       REJECTED = "REJECTED".freeze
       REJECTED_CAPTURE = "REJECTED_CAPTURE".freeze
+      REJECTED_PAUSE = "REJECTED_PAUSE".freeze
+      REJECTED_UPDATE = "REJECTED_UPDATE".freeze
       REDIRECTED = "REDIRECTED".freeze
       PENDING_PAYMENT = "PENDING_PAYMENT".freeze
       PENDING_COMPLETION = "PENDING_COMPLETION".freeze
@@ -28,22 +30,22 @@ module PCPServerSDK
       ACCOUNT_DEBITED = "ACCOUNT_DEBITED".freeze
       PAYOUT_REQUESTED = "PAYOUT_REQUESTED".freeze
       REJECTED_CREDIT = "REJECTED_CREDIT".freeze
+      UPDATED = "UPDATED".freeze
 
       def self.all_vars
-        @all_vars ||= [CREATED, CANCELLED, REJECTED, REJECTED_CAPTURE, REDIRECTED, PENDING_PAYMENT, PENDING_COMPLETION, PENDING_CAPTURE, AUTHORIZATION_REQUESTED, CAPTURE_REQUESTED, CAPTURED, REVERSED, REFUND_REQUESTED, REFUNDED, REJECTED_REFUND, CANCELLATION_REQUESTED, PAUSED, CHARGEBACKED, CHARGEBACK_REVERSED, ACCOUNT_CREDITED, ACCOUNT_DEBITED, PAYOUT_REQUESTED, REJECTED_CREDIT].freeze
+        @all_vars ||= [
+          CREATED, CANCELLED, REJECTED, REJECTED_CAPTURE, REJECTED_PAUSE, REJECTED_UPDATE,
+          REDIRECTED, PENDING_PAYMENT, PENDING_COMPLETION, PENDING_CAPTURE, AUTHORIZATION_REQUESTED,
+          CAPTURE_REQUESTED, CAPTURED, REVERSED, REFUND_REQUESTED, REFUNDED, REJECTED_REFUND,
+          CANCELLATION_REQUESTED, PAUSED, CHARGEBACKED, CHARGEBACK_REVERSED, ACCOUNT_CREDITED,
+          ACCOUNT_DEBITED, PAYOUT_REQUESTED, REJECTED_CREDIT, UPDATED
+        ].freeze
       end
 
       # Builds the enum from string
-      # @param [String] The enum value in the form of the string
+      # @param [String] value The enum value in the form of the string
       # @return [String] The enum value
       def self.build_from_hash(value)
-        new.build_from_hash(value)
-      end
-
-      # Builds the enum from string
-      # @param [String] The enum value in the form of the string
-      # @return [String] The enum value
-      def build_from_hash(value)
         return value if StatusValue.all_vars.include?(value)
         raise "Invalid ENUM value #{value} for class #StatusValue"
       end

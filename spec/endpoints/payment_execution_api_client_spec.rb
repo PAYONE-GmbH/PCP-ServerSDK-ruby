@@ -266,4 +266,106 @@ RSpec.describe PCPServerSDK::Endpoints::PaymentExecutionApiClient do
       end
     end
   end
+
+  describe '#pause_payment' do
+    let(:payload) { double('PCPServerSDK::Models::PausePaymentRequest') }
+    
+    context 'when request is successful' do
+      let(:response) { double('Response', body: '{}', code: '200') }
+      let(:expected_response) { PCPServerSDK::Models::PausePaymentResponse.new }
+
+      before do
+        allow(client).to receive(:get_response).and_return(response)
+      end
+
+      it 'returns a successful response' do
+        result = client.pause_payment('1', '2', '3', '4', payload)
+        expect(result).to eq(expected_response)
+      end
+    end
+
+    context 'when request is unsuccessful (400)' do
+      let(:response) { double('Response', body: error_body, code: '400') }
+
+      before do
+        allow(client).to receive(:get_response).and_return(response)
+      end
+
+      it 'raises an PCPServerSDK::Errors::ApiErrorResponseException' do
+        expect { client.pause_payment('1', '2', '3', '4', payload) }.to raise_error(PCPServerSDK::Errors::ApiErrorResponseException)
+      end
+    end
+
+    context 'when request is unsuccessful (500)' do
+      let(:response) { double('Response', body: '{}', code: '500') }
+
+      before do
+        allow(client).to receive(:get_response).and_return(response)
+      end
+
+      it 'raises an PCPServerSDK::Errors::ApiResponseRetrievalException' do
+        expect { client.pause_payment('1', '2', '3', '4', payload) }.to raise_error(PCPServerSDK::Errors::ApiResponseRetrievalException)
+      end
+    end
+
+    context 'when some params are nil' do
+      it 'raises a TypeError' do
+        expect { client.pause_payment(nil, '2', '3', '4', payload) }.to raise_error(TypeError, 'Merchant ID is required')
+        expect { client.pause_payment('1', nil, '3', '4', payload) }.to raise_error(TypeError, 'Commerce Case ID is required')
+        expect { client.pause_payment('1', '2', nil, '4', payload) }.to raise_error(TypeError, 'Checkout ID is required')
+        expect { client.pause_payment('1', '2', '3', nil, payload) }.to raise_error(TypeError, 'Payment Execution ID is required')
+      end
+    end
+  end
+
+  describe '#refresh_payment' do
+    let(:payload) { double('PCPServerSDK::Models::RefreshPaymentRequest') }
+    let(:expected_response) { PCPServerSDK::Models::PaymentExecution.new }
+
+    context 'when request is successful' do
+      let(:response) { double('Response', body: '{}', code: '200') }
+
+      before do
+        allow(client).to receive(:get_response).and_return(response)
+      end
+
+      it 'returns a successful response' do
+        result = client.refresh_payment('1', '2', '3', '4', payload)
+        expect(result).to eq(expected_response)
+      end
+    end
+
+    context 'when request is unsuccessful (400)' do
+      let(:response) { double('Response', body: error_body, code: '400') }
+
+      before do
+        allow(client).to receive(:get_response).and_return(response)
+      end
+
+      it 'raises an PCPServerSDK::Errors::ApiErrorResponseException' do
+        expect { client.refresh_payment('1', '2', '3', '4', payload) }.to raise_error(PCPServerSDK::Errors::ApiErrorResponseException)
+      end
+    end
+
+    context 'when request is unsuccessful (500)' do
+      let(:response) { double('Response', body: '{}', code: '500') }
+
+      before do
+        allow(client).to receive(:get_response).and_return(response)
+      end
+
+      it 'raises an PCPServerSDK::Errors::ApiResponseRetrievalException' do
+        expect { client.refresh_payment('1', '2', '3', '4', payload) }.to raise_error(PCPServerSDK::Errors::ApiResponseRetrievalException)
+      end
+    end
+
+    context 'when some params are nil' do
+      it 'raises a TypeError' do
+        expect { client.refresh_payment(nil, '2', '3', '4', payload) }.to raise_error(TypeError, 'Merchant ID is required')
+        expect { client.refresh_payment('1', nil, '3', '4', payload) }.to raise_error(TypeError, 'Commerce Case ID is required')
+        expect { client.refresh_payment('1', '2', nil, '4', payload) }.to raise_error(TypeError, 'Checkout ID is required')
+        expect { client.refresh_payment('1', '2', '3', nil, payload) }.to raise_error(TypeError, 'Payment Execution ID is required')
+      end
+    end
+  end
 end

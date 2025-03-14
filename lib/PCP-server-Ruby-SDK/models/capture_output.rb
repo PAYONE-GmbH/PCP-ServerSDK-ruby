@@ -1,9 +1,9 @@
-
 require 'date'
 require 'time'
+
 module PCPServerSDK
   module Models
-    # Object containing Capture details. 
+    # Object containing Capture details.
     class CaptureOutput
       attr_accessor :amount_of_money
 
@@ -15,17 +15,20 @@ module PCPServerSDK
       # Payment method identifier used by our payment engine.
       attr_accessor :payment_method
 
+      attr_accessor :payment_instructions
+
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
           :'amount_of_money' => :'amountOfMoney',
           :'merchant_parameters' => :'merchantParameters',
           :'references' => :'references',
-          :'payment_method' => :'paymentMethod'
+          :'payment_method' => :'paymentMethod',
+          :'payment_instructions' => :'paymentInstructions'
         }
       end
 
-      # Returns all the JSON keys this model knows about
+      # Returns all the JSON keys this model knows about.
       def self.acceptable_attributes
         attribute_map.values
       end
@@ -36,24 +39,24 @@ module PCPServerSDK
           :'amount_of_money' => :'AmountOfMoney',
           :'merchant_parameters' => :'String',
           :'references' => :'PaymentReferences',
-          :'payment_method' => :'String'
+          :'payment_method' => :'String',
+          :'payment_instructions' => :'PaymentInstructions'
         }
       end
 
-      # List of attributes with nullable: true
+      # List of attributes with nullable: true.
       def self.openapi_nullable
-        Set.new([
-        ])
+        Set.new([])
       end
 
-      # Initializes the object
-      # @param [Hash] attributes Model attributes in the form of hash
+      # Initializes the object.
+      # @param [Hash] attributes Model attributes in the form of hash.
       def initialize(attributes = {})
         if (!attributes.is_a?(Hash))
           fail ArgumentError, "The input argument (attributes) must be a hash in `CaptureOutput` initialize method"
         end
 
-        # check to see if the attribute exists and convert string to symbol for hash key
+        # Check to see if the attribute exists and convert string to symbol for hash key.
         attributes = attributes.each_with_object({}) { |(k, v), h|
           if (!self.class.attribute_map.key?(k.to_sym))
             fail ArgumentError, "`#{k}` is not a valid attribute in `CaptureOutput`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
@@ -76,34 +79,39 @@ module PCPServerSDK
         if attributes.key?(:'payment_method')
           self.payment_method = attributes[:'payment_method']
         end
+
+        if attributes.key?(:'payment_instructions')
+          self.payment_instructions = attributes[:'payment_instructions']
+        end
       end
 
       # Checks equality by comparing each attribute.
-      # @param [Object] Object to be compared
+      # @param [Object] Object to be compared.
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
-            amount_of_money == o.amount_of_money &&
-            merchant_parameters == o.merchant_parameters &&
-            references == o.references &&
-            payment_method == o.payment_method
+          amount_of_money == o.amount_of_money &&
+          merchant_parameters == o.merchant_parameters &&
+          references == o.references &&
+          payment_method == o.payment_method &&
+          payment_instructions == o.payment_instructions
       end
 
-      # @see the `==` method
-      # @param [Object] Object to be compared
+      # @see the `==` method.
+      # @param [Object] Object to be compared.
       def eql?(o)
         self == o
       end
 
       # Calculates hash code according to all attributes.
-      # @return [Integer] Hash code
+      # @return [Integer] Hash code.
       def hash
-        [amount_of_money, merchant_parameters, references, payment_method].hash
+        [amount_of_money, merchant_parameters, references, payment_method, payment_instructions].hash
       end
 
-      # Builds the object from hash
-      # @param [Hash] attributes Model attributes in the form of hash
-      # @return [Object] Returns the model itself
+      # Builds the object from hash.
+      # @param [Hash] attributes Model attributes in the form of hash.
+      # @return [Object] Returns the model itself.
       def self.build_from_hash(attributes)
         return nil unless attributes.is_a?(Hash)
         attributes = attributes.transform_keys(&:to_sym)
@@ -112,8 +120,6 @@ module PCPServerSDK
           if attributes.key?(attribute_map[key]) && attributes[attribute_map[key]].nil?
             transformed_hash["#{key}"] = nil
           elsif type =~ /\AArray<(.*)>/i
-            # check to ensure the input is an array given that the attribute
-            # is documented as an array but the input is not
             if attributes[attribute_map[key]].is_a?(Array)
               transformed_hash["#{key}"] = attributes[attribute_map[key]].map { |v| _deserialize($1, v) }
             end
@@ -124,10 +130,10 @@ module PCPServerSDK
         new(transformed_hash)
       end
 
-      # Deserializes the data based on type
-      # @param string type Data type
-      # @param string value Value to be deserialized
-      # @return [Object] Deserialized data
+      # Deserializes the data based on type.
+      # @param string type Data type.
+      # @param string value Value to be deserialized.
+      # @return [Object] Deserialized data.
       def self._deserialize(type, value)
         case type.to_sym
         when :Time
@@ -147,7 +153,6 @@ module PCPServerSDK
             false
           end
         when :Object
-          # generic object (usually a Hash), return directly
           value
         when /\AArray<(?<inner_type>.+)>\z/
           inner_type = Regexp.last_match[:inner_type]
@@ -161,26 +166,25 @@ module PCPServerSDK
             end
           end
         else # model
-          # models (e.g. Pet) or oneOf
           klass = PCPServerSDK::Models.const_get(type)
           klass.respond_to?(:openapi_any_of) || klass.respond_to?(:openapi_one_of) ? klass.build(value) : klass.build_from_hash(value)
         end
       end
 
-      # Returns the string representation of the object
-      # @return [String] String presentation of the object
+      # Returns the string representation of the object.
+      # @return [String] String presentation of the object.
       def to_s
         to_hash.to_s
       end
 
-      # to_body is an alias to to_hash (backward compatibility)
-      # @return [Hash] Returns the object in the form of hash
+      # to_body is an alias to to_hash (backward compatibility).
+      # @return [Hash] Returns the object in the form of hash.
       def to_body
         to_hash
       end
 
-      # Returns the object in the form of hash
-      # @return [Hash] Returns the object in the form of hash
+      # Returns the object in the form of hash.
+      # @return [Hash] Returns the object in the form of hash.
       def to_hash
         hash = {}
         self.class.attribute_map.each_pair do |attr, param|
@@ -195,10 +199,10 @@ module PCPServerSDK
         hash
       end
 
-      # Outputs non-array value in the form of hash
-      # For object, use to_hash. Otherwise, just return the value
-      # @param [Object] value Any valid value
-      # @return [Hash] Returns the value in the form of hash
+      # Outputs non-array value in the form of hash.
+      # For object, use to_hash. Otherwise, just return the value.
+      # @param [Object] value Any valid value.
+      # @return [Hash] Returns the value in the form of hash.
       def _to_hash(value)
         if value.is_a?(Array)
           value.compact.map { |v| _to_hash(v) }

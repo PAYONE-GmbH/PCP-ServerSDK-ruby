@@ -1,54 +1,19 @@
 require 'date'
 require 'time'
 
-# Detailed information regarding an occurred payment event.
+# Object containing specific data regarding 3-D Secure for card digital wallets.
+# Necessary to perform 3D Secure when there is no liability shift from
+# the wallet and corresponding card network.
 module PCPServerSDK
   module Models
-    class PaymentEvent
-      attr_accessor :type
-
-      attr_accessor :amount_of_money
-
-      attr_accessor :payment_status
-
-      attr_accessor :cancellation_reason
-
-      # Reason of the Refund (e.g. communicated by or to the customer).
-      attr_accessor :return_reason
-
-      attr_accessor :payment_instructions
-
-      class EnumAttributeValidator
-        attr_reader :datatype
-        attr_reader :allowable_values
-
-        def initialize(datatype, allowable_values)
-          @allowable_values = allowable_values.map do |value|
-            case datatype.to_s
-            when /Integer/i
-              value.to_i
-            when /Float/i
-              value.to_f
-            else
-              value
-            end
-          end
-        end
-
-        def valid?(value)
-          !value || allowable_values.include?(value)
-        end
-      end
+    class MobilePaymentThreeDSecure
+      # Redirection data required for 3D Secure authentication.
+      attr_accessor :redirection_data
 
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
-          :'type' => :'type',
-          :'amount_of_money' => :'amountOfMoney',
-          :'payment_status' => :'paymentStatus',
-          :'cancellation_reason' => :'cancellationReason',
-          :'return_reason' => :'returnReason',
-          :'payment_instructions' => :'paymentInstructions'
+          :'redirection_data' => :'redirectionData'
         }
       end
 
@@ -60,12 +25,7 @@ module PCPServerSDK
       # Attribute type mapping.
       def self.openapi_types
         {
-          :'type' => :'PaymentType',
-          :'amount_of_money' => :'AmountOfMoney',
-          :'payment_status' => :'StatusValue',
-          :'cancellation_reason' => :'CancellationReason',
-          :'return_reason' => :'String',
-          :'payment_instructions' => :'PaymentInstructions'
+          :'redirection_data' => :'RedirectionData'
         }
       end
 
@@ -78,60 +38,39 @@ module PCPServerSDK
       # @param [Hash] attributes Model attributes in the form of hash
       def initialize(attributes = {})
         if (!attributes.is_a?(Hash))
-          fail ArgumentError, "The input argument (attributes) must be a hash in `PaymentEvent` initialize method"
+          fail ArgumentError, "The input argument (attributes) must be a hash in `MobilePaymentThreeDSecure` initialize method"
         end
 
-        # check to see if the attribute exists and convert string to symbol for hash key
         attributes = attributes.each_with_object({}) { |(k, v), h|
           if (!self.class.attribute_map.key?(k.to_sym))
-            fail ArgumentError, "`#{k}` is not a valid attribute in `PaymentEvent`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+            fail ArgumentError, "`#{k}` is not a valid attribute in `MobilePaymentThreeDSecure`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
           end
           h[k.to_sym] = v
         }
 
-        if attributes.key?(:'type')
-          self.type = attributes[:'type']
-        end
-
-        if attributes.key?(:'amount_of_money')
-          self.amount_of_money = attributes[:'amount_of_money']
-        end
-
-        if attributes.key?(:'payment_status')
-          self.payment_status = attributes[:'payment_status']
-        end
-
-        if attributes.key?(:'cancellation_reason')
-          self.cancellation_reason = attributes[:'cancellation_reason']
-        end
-
-        if attributes.key?(:'return_reason')
-          self.return_reason = attributes[:'return_reason']
-        end
-
-        if attributes.key?(:'payment_instructions')
-          self.payment_instructions = attributes[:'payment_instructions']
+        if attributes.key?(:'redirection_data')
+          self.redirection_data = attributes[:'redirection_data']
         end
       end
 
       # Checks equality by comparing each attribute.
+      # @param [Object] Object to be compared
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
-            type == o.type &&
-            amount_of_money == o.amount_of_money &&
-            payment_status == o.payment_status &&
-            cancellation_reason == o.cancellation_reason &&
-            return_reason == o.return_reason &&
-            payment_instructions == o.payment_instructions
+            redirection_data == o.redirection_data
       end
 
+      # @see the `==` method
+      # @param [Object] Object to be compared
       def eql?(o)
         self == o
       end
 
+      # Calculates hash code according to all attributes.
+      # @return [Integer] Hash code
       def hash
-        [type, amount_of_money, payment_status, cancellation_reason, return_reason, payment_instructions].hash
+        [redirection_data].hash
       end
 
       # Builds the object from hash
@@ -145,8 +84,6 @@ module PCPServerSDK
           if attributes.key?(attribute_map[key]) && attributes[attribute_map[key]].nil?
             transformed_hash["#{key}"] = nil
           elsif type =~ /\AArray<(.*)>/i
-            # check to ensure the input is an array given that the attribute
-            # is documented as an array but the input is not
             if attributes[attribute_map[key]].is_a?(Array)
               transformed_hash["#{key}"] = attributes[attribute_map[key]].map { |v| _deserialize($1, v) }
             end
@@ -180,7 +117,6 @@ module PCPServerSDK
             false
           end
         when :Object
-          # generic object (usually a Hash), return directly
           value
         when /\AArray<(?<inner_type>.+)>\z/
           inner_type = Regexp.last_match[:inner_type]
@@ -193,8 +129,7 @@ module PCPServerSDK
               hash[_deserialize(k_type, k)] = _deserialize(v_type, v)
             end
           end
-        else # model
-          # models (e.g. Pet) or oneOf
+        else
           klass = PCPServerSDK::Models.const_get(type)
           klass.respond_to?(:openapi_any_of) || klass.respond_to?(:openapi_one_of) ? klass.build(value) : klass.build_from_hash(value)
         end

@@ -11,32 +11,37 @@ module PCPServerSDK
 
       # Unique ID of the Commerce Case.
       attr_accessor :checkout_id
-
+     
       # Unique identifier of the customer.
       attr_accessor :merchant_customer_id
-
+     
       # Unique ID of the Payment Information.
       attr_accessor :payment_information_id
-
+     
       attr_accessor :payment_channel
-
+     
       # Payment product identifier - please check see product documentation for a full overview of possible values.
       attr_accessor :payment_product_id
-
+     
       # Unique identifier of the POS terminal of the payment transaction.
       attr_accessor :terminal_id
-
+     
       # Unique ID that identifies a store location or transaction point and which refers to the contract number of the merchant accepting the card.
       attr_accessor :card_acceptor_id
-
-      # Unique reference of the PaymentInformation. In case of card present transactions, the reference from the ECR or terminal will be used. It is always the reference for external transactions. (e.g. card present payments, cash payments or payments processed by other payment providers). 
+     
+      # Unique reference of the PaymentInformation. In case of card present transactions, the reference from the ECR or terminal will be used. It is always the reference for external transactions. (e.g. card present payments, cash payments or payments processed by other payment providers).
       attr_accessor :merchant_reference
-
+     
+      # The date and time when the payment was created.
+      attr_accessor :creation_date_time
+     
+      # The date and time when the payment was last updated.
+      attr_accessor :last_updated
+     
       attr_accessor :card_payment_details
-
+     
       attr_accessor :events
-
-
+     
       class EnumAttributeValidator
         attr_reader :datatype
         attr_reader :allowable_values
@@ -58,7 +63,7 @@ module PCPServerSDK
           !value || allowable_values.include?(value)
         end
       end
-
+     
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
@@ -71,16 +76,18 @@ module PCPServerSDK
           :'terminal_id' => :'terminalId',
           :'card_acceptor_id' => :'cardAcceptorId',
           :'merchant_reference' => :'merchantReference',
+          :'creation_date_time' => :'creationDateTime',
+          :'last_updated' => :'lastUpdated',
           :'card_payment_details' => :'cardPaymentDetails',
           :'events' => :'events'
         }
       end
-
+     
       # Returns all the JSON keys this model knows about
       def self.acceptable_attributes
         attribute_map.values
       end
-
+     
       # Attribute type mapping.
       def self.openapi_types
         {
@@ -93,17 +100,19 @@ module PCPServerSDK
           :'terminal_id' => :'String',
           :'card_acceptor_id' => :'String',
           :'merchant_reference' => :'String',
+          :'creation_date_time' => :'Time',
+          :'last_updated' => :'Time',
           :'card_payment_details' => :'CardPaymentDetails',
           :'events' => :'Array<PaymentEvent>'
         }
       end
-
+     
       # List of attributes with nullable: true
       def self.openapi_nullable
         Set.new([
         ])
       end
-
+     
       # Initializes the object
       # @param [Hash] attributes Model attributes in the form of hash
       def initialize(attributes = {})
@@ -155,6 +164,14 @@ module PCPServerSDK
           self.merchant_reference = attributes[:'merchant_reference']
         end
 
+        if attributes.key?(:'creation_date_time')
+          self.creation_date_time = attributes[:'creation_date_time']
+        end
+
+        if attributes.key?(:'last_updated')
+          self.last_updated = attributes[:'last_updated']
+        end
+
         if attributes.key?(:'card_payment_details')
           self.card_payment_details = attributes[:'card_payment_details']
         end
@@ -165,9 +182,8 @@ module PCPServerSDK
           end
         end
       end
-
+     
       # Checks equality by comparing each attribute.
-      # @param [Object] Object to be compared
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
@@ -180,22 +196,21 @@ module PCPServerSDK
             terminal_id == o.terminal_id &&
             card_acceptor_id == o.card_acceptor_id &&
             merchant_reference == o.merchant_reference &&
+            creation_date_time == o.creation_date_time &&
+            last_updated == o.last_updated &&
             card_payment_details == o.card_payment_details &&
             events == o.events
       end
-
+     
       # @see the `==` method
-      # @param [Object] Object to be compared
       def eql?(o)
         self == o
       end
-
+     
       # Calculates hash code according to all attributes.
-      # @return [Integer] Hash code
       def hash
-        [commerce_case_id, checkout_id, merchant_customer_id, payment_information_id, payment_channel, payment_product_id, terminal_id, card_acceptor_id, merchant_reference, card_payment_details, events].hash
+        [commerce_case_id, checkout_id, merchant_customer_id, payment_information_id, payment_channel, payment_product_id, terminal_id, card_acceptor_id, merchant_reference, creation_date_time, last_updated, card_payment_details, events].hash
       end
-
       # Builds the object from hash
       # @param [Hash] attributes Model attributes in the form of hash
       # @return [Object] Returns the model itself

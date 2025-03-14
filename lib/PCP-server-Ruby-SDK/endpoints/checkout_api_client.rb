@@ -124,6 +124,30 @@ module PCPServerSDK
         make_api_call(url.to_s, request_init)
         nil
       end
+
+      # Complete a checkout
+      # @param merchant_id [String] The merchant identifier
+      # @param commerce_case_id [String] The commerce case identifier
+      # @param checkout_id [String] The checkout identifier
+      # @param payload [PCPServerSDK::Models::CompleteOrderRequest] The complete order request
+      # @return [PCPServerSDK::Models::CompletePaymentResponse] The complete payment response
+      def complete_checkout_request(merchant_id, commerce_case_id, checkout_id, payload)
+        raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
+        raise TypeError, COMMERCE_CASE_ID_REQUIRED_ERROR if commerce_case_id.nil? || commerce_case_id.empty?
+        raise TypeError, CHECKOUT_ID_REQUIRED_ERROR if checkout_id.nil? || checkout_id.empty?
+        raise TypeError, PAYLOAD_REQUIRED_ERROR if payload.nil?
+
+        url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts/#{checkout_id}/complete-order")
+
+        request_init = {
+          method: 'POST',
+          headers: { 'Content-Type' => 'application/json' },
+          body: JSON.generate(payload)
+        }
+
+        response = make_api_call(url.to_s, request_init)
+        deserialize_json(response, PCPServerSDK::Models::CompletePaymentResponse)
+      end
     end
   end
 end
