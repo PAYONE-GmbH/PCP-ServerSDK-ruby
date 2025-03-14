@@ -2,10 +2,10 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=PAYONE-GmbH_PCP-ServerSDK-ruby&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=PAYONE-GmbH_PCP-ServerSDK-ruby)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=PAYONE-GmbH_PCP-ServerSDK-ruby&metric=coverage)](https://sonarcloud.io/summary/new_code?id=PAYONE-GmbH_PCP-ServerSDK-ruby)
-![PyPI - Version](https://img.shields.io/pypi/v/pcp_serversdk_ruby)
-![PyPI - Downloads](https://img.shields.io/pypi/dw/pcp_serversdk_ruby)
+![PyPI - Version](https://img.shields.io/gem/v/pcp-server-ruby-sdk)
+![PyPI - Downloads](https://img.shields.io/gem/dv/pcp-server-ruby-sdk/1.1.0)
 
-Welcome to the Ruby SDK for the PAYONE Commerce Platform! This repository contains a powerful, easy-to-use software development kit (SDK) designed to simplify the integration of online payment processing into your applications.
+Welcome to the Ruby SDK for the PAYONE Commerce Platform (api-version 1.28.0)! This repository contains a powerful, easy-to-use software development kit (SDK) designed to simplify the integration of online payment processing into your applications.
 
 ## Table of Contents
 
