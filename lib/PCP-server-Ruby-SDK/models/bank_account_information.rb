@@ -1,6 +1,6 @@
-
 require 'date'
 require 'time'
+
 module PCPServerSDK
   module Models
     # Object containing information about the end customer's bank account.
@@ -11,11 +11,15 @@ module PCPServerSDK
       # Account holder of the bank account with the given IBAN. Does not necessarily have to be the end customer (e.g. joint accounts).
       attr_accessor :account_holder
 
+      # BIC (Bank Identification Code)
+      attr_accessor :bic
+
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
           :'iban' => :'iban',
-          :'account_holder' => :'accountHolder'
+          :'account_holder' => :'accountHolder',
+          :'bic' => :'bic'
         }
       end
 
@@ -28,7 +32,8 @@ module PCPServerSDK
       def self.openapi_types
         {
           :'iban' => :'String',
-          :'account_holder' => :'String'
+          :'account_holder' => :'String',
+          :'bic' => :'String'
         }
       end
 
@@ -64,6 +69,12 @@ module PCPServerSDK
         else
           self.account_holder = nil
         end
+
+        if attributes.key?(:'bic')
+          self.bic = attributes[:'bic']
+        else
+          self.bic = nil
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -72,7 +83,8 @@ module PCPServerSDK
         return true if self.equal?(o)
         self.class == o.class &&
             iban == o.iban &&
-            account_holder == o.account_holder
+            account_holder == o.account_holder &&
+            bic == o.bic
       end
 
       # @see the `==` method
@@ -84,7 +96,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [iban, account_holder].hash
+        [iban, account_holder, bic].hash
       end
 
       # Builds the object from hash

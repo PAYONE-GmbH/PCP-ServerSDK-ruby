@@ -46,7 +46,7 @@ RSpec.describe 'PCPServerSDK::Transformer::transform_apple_pay_payment_to_mobile
       payment_product_id: 302,
       public_key_hash: 'publicKeyHash123',
       ephemeral_key: 'ephemeralPublicKey123',
-      payment_product302_specific_input: PCPServerSDK::Models::PaymentProduct320SpecificInput.new(
+      payment_product302_specific_input: PCPServerSDK::Models::PaymentProduct302SpecificInput.new(
         network: PCPServerSDK::Models::Network.from_string('VISA'),
         token: PCPServerSDK::Models::ApplePaymentDataTokenInformation.new(
           version: PCPServerSDK::Models::ApplePaymentTokenVersion.from_string('EC_V1'),

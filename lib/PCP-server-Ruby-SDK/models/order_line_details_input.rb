@@ -1,4 +1,3 @@
-
 require 'date'
 require 'time'
 
@@ -20,6 +19,9 @@ module PCPServerSDK
       # Tax on the line item, with the last two digits implied as decimal places
       attr_accessor :tax_amount
 
+      # If this is set to true, `tax_amount` will be interpreted as the tax amount per unit as opposed to the tax amount per line item.
+      attr_accessor :tax_amount_per_unit
+
       # URL of the product in shop.   Used for PAYONE Buy Now, Pay Later (BNPL).
       attr_accessor :product_url
 
@@ -31,8 +33,6 @@ module PCPServerSDK
 
       # Optional parameter to define the delivery shop or touchpoint where an item has been collected (e.g. for Click & Collect or Click & Reserve).
       attr_accessor :merchant_shop_delivery_reference
-
-
 
       class EnumAttributeValidator
         attr_reader :datatype
@@ -64,6 +64,7 @@ module PCPServerSDK
           :'product_type' => :'productType',
           :'quantity' => :'quantity',
           :'tax_amount' => :'taxAmount',
+          :'tax_amount_per_unit' => :'taxAmountPerUnit',
           :'product_url' => :'productUrl',
           :'product_image_url' => :'productImageUrl',
           :'product_category_path' => :'productCategoryPath',
@@ -84,6 +85,7 @@ module PCPServerSDK
           :'product_type' => :'ProductType',
           :'quantity' => :'Integer',
           :'tax_amount' => :'Integer',
+          :'tax_amount_per_unit' => :'Boolean',
           :'product_url' => :'String',
           :'product_image_url' => :'String',
           :'product_category_path' => :'String',
@@ -93,12 +95,10 @@ module PCPServerSDK
 
       # List of attributes with nullable: true
       def self.openapi_nullable
-        Set.new([
-        ])
+        Set.new([])
       end
 
       # Initializes the object
-      # @param [Hash] attributes Model attributes in the form of hash
       def initialize(attributes = {})
         if (!attributes.is_a?(Hash))
           fail ArgumentError, "The input argument (attributes) must be a hash in `OrderLineDetailsInput` initialize method"
@@ -134,6 +134,12 @@ module PCPServerSDK
 
         if attributes.key?(:'tax_amount')
           self.tax_amount = attributes[:'tax_amount']
+        end
+
+        if attributes.key?(:'tax_amount_per_unit')
+          self.tax_amount_per_unit = attributes[:'tax_amount_per_unit']
+        else
+          self.tax_amount_per_unit = false
         end
 
         if attributes.key?(:'product_url')
