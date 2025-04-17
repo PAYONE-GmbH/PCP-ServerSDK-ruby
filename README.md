@@ -5,7 +5,13 @@
 ![PyPI - Version](https://img.shields.io/gem/v/pcp-server-ruby-sdk)
 ![PyPI - Downloads](https://img.shields.io/gem/dv/pcp-server-ruby-sdk/1.1.0)
 
+
 Welcome to the Ruby SDK for the PAYONE Commerce Platform (api-version 1.28.0)! This repository contains a powerful, easy-to-use software development kit (SDK) designed to simplify the integration of online payment processing into your applications.
+
+## Requirements
+
+This SDK requires Ruby 3.2 or later.
+
 
 ## Table of Contents
 
