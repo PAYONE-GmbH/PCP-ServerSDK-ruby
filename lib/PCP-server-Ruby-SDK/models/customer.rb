@@ -30,6 +30,9 @@ module PCPServerSDK
 
       attr_accessor :personal_information
 
+      # Object containing data related to the account the customer has with you.
+      attr_accessor :account
+
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
@@ -40,7 +43,8 @@ module PCPServerSDK
           :'fiscal_number' => :'fiscalNumber',
           :'business_relation' => :'businessRelation',
           :'locale' => :'locale',
-          :'personal_information' => :'personalInformation'
+          :'personal_information' => :'personalInformation',
+          :'account' => :'account'
         }
       end
 
@@ -59,7 +63,8 @@ module PCPServerSDK
           :'fiscal_number' => :'String',
           :'business_relation' => :'BusinessRelation',
           :'locale' => :'String',
-          :'personal_information' => :'PersonalInformation'
+          :'personal_information' => :'PersonalInformation',
+          :'account' => :'CustomerAccount'
         }
       end
 
@@ -115,6 +120,10 @@ module PCPServerSDK
         if attributes.key?(:'personal_information')
           self.personal_information = attributes[:'personal_information']
         end
+
+        if attributes.key?(:'account')
+          self.account = attributes[:'account']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -129,7 +138,8 @@ module PCPServerSDK
             fiscal_number == o.fiscal_number &&
             business_relation == o.business_relation &&
             locale == o.locale &&
-            personal_information == o.personal_information
+            personal_information == o.personal_information &&
+            account == o.account
       end
 
       # @see the `==` method
@@ -141,7 +151,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [company_information, merchant_customer_id, billing_address, contact_details, fiscal_number, business_relation, locale, personal_information].hash
+        [company_information, merchant_customer_id, billing_address, contact_details, fiscal_number, business_relation, locale, personal_information, account].hash
       end
 
       # Builds the object from hash
