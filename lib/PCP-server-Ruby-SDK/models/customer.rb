@@ -17,13 +17,21 @@ module PCPServerSDK
       # Fiscal registration number of the customer or the tax registration number of the company for a business customer. Please find below specifics per country:  * Brazil - Consumer (CPF) with a length of 11 digits  * Brazil - Company (CNPJ) with a length of 14 digits  * Denmark - Consumer (CPR-nummer or personnummer) with a length of 10 digits  * Finland - Consumer (Finnish: henkilötunnus (abbreviated as HETU), Swedish: personbeteckning) with a length of 11 characters  * Norway - Consumer (fødselsnummer) with a length of 11 digits  * Sweden - Consumer (personnummer) with a length of 10 or 12 digits
       attr_accessor :fiscal_number
 
-      # Business relation to the customer. Possible values:         * B2C - Indicates business to consumer * B2B - Indicates business to business  Mandatory for the the following payment methods: * 3390 - PAYONE Secured Invoice * 3391 - PAYONE Secured Installment * 3392 - PAYONE Secured Direct Debit
+      # Business relation to the customer.
+      # Mandatory for the following payment methods:
+      # * 3390 - PAYONE Secured Invoice
+      # * 3391 - PAYONE Secured Installment
+      # * 3392 - PAYONE Secured Direct Debit
+      # @return [BusinessRelation]
       attr_accessor :business_relation
 
       # The locale that the customer should be addressed in (for 3rd parties).   Note: Only the language code is supported.
       attr_accessor :locale
 
       attr_accessor :personal_information
+
+      # Object containing data related to the account the customer has with you.
+      attr_accessor :account
 
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
@@ -35,7 +43,8 @@ module PCPServerSDK
           :'fiscal_number' => :'fiscalNumber',
           :'business_relation' => :'businessRelation',
           :'locale' => :'locale',
-          :'personal_information' => :'personalInformation'
+          :'personal_information' => :'personalInformation',
+          :'account' => :'account'
         }
       end
 
@@ -52,9 +61,10 @@ module PCPServerSDK
           :'billing_address' => :'Address',
           :'contact_details' => :'ContactDetails',
           :'fiscal_number' => :'String',
-          :'business_relation' => :'String',
+          :'business_relation' => :'BusinessRelation',
           :'locale' => :'String',
-          :'personal_information' => :'PersonalInformation'
+          :'personal_information' => :'PersonalInformation',
+          :'account' => :'CustomerAccount'
         }
       end
 
@@ -110,6 +120,10 @@ module PCPServerSDK
         if attributes.key?(:'personal_information')
           self.personal_information = attributes[:'personal_information']
         end
+
+        if attributes.key?(:'account')
+          self.account = attributes[:'account']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -124,7 +138,8 @@ module PCPServerSDK
             fiscal_number == o.fiscal_number &&
             business_relation == o.business_relation &&
             locale == o.locale &&
-            personal_information == o.personal_information
+            personal_information == o.personal_information &&
+            account == o.account
       end
 
       # @see the `==` method
@@ -136,7 +151,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [company_information, merchant_customer_id, billing_address, contact_details, fiscal_number, business_relation, locale, personal_information].hash
+        [company_information, merchant_customer_id, billing_address, contact_details, fiscal_number, business_relation, locale, personal_information, account].hash
       end
 
       # Builds the object from hash
