@@ -19,7 +19,7 @@ module PCPServerSDK
       # Tax on the line item, with the last two digits implied as decimal places
       attr_accessor :tax_amount
 
-      # If this is set to true, `tax_amount` will be interpreted as the tax amount per unit as opposed to the tax amount per line item.
+      # This field indicates if the `taxAmount` is to be interpreted as the tax amount per unit rather than for the entire line item. This field is included in the response only when `taxAmount` is set; otherwise, it will return as `null`.
       attr_accessor :tax_amount_per_unit
 
       # URL of the product in shop.   Used for PAYONE Buy Now, Pay Later (BNPL).

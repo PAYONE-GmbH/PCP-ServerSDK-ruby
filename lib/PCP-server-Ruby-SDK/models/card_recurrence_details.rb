@@ -5,7 +5,10 @@ module PCPServerSDK
   module Models
     # Object containing data related to recurring.
     class CardRecurrenceDetails
-      # * first = This transaction is the first of a series of recurring transactions * recurring = This transaction is a subsequent transaction in a series of recurring transactions  Note: For any first of a recurring the system will automatically create a token as you will need to use a token for any subsequent recurring transactions. In case a token already exists this is indicated in the response with a value of False for the isNewToken property in the response.
+      # Indicates whether this transaction is the first or a subsequent transaction in a series of recurring transactions.
+      # Note: For any first of a recurring the system will automatically create a token as you will need to use a token for any subsequent recurring transactions. 
+      # In case a token already exists this is indicated in the response with a value of False for the isNewToken property in the response.
+      # @return [RecurringPaymentSequenceIndicator]
       attr_accessor :recurring_payment_sequence_indicator
 
       # Attribute mapping from ruby-style variable name to JSON key.
@@ -23,7 +26,7 @@ module PCPServerSDK
       # Attribute type mapping.
       def self.openapi_types
         {
-          :'recurring_payment_sequence_indicator' => :'String'
+          :'recurring_payment_sequence_indicator' => :'RecurringPaymentSequenceIndicator'
         }
       end
 
