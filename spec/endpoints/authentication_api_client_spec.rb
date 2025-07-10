@@ -71,7 +71,7 @@ RSpec.describe PCPServerSDK::Endpoints::AuthenticationApiClient do
 
     context 'when merchant_id is nil' do
       it 'raises an ArgumentError' do
-        expect { client.get_authentication_tokens(nil) }.to raise_error(ArgumentError)
+        expect { client.get_authentication_tokens(nil, '2') }.to raise_error(TypeError, 'Merchant ID is required')
       end
     end
   end
