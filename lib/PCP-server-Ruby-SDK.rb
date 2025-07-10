@@ -1,5 +1,6 @@
 # Api
 require_relative 'PCP-server-Ruby-SDK/endpoints/base_api_client'
+require_relative 'PCP-server-Ruby-SDK/endpoints/authentication_api_client'
 require_relative 'PCP-server-Ruby-SDK/endpoints/checkout_api_client'
 require_relative 'PCP-server-Ruby-SDK/endpoints/commerce_case_api_client'
 require_relative 'PCP-server-Ruby-SDK/endpoints/order_management_checkout_actions_api_client'
