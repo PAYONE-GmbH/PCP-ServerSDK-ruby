@@ -32,7 +32,7 @@ RSpec.describe PCPServerSDK::Endpoints::AuthenticationApiClient do
       let(:response) { double('Response', body: success_response_body, code: 200) }
 
       before do
-        allow(client).to receive(:post).and_return(response)
+        allow(client).to receive(:get_response).and_return(response)
       end
 
       it 'returns an AuthenticationToken' do
@@ -49,7 +49,7 @@ RSpec.describe PCPServerSDK::Endpoints::AuthenticationApiClient do
       let(:response) { double('Response', body: error_body, code: 400) }
 
       before do
-        allow(client).to receive(:post).and_return(response)
+        allow(client).to receive(:get_response).and_return(response)
       end
 
       it 'raises an PCPServerSDK::Errors::ApiErrorResponseException' do
@@ -61,7 +61,7 @@ RSpec.describe PCPServerSDK::Endpoints::AuthenticationApiClient do
       let(:response) { double('Response', body: '{}', code: 500) }
 
       before do
-        allow(client).to receive(:post).and_return(response)
+        allow(client).to receive(:get_response).and_return(response)
       end
 
       it 'raises an PCPServerSDK::Errors::ApiResponseRetrievalException' do
