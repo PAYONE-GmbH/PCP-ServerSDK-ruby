@@ -1,11 +1,11 @@
-# frozen_string_literal: true
 
 require 'spec_helper'
-require 'pcp-server-ruby-sdk/endpoints/authentication_api_client'
-require 'pcp-server-ruby-sdk/models/authentication_token'
+require 'net/http'
+require 'json'
+require_relative '../../lib/PCP-server-Ruby-SDK.rb'
 
 describe PCPServerSDK::Endpoints::AuthenticationApiClient do
-  let(:config) { double('CommunicatorConfiguration') }
+  let(:config) { double('PCPServerSDK::CommunicatorConfiguration') }
   let(:client) { described_class.new(config) }
 
   describe '#get_authentication_tokens' do
