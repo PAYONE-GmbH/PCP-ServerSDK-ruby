@@ -30,8 +30,8 @@ describe PCPServerSDK::Endpoints::AuthenticationApiClient do
       expect(token).to be_a(PCPServerSDK::Models::AuthenticationToken)
       expect(token.token).to eq('jwt-token')
       expect(token.id).to eq('uuid-123')
-      expect(token.creation_date).to be_a(DateTime)
-      expect(token.expiration_date).to be_a(DateTime)
+      expect(token.creation_date).to be_a(Time)
+      expect(token.expiration_date).to be_a(Time)
     end
 
     it 'raises error if merchant_id is nil' do
