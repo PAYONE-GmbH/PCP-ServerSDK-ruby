@@ -1,3 +1,9 @@
+# [1.3.0](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v1.2.0...v1.3.0) (2025-07-10)
+
+### Features
+
+* feat: add auth client ([c8fd009b11a8ec3416a33ecab949ec2c51406e7e](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/commit/c8fd009b11a8ec3416a33ecab949ec2c51406e7e))
+
 # [1.2.0](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v1.1.0...v1.2.0) (2025-05-26)
 
 ### Documentation

@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov', '~> 0.22.0' 
 
   s.files         = `find *`.split("\n").uniq.sort.select { |f| !f.empty? }
-  s.test_files    = `find test/*`.split("\n")
+  s.test_files    = `find spec/*`.split("\n")
   s.executables   = []
   s.require_paths = ["lib"]
 end
