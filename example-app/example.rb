@@ -26,8 +26,9 @@ def run
   # commerce_case_api_client_example.run_post_one
   # commerce_case_api_client_example.run_get_all
 
-  commerce_case_api_client_example.run_get_one
+  # commerce_case_api_client_example.run_get_one
   # commerce_case_api_client_example.run_update_one
+  commerce_case_api_client_example.run_auth_token_example
 end
 
 run

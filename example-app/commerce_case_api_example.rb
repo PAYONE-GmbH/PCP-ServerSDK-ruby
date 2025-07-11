@@ -1,11 +1,19 @@
 require_relative '../lib/PCP-server-Ruby-SDK.rb'
 class CommerceCaseApiExample
-  attr_accessor :client, :merchant_id, :commerce_case_id
+  attr_accessor :client, :merchant_id, :commerce_case_id, :auth_client
 
   def initialize(config)
     @client = PCPServerSDK::Endpoints::CommerceCaseApiClient.new(config)
+    @auth_client = PCPServerSDK::Endpoints::AuthenticationApiClient.new(config)
     @merchant_id = ENV['MERCHANT_ID']
     @commerce_case_id = ENV['COMMERCE_CASE_ID']
+  end
+  def run_auth_token_example
+    token = @auth_client.get_authentication_tokens(@merchant_id)
+    puts "JWT Token: #{token.token}"
+    puts "Token ID: #{token.id}"
+    puts "Created: #{token.creation_date}"
+    puts "Expires: #{token.expiration_date}"
   end
 
   def run_post_one
