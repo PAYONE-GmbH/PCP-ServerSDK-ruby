@@ -7,7 +7,7 @@ require_relative '../../lib/PCP-server-Ruby-SDK.rb'
 
 
 RSpec.describe PCPServerSDK::Endpoints::AuthenticationApiClient do
-  let(:config) { double('PCPServerSDK::CommunicatorConfiguration', api_key: '', api_secret: '', host: 'https://api.example.com') }
+  let(:config) { mock_communicator_config }
   let(:client) { PCPServerSDK::Endpoints::AuthenticationApiClient.new(config) }
 
   describe '#get_authentication_tokens' do

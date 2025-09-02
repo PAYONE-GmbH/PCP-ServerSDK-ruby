@@ -9,6 +9,10 @@ module PCPServerSDK
   module Endpoints
     # Client for authentication token operations
     class AuthenticationApiClient < BaseApiClient
+      def initialize(config, http_client = nil)
+        super(config, http_client)
+      end
+
       def get_authentication_tokens(merchant_id, request_id = nil)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
 
