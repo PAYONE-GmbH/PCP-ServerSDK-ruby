@@ -13,8 +13,8 @@ module PCPServerSDK
     class PaymentExecutionApiClient < BaseApiClient
       PAYMENT_EXECUTION_ID_REQUIRED_ERROR = 'Payment Execution ID is required'
 
-      def initialize(config)
-        super(config)
+      def initialize(config, http_client = nil)
+        super(config, http_client)
       end
 
       # Create a payment

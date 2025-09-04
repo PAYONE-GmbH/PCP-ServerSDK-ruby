@@ -11,8 +11,8 @@ module PCPServerSDK
     class PaymentInformationApiClient < BaseApiClient
       PAYMENT_INFORMATION_ID_REQUIRED_ERROR = 'Payment Information ID is required'
 
-      def initialize(config)
-        super(config)
+      def initialize(config, http_client = nil)
+        super(config, http_client)
       end
 
       # Create a payment information
