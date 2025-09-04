@@ -25,4 +25,13 @@ RSpec.configure do |config|
   end
 end
 
+# Helper method to create properly mocked CommunicatorConfiguration
+def mock_communicator_config(api_key: '', api_secret: '', host: 'https://api.example.com', http_client: nil)
+  double('PCPServerSDK::CommunicatorConfiguration',
+         api_key: api_key,
+         api_secret: api_secret,
+         host: host,
+         http_client: http_client)
+end
+
 require 'rspec'

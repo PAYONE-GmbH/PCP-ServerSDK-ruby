@@ -113,6 +113,111 @@ When making a request any client may throw a `PCPServerSDK::Errors::ApiException
 
 Network errors are not wrap, you can should handle the standard `IOExeption`.
 
+### HTTP Client Customization
+
+The SDK allows you to customize the underlying HTTP client used for API requests. This provides flexibility to configure timeouts, SSL settings, proxies, and other HTTP-specific options according to your application's needs.
+
+#### Global HTTP Client Configuration
+
+You can set a global HTTP client that will be used by all API clients:
+
+```rb
+require 'pcp-server-ruby-sdk'
+
+# Option 1: Using a custom Net::HTTP instance
+custom_http = Net::HTTP.new('api.preprod.commerce.payone.com', 443)
+custom_http.use_ssl = true
+custom_http.read_timeout = 30
+custom_http.open_timeout = 10
+
+communicator_configuration = PCPServerSDK::CommunicatorConfiguration.new(
+  api_key,
+  api_secret,
+  'https://api.preprod.commerce.payone.com',
+  custom_http
+)
+
+# Option 2: Using a factory proc for dynamic client creation
+http_factory = proc do |uri|
+  http = Net::HTTP.new(uri.host, uri.port)
+  http.use_ssl = uri.scheme == 'https'
+  http.read_timeout = 60
+  http.open_timeout = 15
+  # Add custom headers, proxy settings, etc.
+  http
+end
+
+communicator_configuration = PCPServerSDK::CommunicatorConfiguration.new(
+  api_key,
+  api_secret,
+  'https://api.preprod.commerce.payone.com',
+  http_factory
+)
+
+# Option 3: Set after initialization
+communicator_configuration.http_client = custom_http
+```
+
+#### Client-Specific HTTP Client Configuration
+
+You can also set HTTP clients for individual API clients, which will override the global configuration:
+
+```rb
+require 'pcp-server-ruby-sdk'
+
+# Create a specific HTTP client for this API client
+commerce_case_http = Net::HTTP.new('api.preprod.commerce.payone.com', 443)
+commerce_case_http.use_ssl = true
+commerce_case_http.read_timeout = 45
+
+# Pass it to the API client constructor
+commerce_case_client = PCPServerSDK::Endpoints::CommerceCaseApiClient.new(
+  communicator_configuration,
+  commerce_case_http
+)
+
+# Or set it after initialization
+commerce_case_client.http_client = commerce_case_http
+```
+
+#### Priority Logic
+
+The SDK uses the following priority order when determining which HTTP client to use:
+
+1. **Client-specific HTTP client** (set on individual API client instances)
+2. **Global HTTP client** (set in CommunicatorConfiguration)
+3. **Default HTTP client** (created automatically by the SDK)
+
+#### HTTP Client Factory Pattern
+
+For advanced use cases, you can provide a factory (Proc or any callable object) that creates HTTP clients dynamically:
+
+```rb
+# Factory that creates clients with different configurations based on the URI
+adaptive_factory = proc do |uri|
+  http = Net::HTTP.new(uri.host, uri.port)
+  http.use_ssl = uri.scheme == 'https'
+
+  # Configure based on environment or URI
+  if uri.host.include?('preprod')
+    http.read_timeout = 60  # Longer timeout for preprod
+  else
+    http.read_timeout = 30  # Standard timeout for production
+  end
+
+  http
+end
+
+communicator_configuration.http_client = adaptive_factory
+```
+
+This customization allows you to:
+- Configure custom timeouts and connection settings
+- Set up proxy configurations
+- Add custom SSL/TLS settings
+- Implement retry logic or circuit breakers
+- Add request/response logging or monitoring
+
 ### Client Side
 
 For most [payment methods](https://docs.payone.com/pcp/commerce-platform-payment-methods) some information from the client is needed, e.g. payment information given by Apple when a payment via ApplePay suceeds. PAYONE provides client side SDKs which helps you interact the third party payment providers. You can find the SDKs under the [PAYONE GitHub organization](https://github.com/PAYONE-GmbH). Either way ensure to never store or even send credit card information to your server. The PAYONE Commerce Platform never needs access to the credit card information. The client side is responsible for safely retrieving a credit card token. This token must be used with this SDK.

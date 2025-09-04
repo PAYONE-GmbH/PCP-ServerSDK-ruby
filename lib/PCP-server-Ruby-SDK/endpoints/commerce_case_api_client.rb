@@ -10,8 +10,8 @@ module PCPServerSDK
   module Endpoints
     
     class CommerceCaseApiClient < BaseApiClient
-      def initialize(config)
-        super(config)
+      def initialize(config, http_client = nil)
+        super(config, http_client)
       end
 
       # Create a commerce case

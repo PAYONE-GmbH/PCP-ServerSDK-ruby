@@ -5,7 +5,7 @@ require_relative '../../lib/PCP-server-Ruby-SDK.rb'
 
 
 RSpec.describe PCPServerSDK::Endpoints::CheckoutApiClient do
-  let(:config) { double("PCPServerSDK::CommunicatorConfiguration", api_key: "", api_secret: "", host: 'https://api.example.com') }
+  let(:config) { mock_communicator_config }
   let(:client) { described_class.new(config) }
   let(:error_body) { PCPServerSDK::Models::ErrorResponse.new(
     error_id: '1',
