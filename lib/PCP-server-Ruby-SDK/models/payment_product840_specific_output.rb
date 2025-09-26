@@ -12,12 +12,16 @@ module PCPServerSDK
 
       attr_accessor :shipping_address
 
+      # PayPal transaction ID
+      attr_accessor :pay_pal_transaction_id
+
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
           :'billing_address' => :'billingAddress',
           :'customer_account' => :'customerAccount',
-          :'shipping_address' => :'shippingAddress'
+          :'shipping_address' => :'shippingAddress',
+          :'pay_pal_transaction_id' => :'payPalTransactionId'
         }
       end
 
@@ -31,7 +35,8 @@ module PCPServerSDK
         {
           :'billing_address' => :'Address',
           :'customer_account' => :'PaymentProduct840CustomerAccount',
-          :'shipping_address' => :'Address'
+          :'shipping_address' => :'Address',
+          :'pay_pal_transaction_id' => :'String'
         }
       end
 
@@ -67,6 +72,10 @@ module PCPServerSDK
         if attributes.key?(:'shipping_address')
           self.shipping_address = attributes[:'shipping_address']
         end
+
+        if attributes.key?(:'pay_pal_transaction_id')
+          self.pay_pal_transaction_id = attributes[:'pay_pal_transaction_id']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -74,9 +83,10 @@ module PCPServerSDK
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
-            billing_address == o.billing_address &&
-            customer_account == o.customer_account &&
-            shipping_address == o.shipping_address
+          billing_address == o.billing_address &&
+          customer_account == o.customer_account &&
+          shipping_address == o.shipping_address &&
+          pay_pal_transaction_id == o.pay_pal_transaction_id
       end
 
       # @see the `==` method
@@ -88,7 +98,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [billing_address, customer_account, shipping_address].hash
+        [billing_address, customer_account, shipping_address, pay_pal_transaction_id].hash
       end
 
       # Builds the object from hash
