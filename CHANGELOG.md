@@ -1,3 +1,9 @@
+# [1.4.0](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v1.3.1...v1.4.0) (2025-09-26)
+
+### Features
+
+* feat: add paypal parameters ([854b72d2699f3250ccfec7b09beda3b82c5d22bd](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/commit/854b72d2699f3250ccfec7b09beda3b82c5d22bd))
+
 ## [1.3.1](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v0.0.6...v1.3.1) (2025-09-04)
 
 ### Bug Fixes
