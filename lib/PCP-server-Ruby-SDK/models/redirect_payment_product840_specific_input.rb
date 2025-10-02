@@ -9,14 +9,26 @@ module PCPServerSDK
       # Indicates whether to use PayPal Express Checkout Shortcut.  * true = When shortcut is enabled, the consumer can select a shipping address during PayPal checkout.  * false = When shortcut is disabled, the consumer cannot change the shipping address. Default value is false. Please note that this field is ignored when order.additionalInput.typeInformation.purchaseType is set to \"digital\"
       attr_accessor :address_selection_at_pay_pal
 
-      # A unique ID determined by the merchant, to link a Paypal transaction to a FraudNet PayPal risk session. Only applicable to customer-initiated transactions, when the FraudNet SDK is used, and to be passed in the API request the same tracking ID value (FraudNet Session Identifier).
+      # A unique ID determined by the merchant, to link a Paypal transaction to a FraudNet PayPal risk session. Only applicable to customer-initiated transactions, when the FraudNet SDK is used, and to be passed in the API request the same tracking ID value (FraudNet Session Identifier). This SDK is available here https://developer.paypal.com/docs/checkout/apm/pay-upon-invoice/fraudnet/
       attr_accessor :fraud_net_id
+
+      # Required parameter which defines how PayPal is being integrated inside the checkout page.
+      # * true = the current integration uses PayPal SDK
+      # * false = classic usage with PayPal Redirect flow
+      # @return [Boolean]
+      attr_accessor :java_script_sdk_flow
+
+      # Required parameter for a COMPLETE CALL (not only an ORDER CALL) which one value "CONFIRM_ORDER_STATUS" signals process is finished on merchant side.
+      # @return [String] Only value: "CONFIRM_ORDER_STATUS"
+      attr_accessor :action
 
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
           :'address_selection_at_pay_pal' => :'addressSelectionAtPayPal',
-          :'fraud_net_id' => :'fraudNetId'
+          :'fraud_net_id' => :'fraudNetId',
+          :'java_script_sdk_flow' => :'javaScriptSdkFlow',
+          :'action' => :'action'
         }
       end
 
@@ -29,7 +41,9 @@ module PCPServerSDK
       def self.openapi_types
         {
           :'address_selection_at_pay_pal' => :'Boolean',
-          :'fraud_net_id' => :'String'
+          :'fraud_net_id' => :'String',
+          :'java_script_sdk_flow' => :'Boolean',
+          :'action' => :'String'
         }
       end
 
@@ -61,6 +75,14 @@ module PCPServerSDK
         if attributes.key?(:'fraud_net_id')
           self.fraud_net_id = attributes[:'fraud_net_id']
         end
+
+        if attributes.key?(:'java_script_sdk_flow')
+          self.java_script_sdk_flow = attributes[:'java_script_sdk_flow']
+        end
+
+        if attributes.key?(:'action')
+          self.action = attributes[:'action']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -68,8 +90,10 @@ module PCPServerSDK
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
-            address_selection_at_pay_pal == o.address_selection_at_pay_pal &&
-            fraud_net_id == o.fraud_net_id
+        address_selection_at_pay_pal == o.address_selection_at_pay_pal &&
+        fraud_net_id == o.fraud_net_id &&
+        java_script_sdk_flow == o.java_script_sdk_flow &&
+        action == o.action
       end
 
       # @see the `==` method
@@ -81,7 +105,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [address_selection_at_pay_pal, fraud_net_id].hash
+        [address_selection_at_pay_pal, fraud_net_id, java_script_sdk_flow, action].hash
       end
 
       # Builds the object from hash
