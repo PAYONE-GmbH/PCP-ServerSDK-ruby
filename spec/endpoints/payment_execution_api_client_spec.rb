@@ -217,7 +217,7 @@ RSpec.describe PCPServerSDK::Endpoints::PaymentExecutionApiClient do
   end
 
   describe '#complete_payment' do
-    let(:payload) { double('PCPServerSDK::Models::CompletePaymentRequest') }
+    let(:payload) { PCPServerSDK::Models::CompletePaymentRequest.new }
 
     context 'when request is successful' do
       let(:response) { double('Response', body: '{}', code: '200') }
@@ -228,6 +228,14 @@ RSpec.describe PCPServerSDK::Endpoints::PaymentExecutionApiClient do
       end
 
       it 'returns a successful response' do
+        redirect_input = PCPServerSDK::Models::CompleteRedirectPaymentMethodSpecificInput.new
+        product840_input = PCPServerSDK::Models::CompletePaymentProduct840SpecificInput.new
+
+        product840_input.java_script_sdk_flow = true
+        product840_input.action = 'CONFIRM_ORDER_STATUS'
+        redirect_input.payment_product840_specific_input = product840_input
+        payload.redirect_payment_method_specific_input = redirect_input
+
         result = client.complete_payment('1', '2', '3', '4', payload)
         expect(result).to eq(expected_response)
       end
@@ -265,6 +273,7 @@ RSpec.describe PCPServerSDK::Endpoints::PaymentExecutionApiClient do
         expect { client.complete_payment('1', '2', '3', nil, payload) }.to raise_error(TypeError, 'Payment Execution ID is required')
       end
     end
+
   end
 
   describe '#pause_payment' do

@@ -5,17 +5,25 @@ module PCPServerSDK
   module Models
     # Object containing information about the device of the end customer. 
     class CustomerDevice
+      # The accept-header of the customer client from the HTTP Headers.
+      attr_accessor :accept_header
+
       # The IP address of the customer client from the HTTP Headers.
       attr_accessor :ip_address
 
       # Tokenized representation of the end customers device. For example used for PAYONE Buy Now, Pay Later (BNPL).
       attr_accessor :device_token
 
+      # User-Agent of the client device/browser from the HTTP Headers.
+      attr_accessor :user_agent
+
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
+          :'accept_header' => :'acceptHeader',
           :'ip_address' => :'ipAddress',
-          :'device_token' => :'deviceToken'
+          :'device_token' => :'deviceToken',
+          :'user_agent' => :'userAgent'
         }
       end
 
@@ -27,8 +35,10 @@ module PCPServerSDK
       # Attribute type mapping.
       def self.openapi_types
         {
+          :'accept_header' => :'String',
           :'ip_address' => :'String',
-          :'device_token' => :'String'
+          :'device_token' => :'String',
+          :'user_agent' => :'String'
         }
       end
 
@@ -53,12 +63,20 @@ module PCPServerSDK
           h[k.to_sym] = v
         }
 
+        if attributes.key?(:'accept_header')
+          self.accept_header = attributes[:'accept_header']
+        end
+
         if attributes.key?(:'ip_address')
           self.ip_address = attributes[:'ip_address']
         end
 
         if attributes.key?(:'device_token')
           self.device_token = attributes[:'device_token']
+        end
+
+        if attributes.key?(:'user_agent')
+          self.user_agent = attributes[:'user_agent']
         end
       end
 
@@ -67,8 +85,10 @@ module PCPServerSDK
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
+          accept_header == o.accept_header &&
             ip_address == o.ip_address &&
-            device_token == o.device_token
+          device_token == o.device_token &&
+          user_agent == o.user_agent
       end
 
       # @see the `==` method
@@ -80,7 +100,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [ip_address, device_token].hash
+        [accept_header, ip_address, device_token, user_agent].hash
       end
 
       # Builds the object from hash

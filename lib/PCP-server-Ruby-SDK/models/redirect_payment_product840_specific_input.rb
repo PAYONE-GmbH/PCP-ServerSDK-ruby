@@ -18,17 +18,12 @@ module PCPServerSDK
       # @return [Boolean]
       attr_accessor :java_script_sdk_flow
 
-      # Required parameter for a COMPLETE CALL (not only an ORDER CALL) which one value "CONFIRM_ORDER_STATUS" signals process is finished on merchant side.
-      # @return [String] Only value: "CONFIRM_ORDER_STATUS"
-      attr_accessor :action
-
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
           :'address_selection_at_pay_pal' => :'addressSelectionAtPayPal',
           :'fraud_net_id' => :'fraudNetId',
-          :'java_script_sdk_flow' => :'javaScriptSdkFlow',
-          :'action' => :'action'
+          :'java_script_sdk_flow' => :'javaScriptSdkFlow'
         }
       end
 
@@ -42,8 +37,7 @@ module PCPServerSDK
         {
           :'address_selection_at_pay_pal' => :'Boolean',
           :'fraud_net_id' => :'String',
-          :'java_script_sdk_flow' => :'Boolean',
-          :'action' => :'String'
+          :'java_script_sdk_flow' => :'Boolean'
         }
       end
 
@@ -79,10 +73,6 @@ module PCPServerSDK
         if attributes.key?(:'java_script_sdk_flow')
           self.java_script_sdk_flow = attributes[:'java_script_sdk_flow']
         end
-
-        if attributes.key?(:'action')
-          self.action = attributes[:'action']
-        end
       end
 
       # Checks equality by comparing each attribute.
@@ -92,8 +82,7 @@ module PCPServerSDK
         self.class == o.class &&
         address_selection_at_pay_pal == o.address_selection_at_pay_pal &&
         fraud_net_id == o.fraud_net_id &&
-        java_script_sdk_flow == o.java_script_sdk_flow &&
-        action == o.action
+        java_script_sdk_flow == o.java_script_sdk_flow
       end
 
       # @see the `==` method
@@ -105,7 +94,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [address_selection_at_pay_pal, fraud_net_id, java_script_sdk_flow, action].hash
+        [address_selection_at_pay_pal, fraud_net_id, java_script_sdk_flow].hash
       end
 
       # Builds the object from hash
