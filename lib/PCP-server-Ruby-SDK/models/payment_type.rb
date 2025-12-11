@@ -10,12 +10,13 @@ module PCPServerSDK
       CAPTURE = "CAPTURE".freeze
       REFUND = "REFUND".freeze
       REVERSAL = "REVERSAL".freeze
+      CHARGEBACK = "CHARGEBACK".freeze
       CHARGEBACK_REVERSAL = "CHARGEBACK_REVERSAL".freeze
       CREDIT_NOTE = "CREDIT_NOTE".freeze
       DEBIT_NOTE = "DEBIT_NOTE".freeze
 
       def self.all_vars
-        @all_vars ||= [SALE, RESERVATION, CAPTURE, REFUND, REVERSAL, CHARGEBACK_REVERSAL, CREDIT_NOTE, DEBIT_NOTE].freeze
+        @all_vars ||= [SALE, RESERVATION, CAPTURE, REFUND, REVERSAL, CHARGEBACK, CHARGEBACK_REVERSAL, CREDIT_NOTE, DEBIT_NOTE].freeze
       end
 
       # Builds the enum from string

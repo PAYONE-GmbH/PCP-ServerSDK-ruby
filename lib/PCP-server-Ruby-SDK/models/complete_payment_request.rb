@@ -7,6 +7,8 @@ module PCPServerSDK
     class CompletePaymentRequest
       attr_accessor :financing_payment_method_specific_input
 
+      attr_accessor :redirect_payment_method_specific_input
+
       attr_accessor :order
 
       attr_accessor :device
@@ -15,6 +17,7 @@ module PCPServerSDK
       def self.attribute_map
         {
           :'financing_payment_method_specific_input' => :'financingPaymentMethodSpecificInput',
+          :'redirect_payment_method_specific_input' => :'redirectPaymentMethodSpecificInput',
           :'order' => :'order',
           :'device' => :'device'
         }
@@ -29,6 +32,7 @@ module PCPServerSDK
       def self.openapi_types
         {
           :'financing_payment_method_specific_input' => :'CompleteFinancingPaymentMethodSpecificInput',
+          :'redirect_payment_method_specific_input' => :'CompleteRedirectPaymentMethodSpecificInput',
           :'order' => :'Order',
           :'device' => :'CustomerDevice'
         }
@@ -59,6 +63,10 @@ module PCPServerSDK
           self.financing_payment_method_specific_input = attributes[:'financing_payment_method_specific_input']
         end
 
+        if attributes.key?(:'redirect_payment_method_specific_input')
+          self.redirect_payment_method_specific_input = attributes[:'redirect_payment_method_specific_input']
+        end
+
         if attributes.key?(:'order')
           self.order = attributes[:'order']
         end
@@ -74,6 +82,7 @@ module PCPServerSDK
         return true if self.equal?(o)
         self.class == o.class &&
             financing_payment_method_specific_input == o.financing_payment_method_specific_input &&
+          redirect_payment_method_specific_input == o.redirect_payment_method_specific_input &&
             order == o.order &&
             device == o.device
       end
@@ -87,7 +96,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [financing_payment_method_specific_input, order, device].hash
+        [financing_payment_method_specific_input, redirect_payment_method_specific_input, order, device].hash
       end
 
       # Builds the object from hash

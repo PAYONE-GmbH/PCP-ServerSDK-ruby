@@ -7,10 +7,13 @@ module PCPServerSDK
     class CompletePaymentMethodSpecificInput
       attr_accessor :payment_product3391_specific_input
 
+      attr_accessor :payment_product840_specific_input
+
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
-          :'payment_product3391_specific_input' => :'paymentProduct3391SpecificInput'
+          :'payment_product3391_specific_input' => :'paymentProduct3391SpecificInput',
+          :'payment_product840_specific_input' => :'paymentProduct840SpecificInput'
         }
       end
 
@@ -22,7 +25,8 @@ module PCPServerSDK
       # Attribute type mapping.
       def self.openapi_types
         {
-          :'payment_product3391_specific_input' => :'PaymentProduct3391SpecificInput'
+          :'payment_product3391_specific_input' => :'PaymentProduct3391SpecificInput',
+          :'payment_product840_specific_input' => :'CompletePaymentProduct840SpecificInput'
         }
       end
 
@@ -50,6 +54,10 @@ module PCPServerSDK
         if attributes.key?(:'payment_product3391_specific_input')
           self.payment_product3391_specific_input = attributes[:'payment_product3391_specific_input']
         end
+
+        if attributes.key?(:'payment_product840_specific_input')
+          self.payment_product840_specific_input = attributes[:'payment_product840_specific_input']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -57,7 +65,8 @@ module PCPServerSDK
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
-            payment_product3391_specific_input == o.payment_product3391_specific_input
+            payment_product3391_specific_input == o.payment_product3391_specific_input &&
+            payment_product840_specific_input == o.payment_product840_specific_input
       end
 
       # @see the `==` method
@@ -69,7 +78,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [payment_product3391_specific_input].hash
+        [payment_product3391_specific_input, payment_product840_specific_input].hash
       end
 
       # Builds the object from hash
