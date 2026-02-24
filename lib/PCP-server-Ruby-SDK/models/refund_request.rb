@@ -12,12 +12,15 @@ module PCPServerSDK
 
       attr_accessor :_return
 
+      attr_accessor :fund_split
+
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
           :'amount_of_money' => :'amountOfMoney',
           :'references' => :'references',
-          :'_return' => :'return'
+          :'_return' => :'return',
+          :'fund_split' => :'fundSplit'
         }
       end
 
@@ -31,7 +34,8 @@ module PCPServerSDK
         {
           :'amount_of_money' => :'PositiveAmountOfMoney',
           :'references' => :'PaymentReferences',
-          :'_return' => :'ReturnInformation'
+          :'_return' => :'ReturnInformation',
+          :'fund_split' => :'FundSplit'
         }
       end
 
@@ -67,6 +71,10 @@ module PCPServerSDK
         if attributes.key?(:'_return')
           self._return = attributes[:'_return']
         end
+
+        if attributes.key?(:'fund_split')
+          self.fund_split = attributes[:'fund_split']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -76,7 +84,8 @@ module PCPServerSDK
         self.class == o.class &&
             amount_of_money == o.amount_of_money &&
             references == o.references &&
-            _return == o._return
+            _return == o._return &&
+            fund_split == o.fund_split
       end
 
       # @see the `==` method
@@ -88,7 +97,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [amount_of_money, references, _return].hash
+        [amount_of_money, references, _return, fund_split].hash
       end
 
       # Builds the object from hash

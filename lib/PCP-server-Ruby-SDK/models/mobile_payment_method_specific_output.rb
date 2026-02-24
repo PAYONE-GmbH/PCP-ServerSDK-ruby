@@ -42,7 +42,7 @@ module PCPServerSDK
           :'authorisation_code' => :'String',
           :'fraud_results' => :'CardFraudResults',
           :'three_d_secure_results' => :'ThreeDSecureResults',
-          :'network' => :'String'
+          :'network' => :'MobilePaymentNetwork'
         }
       end
 

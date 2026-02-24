@@ -15,6 +15,7 @@ module PCPServerSDK
       # Unique payment transaction identifier of the payment gateway.
       attr_accessor :id
 
+      attr_accessor :fund_split
 
 
       class EnumAttributeValidator
@@ -45,7 +46,8 @@ module PCPServerSDK
           :'refund_output' => :'refundOutput',
           :'status' => :'status',
           :'status_output' => :'statusOutput',
-          :'id' => :'id'
+          :'id' => :'id',
+          :'fund_split' => :'fundSplit'
         }
       end
 
@@ -60,7 +62,8 @@ module PCPServerSDK
           :'refund_output' => :'RefundOutput',
           :'status' => :'StatusValue',
           :'status_output' => :'PaymentStatusOutput',
-          :'id' => :'String'
+          :'id' => :'String',
+          :'fund_split' => :'FundSplit'
         }
       end
 
@@ -100,6 +103,10 @@ module PCPServerSDK
         if attributes.key?(:'id')
           self.id = attributes[:'id']
         end
+
+        if attributes.key?(:'fund_split')
+          self.fund_split = attributes[:'fund_split']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -110,7 +117,8 @@ module PCPServerSDK
             refund_output == o.refund_output &&
             status == o.status &&
             status_output == o.status_output &&
-            id == o.id
+            id == o.id &&
+            fund_split == o.fund_split
       end
 
       # @see the `==` method
@@ -122,7 +130,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [refund_output, status, status_output, id].hash
+        [refund_output, status, status_output, id, fund_split].hash
       end
 
       # Builds the object from hash

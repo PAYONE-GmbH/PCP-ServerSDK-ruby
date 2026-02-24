@@ -1,29 +1,22 @@
 
 require 'date'
 require 'time'
+
 module PCPServerSDK
   module Models
-    # Object containing details on the created payment it has directly be executed.
-    class CreatePaymentResponse
-      attr_accessor :creation_output
+    # This object contains references of the seller of the cart item.
+    class CartItemSupplierReferences
+      # Unique identifier for the supplier.
+      attr_accessor :supplier_id
 
-      attr_accessor :merchant_action
-
-      attr_accessor :payment
-
-      # reference to the paymentExecution.
-      attr_accessor :payment_execution_id
-
-      attr_accessor :fund_split
+      # Reference of the order for the supplier.
+      attr_accessor :order_reference
 
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
-          :'creation_output' => :'creationOutput',
-          :'merchant_action' => :'merchantAction',
-          :'payment' => :'payment',
-          :'payment_execution_id' => :'paymentExecutionId',
-          :'fund_split' => :'fundSplit'
+          :'supplier_id' => :'supplierId',
+          :'order_reference' => :'orderReference'
         }
       end
 
@@ -35,11 +28,8 @@ module PCPServerSDK
       # Attribute type mapping.
       def self.openapi_types
         {
-          :'creation_output' => :'PaymentCreationOutput',
-          :'merchant_action' => :'MerchantAction',
-          :'payment' => :'PaymentResponse',
-          :'payment_execution_id' => :'String',
-          :'fund_split' => :'FundSplit'
+          :'supplier_id' => :'String',
+          :'order_reference' => :'String'
         }
       end
 
@@ -53,35 +43,23 @@ module PCPServerSDK
       # @param [Hash] attributes Model attributes in the form of hash
       def initialize(attributes = {})
         if (!attributes.is_a?(Hash))
-          fail ArgumentError, "The input argument (attributes) must be a hash in `CreatePaymentResponse` initialize method"
+          fail ArgumentError, "The input argument (attributes) must be a hash in `CartItemSupplierReferences` initialize method"
         end
 
         # check to see if the attribute exists and convert string to symbol for hash key
         attributes = attributes.each_with_object({}) { |(k, v), h|
           if (!self.class.attribute_map.key?(k.to_sym))
-            fail ArgumentError, "`#{k}` is not a valid attribute in `CreatePaymentResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+            fail ArgumentError, "`#{k}` is not a valid attribute in `CartItemSupplierReferences`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
           end
           h[k.to_sym] = v
         }
 
-        if attributes.key?(:'creation_output')
-          self.creation_output = attributes[:'creation_output']
+        if attributes.key?(:'supplier_id')
+          self.supplier_id = attributes[:'supplier_id']
         end
 
-        if attributes.key?(:'merchant_action')
-          self.merchant_action = attributes[:'merchant_action']
-        end
-
-        if attributes.key?(:'payment')
-          self.payment = attributes[:'payment']
-        end
-
-        if attributes.key?(:'payment_execution_id')
-          self.payment_execution_id = attributes[:'payment_execution_id']
-        end
-
-        if attributes.key?(:'fund_split')
-          self.fund_split = attributes[:'fund_split']
+        if attributes.key?(:'order_reference')
+          self.order_reference = attributes[:'order_reference']
         end
       end
 
@@ -90,11 +68,8 @@ module PCPServerSDK
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
-            creation_output == o.creation_output &&
-            merchant_action == o.merchant_action &&
-            payment == o.payment &&
-            payment_execution_id == o.payment_execution_id &&
-            fund_split == o.fund_split
+            supplier_id == o.supplier_id &&
+            order_reference == o.order_reference
       end
 
       # @see the `==` method
@@ -106,7 +81,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [creation_output, merchant_action, payment, payment_execution_id, fund_split].hash
+        [supplier_id, order_reference].hash
       end
 
       # Builds the object from hash

@@ -14,6 +14,7 @@ module PCPServerSDK
 
       attr_accessor :payment_method_specific_input
 
+      attr_accessor :fund_split
 
 
       class EnumAttributeValidator
@@ -44,7 +45,8 @@ module PCPServerSDK
           :'order_type' => :'orderType',
           :'order_references' => :'orderReferences',
           :'items' => :'items',
-          :'payment_method_specific_input' => :'paymentMethodSpecificInput'
+          :'payment_method_specific_input' => :'paymentMethodSpecificInput',
+          :'fund_split' => :'fundSplit'
         }
       end
 
@@ -59,7 +61,8 @@ module PCPServerSDK
           :'order_type' => :'OrderType',
           :'order_references' => :'References',
           :'items' => :'Array<OrderItem>',
-          :'payment_method_specific_input' => :'PaymentMethodSpecificInput'
+          :'payment_method_specific_input' => :'PaymentMethodSpecificInput',
+          :'fund_split' => :'FundSplit'
         }
       end
 
@@ -101,6 +104,10 @@ module PCPServerSDK
         if attributes.key?(:'payment_method_specific_input')
           self.payment_method_specific_input = attributes[:'payment_method_specific_input']
         end
+
+        if attributes.key?(:'fund_split')
+          self.fund_split = attributes[:'fund_split']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -111,7 +118,8 @@ module PCPServerSDK
             order_type == o.order_type &&
             order_references == o.order_references &&
             items == o.items &&
-            payment_method_specific_input == o.payment_method_specific_input
+            payment_method_specific_input == o.payment_method_specific_input &&
+            fund_split == o.fund_split
       end
 
       # @see the `==` method
@@ -123,7 +131,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [order_type, order_references, items, payment_method_specific_input].hash
+        [order_type, order_references, items, payment_method_specific_input, fund_split].hash
       end
 
       # Builds the object from hash

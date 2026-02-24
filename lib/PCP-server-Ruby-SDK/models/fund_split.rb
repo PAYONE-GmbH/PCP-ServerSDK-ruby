@@ -1,29 +1,25 @@
 
 require 'date'
 require 'time'
+
 module PCPServerSDK
   module Models
-    # Object containing details on the created payment it has directly be executed.
-    class CreatePaymentResponse
-      attr_accessor :creation_output
+    # Object containing details on the fund split for a payment.
+    class FundSplit
+      # Unique ID of the fund split (read-only).
+      attr_accessor :id
 
-      attr_accessor :merchant_action
+      # Unique ID of the payment event associated with this fund split (read-only).
+      attr_accessor :payment_event_id
 
-      attr_accessor :payment
-
-      # reference to the paymentExecution.
-      attr_accessor :payment_execution_id
-
-      attr_accessor :fund_split
+      attr_accessor :fund_distributions
 
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
-          :'creation_output' => :'creationOutput',
-          :'merchant_action' => :'merchantAction',
-          :'payment' => :'payment',
-          :'payment_execution_id' => :'paymentExecutionId',
-          :'fund_split' => :'fundSplit'
+          :'id' => :'id',
+          :'payment_event_id' => :'paymentEventId',
+          :'fund_distributions' => :'fundDistributions'
         }
       end
 
@@ -35,11 +31,9 @@ module PCPServerSDK
       # Attribute type mapping.
       def self.openapi_types
         {
-          :'creation_output' => :'PaymentCreationOutput',
-          :'merchant_action' => :'MerchantAction',
-          :'payment' => :'PaymentResponse',
-          :'payment_execution_id' => :'String',
-          :'fund_split' => :'FundSplit'
+          :'id' => :'String',
+          :'payment_event_id' => :'String',
+          :'fund_distributions' => :'Array<FundDistribution>'
         }
       end
 
@@ -53,35 +47,29 @@ module PCPServerSDK
       # @param [Hash] attributes Model attributes in the form of hash
       def initialize(attributes = {})
         if (!attributes.is_a?(Hash))
-          fail ArgumentError, "The input argument (attributes) must be a hash in `CreatePaymentResponse` initialize method"
+          fail ArgumentError, "The input argument (attributes) must be a hash in `FundSplit` initialize method"
         end
 
         # check to see if the attribute exists and convert string to symbol for hash key
         attributes = attributes.each_with_object({}) { |(k, v), h|
           if (!self.class.attribute_map.key?(k.to_sym))
-            fail ArgumentError, "`#{k}` is not a valid attribute in `CreatePaymentResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+            fail ArgumentError, "`#{k}` is not a valid attribute in `FundSplit`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
           end
           h[k.to_sym] = v
         }
 
-        if attributes.key?(:'creation_output')
-          self.creation_output = attributes[:'creation_output']
+        if attributes.key?(:'id')
+          self.id = attributes[:'id']
         end
 
-        if attributes.key?(:'merchant_action')
-          self.merchant_action = attributes[:'merchant_action']
+        if attributes.key?(:'payment_event_id')
+          self.payment_event_id = attributes[:'payment_event_id']
         end
 
-        if attributes.key?(:'payment')
-          self.payment = attributes[:'payment']
-        end
-
-        if attributes.key?(:'payment_execution_id')
-          self.payment_execution_id = attributes[:'payment_execution_id']
-        end
-
-        if attributes.key?(:'fund_split')
-          self.fund_split = attributes[:'fund_split']
+        if attributes.key?(:'fund_distributions')
+          if (value = attributes[:'fund_distributions']).is_a?(Array)
+            self.fund_distributions = value
+          end
         end
       end
 
@@ -90,11 +78,9 @@ module PCPServerSDK
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
-            creation_output == o.creation_output &&
-            merchant_action == o.merchant_action &&
-            payment == o.payment &&
-            payment_execution_id == o.payment_execution_id &&
-            fund_split == o.fund_split
+            id == o.id &&
+            payment_event_id == o.payment_event_id &&
+            fund_distributions == o.fund_distributions
       end
 
       # @see the `==` method
@@ -106,7 +92,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [creation_output, merchant_action, payment, payment_execution_id, fund_split].hash
+        [id, payment_event_id, fund_distributions].hash
       end
 
       # Builds the object from hash

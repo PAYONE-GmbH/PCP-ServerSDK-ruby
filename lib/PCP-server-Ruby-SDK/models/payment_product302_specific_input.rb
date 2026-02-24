@@ -62,7 +62,7 @@ module PCPServerSDK
       def self.openapi_types
         {
           :'integration_type' => :'String',
-          :'network' => :'String',
+          :'network' => :'MobilePaymentNetwork',
           :'token' => :'ApplePaymentDataTokenInformation',
           :'domain_name' => :'String',
           :'display_name' => :'String'

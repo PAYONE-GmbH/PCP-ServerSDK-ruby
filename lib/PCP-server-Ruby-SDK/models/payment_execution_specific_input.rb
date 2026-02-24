@@ -12,12 +12,15 @@ module PCPServerSDK
 
       attr_accessor :payment_references
 
+      attr_accessor :fund_split
+
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
           :'amount_of_money' => :'amountOfMoney',
           :'shopping_cart' => :'shoppingCart',
-          :'payment_references' => :'paymentReferences'
+          :'payment_references' => :'paymentReferences',
+          :'fund_split' => :'fundSplit'
         }
       end
 
@@ -31,7 +34,8 @@ module PCPServerSDK
         {
           :'amount_of_money' => :'AmountOfMoney',
           :'shopping_cart' => :'ShoppingCartInput',
-          :'payment_references' => :'References'
+          :'payment_references' => :'References',
+          :'fund_split' => :'FundSplit'
         }
       end
 
@@ -69,6 +73,10 @@ module PCPServerSDK
         else
           self.payment_references = nil
         end
+
+        if attributes.key?(:'fund_split')
+          self.fund_split = attributes[:'fund_split']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -78,7 +86,8 @@ module PCPServerSDK
         self.class == o.class &&
             amount_of_money == o.amount_of_money &&
             shopping_cart == o.shopping_cart &&
-            payment_references == o.payment_references
+            payment_references == o.payment_references &&
+            fund_split == o.fund_split
       end
 
       # @see the `==` method
@@ -90,7 +99,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [amount_of_money, shopping_cart, payment_references].hash
+        [amount_of_money, shopping_cart, payment_references, fund_split].hash
       end
 
       # Builds the object from hash
