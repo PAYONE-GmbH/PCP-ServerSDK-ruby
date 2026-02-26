@@ -1,3 +1,9 @@
+# [1.7.0](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v1.6.0...v1.7.0) (2026-02-26)
+
+### Features
+
+* feat: add changes for api version 1.48.0 ([bbe4de3af627849633d092eae9b798a9051c16ef](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/commit/bbe4de3af627849633d092eae9b798a9051c16ef))
+
 # [1.6.0](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v1.5.0...v1.6.0) (2026-02-02)
 
 * feat: add support for ruby 4.0
