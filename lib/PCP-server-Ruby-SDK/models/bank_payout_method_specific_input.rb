@@ -54,14 +54,10 @@ module PCPServerSDK
 
         if attributes.key?(:'payment_product_id')
           self.payment_product_id = attributes[:'payment_product_id']
-        else
-          self.payment_product_id = nil
         end
 
         if attributes.key?(:'payment_product772_specific_input')
           self.payment_product772_specific_input = attributes[:'payment_product772_specific_input']
-        else
-          self.payment_product772_specific_input = nil
         end
       end
 

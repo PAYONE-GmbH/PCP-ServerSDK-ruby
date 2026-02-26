@@ -9,11 +9,14 @@ module PCPServerSDK
 
       attr_accessor :order_line_details
 
+      attr_accessor :supplier_references
+
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
           :'invoice_data' => :'invoiceData',
-          :'order_line_details' => :'orderLineDetails'
+          :'order_line_details' => :'orderLineDetails',
+          :'supplier_references' => :'supplierReferences'
         }
       end
 
@@ -26,7 +29,8 @@ module PCPServerSDK
       def self.openapi_types
         {
           :'invoice_data' => :'CartItemInvoiceData',
-          :'order_line_details' => :'OrderLineDetailsPatch'
+          :'order_line_details' => :'OrderLineDetailsPatch',
+          :'supplier_references' => :'CartItemSupplierReferences'
         }
       end
 
@@ -58,6 +62,10 @@ module PCPServerSDK
         if attributes.key?(:'order_line_details')
           self.order_line_details = attributes[:'order_line_details']
         end
+
+        if attributes.key?(:'supplier_references')
+          self.supplier_references = attributes[:'supplier_references']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -66,7 +74,8 @@ module PCPServerSDK
         return true if self.equal?(o)
         self.class == o.class &&
             invoice_data == o.invoice_data &&
-            order_line_details == o.order_line_details
+            order_line_details == o.order_line_details &&
+            supplier_references == o.supplier_references
       end
 
       # @see the `==` method
@@ -78,7 +87,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [invoice_data, order_line_details].hash
+        [invoice_data, order_line_details, supplier_references].hash
       end
 
       # Builds the object from hash

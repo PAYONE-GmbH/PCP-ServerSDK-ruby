@@ -13,6 +13,8 @@ module PCPServerSDK
       # Unique payment transaction identifier of the payment gateway.
       attr_accessor :id
 
+      attr_accessor :fund_split
+
       class EnumAttributeValidator
         attr_reader :datatype
         attr_reader :allowable_values
@@ -41,7 +43,8 @@ module PCPServerSDK
           :'capture_output' => :'captureOutput',
           :'status' => :'status',
           :'status_output' => :'statusOutput',
-          :'id' => :'id'
+          :'id' => :'id',
+          :'fund_split' => :'fundSplit'
         }
       end
 
@@ -56,7 +59,8 @@ module PCPServerSDK
           :'capture_output' => :'CaptureOutput',
           :'status' => :'StatusValue',
           :'status_output' => :'PaymentStatusOutput',
-          :'id' => :'String'
+          :'id' => :'String',
+          :'fund_split' => :'FundSplit'
         }
       end
 
@@ -96,6 +100,10 @@ module PCPServerSDK
         if attributes.key?(:'id')
           self.id = attributes[:'id']
         end
+
+        if attributes.key?(:'fund_split')
+          self.fund_split = attributes[:'fund_split']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -106,7 +114,8 @@ module PCPServerSDK
             capture_output == o.capture_output &&
             status == o.status &&
             status_output == o.status_output &&
-            id == o.id
+            id == o.id &&
+            fund_split == o.fund_split
       end
 
       # @see the `==` method
@@ -118,7 +127,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [capture_output, status, status_output, id].hash
+        [capture_output, status, status_output, id, fund_split].hash
       end
 
       # Builds the object from hash

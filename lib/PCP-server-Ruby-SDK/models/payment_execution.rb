@@ -36,6 +36,8 @@ module PCPServerSDK
 
       attr_accessor :events
 
+      attr_accessor :fund_splits
+
       class EnumAttributeValidator
         attr_reader :datatype
         attr_reader :allowable_values
@@ -74,7 +76,8 @@ module PCPServerSDK
           :'previous_payment' => :'previousPayment',
           :'creation_date_time' => :'creationDateTime',
           :'last_updated' => :'lastUpdated',
-          :'events' => :'events'
+          :'events' => :'events',
+          :'fund_splits' => :'fundSplits'
         }
       end
 
@@ -99,7 +102,8 @@ module PCPServerSDK
           :'previous_payment' => :'String',
           :'creation_date_time' => :'Time',
           :'last_updated' => :'Time',
-          :'events' => :'Array<PaymentEvent>'
+          :'events' => :'Array<PaymentEvent>',
+          :'fund_splits' => :'Array<FundSplit>'
         }
       end
 
@@ -181,6 +185,12 @@ module PCPServerSDK
             self.events = value
           end
         end
+
+        if attributes.key?(:'fund_splits')
+          if (value = attributes[:'fund_splits']).is_a?(Array)
+            self.fund_splits = value
+          end
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -200,7 +210,8 @@ module PCPServerSDK
             previous_payment == o.previous_payment &&
             creation_date_time == o.creation_date_time &&
             last_updated == o.last_updated &&
-            events == o.events
+            events == o.events &&
+            fund_splits == o.fund_splits
       end
 
       # @see the `==` method
@@ -213,7 +224,7 @@ module PCPServerSDK
         [payment_execution_id, payment_id, card_payment_method_specific_input, mobile_payment_method_specific_input,
          redirect_payment_method_specific_input, sepa_direct_debit_payment_method_specific_input,
          financing_payment_method_specific_input, bank_payout_method_specific_input, payment_channel, references,
-         previous_payment, creation_date_time, last_updated, events].hash
+         previous_payment, creation_date_time, last_updated, events, fund_splits].hash
       end
 
       # Builds the object from hash

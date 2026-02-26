@@ -15,6 +15,7 @@ module PCPServerSDK
 
       attr_accessor :deliver_items
 
+      attr_accessor :fund_split
 
       class EnumAttributeValidator
         attr_reader :datatype
@@ -44,7 +45,8 @@ module PCPServerSDK
           :'deliver_type' => :'deliverType',
           :'is_final' => :'isFinal',
           :'cancellation_reason' => :'cancellationReason',
-          :'deliver_items' => :'deliverItems'
+          :'deliver_items' => :'deliverItems',
+          :'fund_split' => :'fundSplit'
         }
       end
 
@@ -59,7 +61,8 @@ module PCPServerSDK
           :'deliver_type' => :'DeliverType',
           :'is_final' => :'Boolean',
           :'cancellation_reason' => :'CancellationReason',
-          :'deliver_items' => :'Array<DeliverItem>'
+          :'deliver_items' => :'Array<DeliverItem>',
+          :'fund_split' => :'FundSplit'
         }
       end
 
@@ -103,6 +106,10 @@ module PCPServerSDK
             self.deliver_items = value
           end
         end
+
+        if attributes.key?(:'fund_split')
+          self.fund_split = attributes[:'fund_split']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -113,7 +120,8 @@ module PCPServerSDK
             deliver_type == o.deliver_type &&
             is_final == o.is_final &&
             cancellation_reason == o.cancellation_reason &&
-            deliver_items == o.deliver_items
+            deliver_items == o.deliver_items &&
+            fund_split == o.fund_split
       end
 
       # @see the `==` method
@@ -125,7 +133,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [deliver_type, is_final, cancellation_reason, deliver_items].hash
+        [deliver_type, is_final, cancellation_reason, deliver_items, fund_split].hash
       end
 
       # Builds the object from hash

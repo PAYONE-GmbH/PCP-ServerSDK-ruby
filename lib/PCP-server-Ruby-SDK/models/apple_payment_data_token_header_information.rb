@@ -55,6 +55,8 @@ module PCPServerSDK
 
         if attributes.key?(:'transaction_id')
           self.transaction_id = attributes[:'transaction_id']
+        else
+          self.transaction_id = nil
         end
 
         if attributes.key?(:'application_data')

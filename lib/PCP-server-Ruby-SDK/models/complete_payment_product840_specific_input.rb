@@ -82,6 +82,8 @@ module PCPServerSDK
 
         if attributes.key?(:'action')
           self.action = attributes[:'action']
+        else
+          self.action = nil
         end
       end
 

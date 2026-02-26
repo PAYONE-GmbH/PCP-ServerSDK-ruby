@@ -17,6 +17,8 @@ module PCPServerSDK
 
       attr_accessor :delivery
 
+      attr_accessor :fund_split
+
       class EnumAttributeValidator
         attr_reader :datatype
         attr_reader :allowable_values
@@ -46,7 +48,8 @@ module PCPServerSDK
           :'is_final' => :'isFinal',
           :'cancellation_reason' => :'cancellationReason',
           :'references' => :'references',
-          :'delivery' => :'delivery'
+          :'delivery' => :'delivery',
+          :'fund_split' => :'fundSplit'
         }
       end
 
@@ -62,7 +65,8 @@ module PCPServerSDK
           :'is_final' => :'Boolean',
           :'cancellation_reason' => :'CancellationReason',
           :'references' => :'PaymentReferences',
-          :'delivery' => :'DeliveryInformation'
+          :'delivery' => :'DeliveryInformation',
+          :'fund_split' => :'FundSplit'
         }
       end
 
@@ -108,6 +112,10 @@ module PCPServerSDK
         if attributes.key?(:'delivery')
           self.delivery = attributes[:'delivery']
         end
+
+        if attributes.key?(:'fund_split')
+          self.fund_split = attributes[:'fund_split']
+        end
       end
       
       # Checks equality by comparing each attribute.
@@ -119,7 +127,8 @@ module PCPServerSDK
             is_final == o.is_final &&
             cancellation_reason == o.cancellation_reason &&
             references == o.references &&
-            delivery == o.delivery
+            delivery == o.delivery &&
+            fund_split == o.fund_split
       end
 
       # @see the `==` method
@@ -131,7 +140,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [amount, is_final, cancellation_reason, references, delivery].hash
+        [amount, is_final, cancellation_reason, references, delivery, fund_split].hash
       end
 
       # Builds the object from hash
