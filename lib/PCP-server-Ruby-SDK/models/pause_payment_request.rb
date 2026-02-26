@@ -1,39 +1,13 @@
 require 'date'
 require 'time'
 
-# Request to refresh the payment status of a specific payment.
+# Request to pause a specific payment.
 module PCPServerSDK
   module Models
     class PausePaymentRequest
-      attr_accessor :refresh_type
-
-      class EnumAttributeValidator
-        attr_reader :datatype
-        attr_reader :allowable_values
-
-        def initialize(datatype, allowable_values)
-          @allowable_values = allowable_values.map do |value|
-            case datatype.to_s
-            when /Integer/i
-              value.to_i
-            when /Float/i
-              value.to_f
-            else
-              value
-            end
-          end
-        end
-
-        def valid?(value)
-          !value || allowable_values.include?(value)
-        end
-      end
-
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
-        {
-          :'refresh_type' => :'refreshType'
-        }
+        {}
       end
 
       # Returns all the JSON keys this model knows about
@@ -43,9 +17,7 @@ module PCPServerSDK
 
       # Attribute type mapping.
       def self.openapi_types
-        {
-          :'refresh_type' => :'RefreshType'
-        }
+        {}
       end
 
       # List of attributes with nullable: true
@@ -66,18 +38,13 @@ module PCPServerSDK
           end
           h[k.to_sym] = v
         }
-
-        if attributes.key?(:'refresh_type')
-          self.refresh_type = attributes[:'refresh_type']
-        end
       end
 
       # Checks equality by comparing each attribute.
       # @param [Object] Object to be compared
       def ==(o)
         return true if self.equal?(o)
-        self.class == o.class &&
-            refresh_type == o.refresh_type
+        self.class == o.class
       end
 
       # @see the `==` method
@@ -89,7 +56,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [refresh_type].hash
+        [].hash
       end
 
       # Builds the object from hash

@@ -81,14 +81,20 @@ module PCPServerSDK
 
         if attributes.key?(:'version')
           self.version = attributes[:'version']
+        else
+          self.version = nil
         end
 
         if attributes.key?(:'signature')
           self.signature = attributes[:'signature']
+        else
+          self.signature = nil
         end
 
         if attributes.key?(:'header')
           self.header = attributes[:'header']
+        else
+          self.header = nil
         end
       end
 

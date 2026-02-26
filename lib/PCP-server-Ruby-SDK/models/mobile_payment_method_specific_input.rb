@@ -26,6 +26,8 @@ module PCPServerSDK
 
       attr_accessor :payment_product302_specific_input
 
+      attr_accessor :payment_product5002_specific_input
+
       class EnumAttributeValidator
         attr_reader :datatype
         attr_reader :allowable_values
@@ -57,7 +59,8 @@ module PCPServerSDK
           :'public_key_hash' => :'publicKeyHash',
           :'ephemeral_key' => :'ephemeralKey',
           :'three_d_secure' => :'threeDSecure',
-          :'payment_product302_specific_input' => :'paymentProduct302SpecificInput'
+          :'payment_product302_specific_input' => :'paymentProduct302SpecificInput',
+          :'payment_product5002_specific_input' => :'paymentProduct5002SpecificInput'
         }
       end
 
@@ -75,7 +78,8 @@ module PCPServerSDK
           :'public_key_hash' => :'String',
           :'ephemeral_key' => :'String',
           :'three_d_secure' => :'MobilePaymentThreeDSecure',
-          :'payment_product302_specific_input' => :'PaymentProduct302SpecificInput'
+          :'payment_product302_specific_input' => :'PaymentProduct302SpecificInput',
+          :'payment_product5002_specific_input' => :'PaymentProduct5002SpecificInput'
         }
       end
 
@@ -126,6 +130,10 @@ module PCPServerSDK
         if attributes.key?(:'payment_product302_specific_input')
           self.payment_product302_specific_input = attributes[:'payment_product302_specific_input']
         end
+
+        if attributes.key?(:'payment_product5002_specific_input')
+          self.payment_product5002_specific_input = attributes[:'payment_product5002_specific_input']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -139,7 +147,8 @@ module PCPServerSDK
             public_key_hash == o.public_key_hash &&
             ephemeral_key == o.ephemeral_key &&
             three_d_secure == o.three_d_secure &&
-            payment_product302_specific_input == o.payment_product302_specific_input
+            payment_product302_specific_input == o.payment_product302_specific_input &&
+            payment_product5002_specific_input == o.payment_product5002_specific_input
       end
 
       def eql?(o)
@@ -147,7 +156,7 @@ module PCPServerSDK
       end
 
       def hash
-        [payment_product_id, authorization_mode, encrypted_payment_data, public_key_hash, ephemeral_key, three_d_secure, payment_product302_specific_input].hash
+        [payment_product_id, authorization_mode, encrypted_payment_data, public_key_hash, ephemeral_key, three_d_secure, payment_product302_specific_input, payment_product5002_specific_input].hash
       end
 
       def self.build_from_hash(attributes)

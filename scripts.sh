@@ -41,8 +41,8 @@ version() {
     PACKAGE_LOCK_JSON_PATH="./package-lock.json"
 
     sed -i '' "s/VERSION = '.*'/VERSION = '$NEW_VERSION'/" "$VERSION_FILE_PATH"
-    sed -i "" "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" ${PACKAGE_JSON_PATH}
-    sed -i "" "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" ${PACKAGE_LOCK_JSON_PATH}
+    jq --arg v "$NEW_VERSION" '.version = $v' ${PACKAGE_JSON_PATH} > ${PACKAGE_JSON_PATH}.tmp && mv ${PACKAGE_JSON_PATH}.tmp ${PACKAGE_JSON_PATH}
+    jq --arg v "$NEW_VERSION" '.version = $v | .packages[""].version = $v' ${PACKAGE_LOCK_JSON_PATH} > ${PACKAGE_LOCK_JSON_PATH}.tmp && mv ${PACKAGE_LOCK_JSON_PATH}.tmp ${PACKAGE_LOCK_JSON_PATH}
 
     # Commit and tag the changes
     git add $PACKAGE_JSON_PATH

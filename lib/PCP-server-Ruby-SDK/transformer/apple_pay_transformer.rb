@@ -7,7 +7,7 @@ require_relative '../models/applepay/apple_pay_payment_data'
 require_relative '../models/applepay/apple_pay_payment_data_header'
 require_relative '../models/applepay/apple_pay_payment_method'
 require_relative '../models/mobile_payment_method_specific_input'
-require_relative '../models/network'
+require_relative '../models/mobile_payment_network'
 require_relative '../models/payment_product302_specific_input'
 
 module PCPServerSDK
@@ -26,7 +26,7 @@ module PCPServerSDK
         public_key_hash: header.public_key_hash,
         ephemeral_key: header.ephemeral_public_key,
         payment_product302_specific_input: PCPServerSDK::Models::PaymentProduct302SpecificInput.new(
-          network: PCPServerSDK::Models::Network.from_string(payment_method.network.to_s),
+          network: PCPServerSDK::Models::MobilePaymentNetwork.from_string(payment_method.network.to_s),
           token: PCPServerSDK::Models::ApplePaymentDataTokenInformation.new(
             version: PCPServerSDK::Models::ApplePaymentTokenVersion.from_string(payment_data.version.to_s),
             signature: payment_data.signature,

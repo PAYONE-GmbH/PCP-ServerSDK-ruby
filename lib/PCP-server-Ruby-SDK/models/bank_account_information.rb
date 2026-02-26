@@ -72,8 +72,6 @@ module PCPServerSDK
 
         if attributes.key?(:'bic')
           self.bic = attributes[:'bic']
-        else
-          self.bic = nil
         end
       end
 
