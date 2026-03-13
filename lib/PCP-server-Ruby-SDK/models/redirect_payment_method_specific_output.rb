@@ -17,17 +17,13 @@ module PCPServerSDK
       # Token to identify the card in the reporting.
       attr_accessor :reporting_token
 
-      # Indicates whether the PayPal JavaScript SDK flow was used for the redirect payment.
-      attr_accessor :java_script_sdk_flow
-
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
           :'payment_product_id' => :'paymentProductId',
           :'payment_product840_specific_output' => :'paymentProduct840SpecificOutput',
           :'payment_processing_token' => :'paymentProcessingToken',
-          :'reporting_token' => :'reportingToken',
-          :'java_script_sdk_flow' => :'javaScriptSdkFlow'
+          :'reporting_token' => :'reportingToken'
         }
       end
 
@@ -42,8 +38,7 @@ module PCPServerSDK
           :'payment_product_id' => :'Integer',
           :'payment_product840_specific_output' => :'PaymentProduct840SpecificOutput',
           :'payment_processing_token' => :'String',
-          :'reporting_token' => :'String',
-          :'java_script_sdk_flow' => :'Boolean'
+          :'reporting_token' => :'String'
         }
       end
 
@@ -83,10 +78,6 @@ module PCPServerSDK
         if attributes.key?(:'reporting_token')
           self.reporting_token = attributes[:'reporting_token']
         end
-
-        if attributes.key?(:'java_script_sdk_flow')
-          self.java_script_sdk_flow = attributes[:'java_script_sdk_flow']
-        end
       end
 
       # Checks equality by comparing each attribute.
@@ -97,8 +88,7 @@ module PCPServerSDK
             payment_product_id == o.payment_product_id &&
             payment_product840_specific_output == o.payment_product840_specific_output &&
             payment_processing_token == o.payment_processing_token &&
-            reporting_token == o.reporting_token &&
-            java_script_sdk_flow == o.java_script_sdk_flow
+            reporting_token == o.reporting_token
       end
 
       # @see the `==` method
@@ -110,7 +100,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [payment_product_id, payment_product840_specific_output, payment_processing_token, reporting_token, java_script_sdk_flow].hash
+        [payment_product_id, payment_product840_specific_output, payment_processing_token, reporting_token].hash
       end
 
       # Builds the object from hash

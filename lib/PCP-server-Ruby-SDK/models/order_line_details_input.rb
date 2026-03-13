@@ -169,6 +169,7 @@ module PCPServerSDK
             product_type == o.product_type &&
             quantity == o.quantity &&
             tax_amount == o.tax_amount &&
+            tax_amount_per_unit == o.tax_amount_per_unit &&
             product_url == o.product_url &&
             product_image_url == o.product_image_url &&
             product_category_path == o.product_category_path &&
@@ -184,7 +185,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [product_code, product_price, product_type, quantity, tax_amount, product_url, product_image_url, product_category_path, merchant_shop_delivery_reference].hash
+        [product_code, product_price, product_type, quantity, tax_amount, tax_amount_per_unit, product_url, product_image_url, product_category_path, merchant_shop_delivery_reference].hash
       end
 
       # Builds the object from hash

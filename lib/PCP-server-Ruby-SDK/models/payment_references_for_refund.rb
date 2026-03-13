@@ -1,40 +1,21 @@
-
 require 'date'
 require 'time'
 
-# Object containing the specific input details for payments that involve redirects to 3rd parties to complete, like iDeal and PayPal
+# Object that holds all reference properties for a refund that are linked to this transaction.
 module PCPServerSDK
   module Models
-    class RedirectPaymentMethodSpecificInput
-      # * true = the payment requires approval before the funds will be captured using the Approve payment or Capture payment API * false = the payment does not require approval, and the funds will be captured automatically  If the parameter is not provided in the request, the default value will be true
-      attr_accessor :requires_approval
+    class PaymentReferencesForRefund
+      # Unique reference of the Commerce Case that is also returned for reporting and reconciliation purposes.
+      attr_accessor :merchant_reference
 
-      # ID of the token to use to create the payment.
-      attr_accessor :payment_processing_token
-
-      # Token to identify the card in the reporting.
-      attr_accessor :reporting_token
-
-      # Indicates if this transaction should be tokenized   * true - Tokenize the transaction.   * false - Do not tokenize the transaction, unless it would be tokenized by other means such as auto- tokenization of recurring payments. example: false
-      attr_accessor :tokenize
-
-      # Payment product identifier - please check product documentation for a full overview of possible values.
-      attr_accessor :payment_product_id
-
-      attr_accessor :payment_product840_specific_input
-
-      attr_accessor :redirection_data
+      # Reference to the capture to be refunded.
+      attr_accessor :capture_reference
 
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
-          :'requires_approval' => :'requiresApproval',
-          :'payment_processing_token' => :'paymentProcessingToken',
-          :'reporting_token' => :'reportingToken',
-          :'tokenize' => :'tokenize',
-          :'payment_product_id' => :'paymentProductId',
-          :'payment_product840_specific_input' => :'paymentProduct840SpecificInput',
-          :'redirection_data' => :'redirectionData'
+          :'merchant_reference' => :'merchantReference',
+          :'capture_reference' => :'captureReference'
         }
       end
 
@@ -46,63 +27,37 @@ module PCPServerSDK
       # Attribute type mapping.
       def self.openapi_types
         {
-          :'requires_approval' => :'Boolean',
-          :'payment_processing_token' => :'String',
-          :'reporting_token' => :'String',
-          :'tokenize' => :'Boolean',
-          :'payment_product_id' => :'Integer',
-          :'payment_product840_specific_input' => :'RedirectPaymentProduct840SpecificInput',
-          :'redirection_data' => :'RedirectionData'
+          :'merchant_reference' => :'String',
+          :'capture_reference' => :'String'
         }
       end
 
       # List of attributes with nullable: true
       def self.openapi_nullable
-        Set.new([
-        ])
+        Set.new([])
       end
 
       # Initializes the object
       # @param [Hash] attributes Model attributes in the form of hash
       def initialize(attributes = {})
         if (!attributes.is_a?(Hash))
-          fail ArgumentError, "The input argument (attributes) must be a hash in `RedirectPaymentMethodSpecificInput` initialize method"
+          fail ArgumentError, "The input argument (attributes) must be a hash in `PaymentReferencesForRefund` initialize method"
         end
 
         # check to see if the attribute exists and convert string to symbol for hash key
         attributes = attributes.each_with_object({}) { |(k, v), h|
           if (!self.class.attribute_map.key?(k.to_sym))
-            fail ArgumentError, "`#{k}` is not a valid attribute in `RedirectPaymentMethodSpecificInput`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+            fail ArgumentError, "`#{k}` is not a valid attribute in `PaymentReferencesForRefund`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
           end
           h[k.to_sym] = v
         }
 
-        if attributes.key?(:'requires_approval')
-          self.requires_approval = attributes[:'requires_approval']
+        if attributes.key?(:'merchant_reference')
+          self.merchant_reference = attributes[:'merchant_reference']
         end
 
-        if attributes.key?(:'payment_processing_token')
-          self.payment_processing_token = attributes[:'payment_processing_token']
-        end
-
-        if attributes.key?(:'reporting_token')
-          self.reporting_token = attributes[:'reporting_token']
-        end
-
-        if attributes.key?(:'tokenize')
-          self.tokenize = attributes[:'tokenize']
-        end
-
-        if attributes.key?(:'payment_product_id')
-          self.payment_product_id = attributes[:'payment_product_id']
-        end
-
-        if attributes.key?(:'payment_product840_specific_input')
-          self.payment_product840_specific_input = attributes[:'payment_product840_specific_input']
-        end
-
-        if attributes.key?(:'redirection_data')
-          self.redirection_data = attributes[:'redirection_data']
+        if attributes.key?(:'capture_reference')
+          self.capture_reference = attributes[:'capture_reference']
         end
       end
 
@@ -111,13 +66,8 @@ module PCPServerSDK
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
-            requires_approval == o.requires_approval &&
-            payment_processing_token == o.payment_processing_token &&
-            reporting_token == o.reporting_token &&
-            tokenize == o.tokenize &&
-            payment_product_id == o.payment_product_id &&
-            payment_product840_specific_input == o.payment_product840_specific_input &&
-            redirection_data == o.redirection_data
+            merchant_reference == o.merchant_reference &&
+            capture_reference == o.capture_reference
       end
 
       # @see the `==` method
@@ -129,7 +79,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [requires_approval, payment_processing_token, reporting_token, tokenize, payment_product_id, payment_product840_specific_input, redirection_data].hash
+        [merchant_reference, capture_reference].hash
       end
 
       # Builds the object from hash
