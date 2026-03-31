@@ -73,6 +73,14 @@ module PCPServerSDK
         end
       end
 
+      # Checks equality by comparing each attribute.
+      # @param [Object] Object to be compared
+      def ==(o)
+        return true if self.equal?(o)
+        self.class == o.class &&
+            cancellation_reason == o.cancellation_reason
+      end
+
       # @see the `==` method
       # @param [Object] Object to be compared
       def eql?(o)

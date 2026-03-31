@@ -33,7 +33,7 @@ module PCPServerSDK
       def self.openapi_types
         {
           :'amount_of_money' => :'PositiveAmountOfMoney',
-          :'references' => :'PaymentReferences',
+          :'references' => :'PaymentReferencesForRefund',
           :'_return' => :'ReturnInformation',
           :'fund_split' => :'FundSplit'
         }

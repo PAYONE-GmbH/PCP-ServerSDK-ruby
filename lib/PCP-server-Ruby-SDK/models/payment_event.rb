@@ -5,6 +5,9 @@ require 'time'
 module PCPServerSDK
   module Models
     class PaymentEvent
+      # Unique identifier of the payment event.
+      attr_accessor :payment_event_id
+
       attr_accessor :type
 
       attr_accessor :amount_of_money
@@ -17,6 +20,12 @@ module PCPServerSDK
       attr_accessor :return_reason
 
       attr_accessor :payment_instructions
+
+      # The date and time the payment event was created. Format: YYYY-MM-DDThh:mm:ss+TZD
+      attr_accessor :creation_date_time
+
+      # Unique reference of the Commerce Case that is also returned for reporting and reconciliation purposes.
+      attr_accessor :merchant_reference
 
       class EnumAttributeValidator
         attr_reader :datatype
@@ -43,12 +52,15 @@ module PCPServerSDK
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
+          :'payment_event_id' => :'paymentEventId',
           :'type' => :'type',
           :'amount_of_money' => :'amountOfMoney',
           :'payment_status' => :'paymentStatus',
           :'cancellation_reason' => :'cancellationReason',
           :'return_reason' => :'returnReason',
-          :'payment_instructions' => :'paymentInstructions'
+          :'payment_instructions' => :'paymentInstructions',
+          :'creation_date_time' => :'creationDateTime',
+          :'merchant_reference' => :'merchantReference'
         }
       end
 
@@ -60,12 +72,15 @@ module PCPServerSDK
       # Attribute type mapping.
       def self.openapi_types
         {
+          :'payment_event_id' => :'String',
           :'type' => :'PaymentType',
           :'amount_of_money' => :'AmountOfMoney',
           :'payment_status' => :'StatusValue',
           :'cancellation_reason' => :'CancellationReason',
           :'return_reason' => :'String',
-          :'payment_instructions' => :'PaymentInstructions'
+          :'payment_instructions' => :'PaymentInstructions',
+          :'creation_date_time' => :'Time',
+          :'merchant_reference' => :'String'
         }
       end
 
@@ -88,6 +103,10 @@ module PCPServerSDK
           end
           h[k.to_sym] = v
         }
+
+        if attributes.key?(:'payment_event_id')
+          self.payment_event_id = attributes[:'payment_event_id']
+        end
 
         if attributes.key?(:'type')
           self.type = attributes[:'type']
@@ -112,18 +131,29 @@ module PCPServerSDK
         if attributes.key?(:'payment_instructions')
           self.payment_instructions = attributes[:'payment_instructions']
         end
+
+        if attributes.key?(:'creation_date_time')
+          self.creation_date_time = attributes[:'creation_date_time']
+        end
+
+        if attributes.key?(:'merchant_reference')
+          self.merchant_reference = attributes[:'merchant_reference']
+        end
       end
 
       # Checks equality by comparing each attribute.
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
+            payment_event_id == o.payment_event_id &&
             type == o.type &&
             amount_of_money == o.amount_of_money &&
             payment_status == o.payment_status &&
             cancellation_reason == o.cancellation_reason &&
             return_reason == o.return_reason &&
-            payment_instructions == o.payment_instructions
+            payment_instructions == o.payment_instructions &&
+            creation_date_time == o.creation_date_time &&
+            merchant_reference == o.merchant_reference
       end
 
       def eql?(o)
@@ -131,7 +161,7 @@ module PCPServerSDK
       end
 
       def hash
-        [type, amount_of_money, payment_status, cancellation_reason, return_reason, payment_instructions].hash
+        [payment_event_id, type, amount_of_money, payment_status, cancellation_reason, return_reason, payment_instructions, creation_date_time, merchant_reference].hash
       end
 
       # Builds the object from hash

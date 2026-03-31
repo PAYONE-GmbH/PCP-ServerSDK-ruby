@@ -25,6 +25,9 @@ module PCPServerSDK
       # Tax on the line item, with the last two digits implied as decimal places
       attr_accessor :tax_amount
 
+      # Indicates if the taxAmount is to be interpreted as the tax amount per unit rather than for the entire line item.
+      attr_accessor :tax_amount_per_unit
+
       # URL of the product in shop.   Used for PAYONE Buy Now, Pay Later (BNPL).
       attr_accessor :product_url
 
@@ -71,6 +74,7 @@ module PCPServerSDK
           :'product_type' => :'productType',
           :'quantity' => :'quantity',
           :'tax_amount' => :'taxAmount',
+          :'tax_amount_per_unit' => :'taxAmountPerUnit',
           :'product_url' => :'productUrl',
           :'product_image_url' => :'productImageUrl',
           :'product_category_path' => :'productCategoryPath',
@@ -93,6 +97,7 @@ module PCPServerSDK
           :'product_type' => :'ProductType',
           :'quantity' => :'Integer',
           :'tax_amount' => :'Integer',
+          :'tax_amount_per_unit' => :'Boolean',
           :'product_url' => :'String',
           :'product_image_url' => :'String',
           :'product_category_path' => :'String',
@@ -163,6 +168,10 @@ module PCPServerSDK
           self.tax_amount = attributes[:'tax_amount']
         end
 
+        if attributes.key?(:'tax_amount_per_unit')
+          self.tax_amount_per_unit = attributes[:'tax_amount_per_unit']
+        end
+
         if attributes.key?(:'product_url')
           self.product_url = attributes[:'product_url']
         end
@@ -192,6 +201,7 @@ module PCPServerSDK
             product_type == o.product_type &&
             quantity == o.quantity &&
             tax_amount == o.tax_amount &&
+            tax_amount_per_unit == o.tax_amount_per_unit &&
             product_url == o.product_url &&
             product_image_url == o.product_image_url &&
             product_category_path == o.product_category_path &&
@@ -207,7 +217,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [id, status, product_code, product_price, product_type, quantity, tax_amount, product_url, product_image_url, product_category_path, merchant_shop_delivery_reference].hash
+        [id, status, product_code, product_price, product_type, quantity, tax_amount, tax_amount_per_unit, product_url, product_image_url, product_category_path, merchant_shop_delivery_reference].hash
       end
 
       # Builds the object from hash
