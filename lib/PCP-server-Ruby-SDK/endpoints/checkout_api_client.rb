@@ -125,6 +125,8 @@ module PCPServerSDK
         nil
       end
 
+      alias remove_checkout_request delete_checkout_request
+
       # Complete a checkout
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
