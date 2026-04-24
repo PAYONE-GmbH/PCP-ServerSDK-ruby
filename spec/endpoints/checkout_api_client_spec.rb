@@ -209,7 +209,7 @@ RSpec.describe PCPServerSDK::Endpoints::CheckoutApiClient do
     end
   end
 
-  describe '#remove_checkout_request' do
+  describe '#delete_checkout_request' do
     context 'when request is successful' do
       let(:response) { double('Response', body: '{}', code: 200) }
 
@@ -218,7 +218,7 @@ RSpec.describe PCPServerSDK::Endpoints::CheckoutApiClient do
       end
 
       it 'does not raise an error' do
-        expect { client.remove_checkout_request('1', '2', '3') }.not_to raise_error
+        expect { client.delete_checkout_request('1', '2', '3') }.not_to raise_error
       end
     end
 
@@ -230,7 +230,7 @@ RSpec.describe PCPServerSDK::Endpoints::CheckoutApiClient do
       end
 
       it 'raises an PCPServerSDK::Errors::ApiErrorResponseException' do
-        expect { client.remove_checkout_request('1', '2', '3') }.to raise_error(PCPServerSDK::Errors::ApiErrorResponseException)
+        expect { client.delete_checkout_request('1', '2', '3') }.to raise_error(PCPServerSDK::Errors::ApiErrorResponseException)
       end
     end
 
@@ -242,15 +242,37 @@ RSpec.describe PCPServerSDK::Endpoints::CheckoutApiClient do
       end
 
       it 'raises an PCPServerSDK::Errors::ApiResponseRetrievalException' do
-        expect { client.remove_checkout_request('1', '2', '3') }.to raise_error(PCPServerSDK::Errors::ApiResponseRetrievalException)
+        expect { client.delete_checkout_request('1', '2', '3') }.to raise_error(PCPServerSDK::Errors::ApiResponseRetrievalException)
       end
     end
 
     context 'when some params are nil' do
       it 'raises a TypeError' do
-        expect { client.remove_checkout_request(nil, '2', '3') }.to raise_error(TypeError, 'Merchant ID is required')
-        expect { client.remove_checkout_request('1', nil, '3') }.to raise_error(TypeError, 'Commerce Case ID is required')
-        expect { client.remove_checkout_request('1', '2', nil) }.to raise_error(TypeError, 'Checkout ID is required')
+        expect { client.delete_checkout_request(nil, '2', '3') }.to raise_error(TypeError, 'Merchant ID is required')
+        expect { client.delete_checkout_request('1', nil, '3') }.to raise_error(TypeError, 'Commerce Case ID is required')
+        expect { client.delete_checkout_request('1', '2', nil) }.to raise_error(TypeError, 'Checkout ID is required')
+      end
+    end
+  end
+
+  describe '#delete_checkout_request' do
+    context 'when request is successful' do
+      let(:response) { double('Response', body: '{}', code: 200) }
+
+      before do
+        allow(client).to receive(:get_response).and_return(response)
+      end
+
+      it 'does not raise an error' do
+        expect { client.delete_checkout_request('1', '2', '3') }.not_to raise_error
+      end
+    end
+
+    context 'when some params are nil' do
+      it 'raises a TypeError' do
+        expect { client.delete_checkout_request(nil, '2', '3') }.to raise_error(TypeError, 'Merchant ID is required')
+        expect { client.delete_checkout_request('1', nil, '3') }.to raise_error(TypeError, 'Commerce Case ID is required')
+        expect { client.delete_checkout_request('1', '2', nil) }.to raise_error(TypeError, 'Checkout ID is required')
       end
     end
   end

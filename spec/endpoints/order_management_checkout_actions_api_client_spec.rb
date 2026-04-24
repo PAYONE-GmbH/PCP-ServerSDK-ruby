@@ -113,6 +113,57 @@ RSpec.describe PCPServerSDK::Endpoints::OrderManagementCheckoutActionsApiClient 
     end
   end
 
+  describe '#complete_order' do
+    let(:payload) { double('PCPServerSDK::Models::CompleteOrderRequest') }
+
+    context 'when request is successful' do
+      let(:response) { double('Response', body: '{}', code: '200') }
+      let(:expected_response) { PCPServerSDK::Models::CompletePaymentResponse.new }
+
+      before do
+        allow(client).to receive(:get_response).and_return(response)
+      end
+
+      it 'returns a successful response' do
+        result = client.complete_order('1', '2', '3', payload)
+        expect(result).to eq(expected_response)
+      end
+    end
+
+    context 'when request is unsuccessful (400)' do
+      let(:response) { double('Response', body: error_body, code: '400') }
+
+      before do
+        allow(client).to receive(:get_response).and_return(response)
+      end
+
+      it 'raises an PCPServerSDK::Errors::ApiErrorResponseException' do
+        expect { client.complete_order('1', '2', '3', payload) }.to raise_error(PCPServerSDK::Errors::ApiErrorResponseException)
+      end
+    end
+
+    context 'when request is unsuccessful (500)' do
+      let(:response) { double('Response', body: '{}', code: '500') }
+
+      before do
+        allow(client).to receive(:get_response).and_return(response)
+      end
+
+      it 'raises an PCPServerSDK::Errors::ApiResponseRetrievalException' do
+        expect { client.complete_order('1', '2', '3', payload) }.to raise_error(PCPServerSDK::Errors::ApiResponseRetrievalException)
+      end
+    end
+
+    context 'when some params are nil' do
+      it 'raises a TypeError' do
+        expect { client.complete_order(nil, '2', '3', payload) }.to raise_error(TypeError, 'Merchant ID is required')
+        expect { client.complete_order('1', nil, '3', payload) }.to raise_error(TypeError, 'Commerce Case ID is required')
+        expect { client.complete_order('1', '2', nil, payload) }.to raise_error(TypeError, 'Checkout ID is required')
+        expect { client.complete_order('1', '2', '3', nil) }.to raise_error(TypeError, 'Payload is required')
+      end
+    end
+  end
+
   describe '#return_order' do
     let(:payload) { double('PCPServerSDK::Models::ReturnRequest') }
 
