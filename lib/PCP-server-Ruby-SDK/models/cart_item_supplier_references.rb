@@ -56,6 +56,8 @@ module PCPServerSDK
 
         if attributes.key?(:'supplier_id')
           self.supplier_id = attributes[:'supplier_id']
+        else
+          self.supplier_id = nil
         end
 
         if attributes.key?(:'order_reference')
