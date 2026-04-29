@@ -3,6 +3,7 @@ require 'json'
 require 'uri'
 require_relative 'base_api_client'
 require_relative '../models/commerce_case_response'
+require_relative '../models/commerce_cases_response'
 require_relative '../models/create_commerce_case_response'
 require_relative '../models/customer'
 
@@ -54,8 +55,8 @@ module PCPServerSDK
 
       # Get commerce cases
       # @param merchant_id [String] The merchant identifier
-      # @param query_params [PCPServerSDK::Models::GetCommerceCasesQuery] The query parameters
-      # @return [Array<PCPServerSDK::Models::CommerceCaseResponse>] The commerce cases
+      # @param query_params [PCPServerSDK::Queries::GetCommerceCasesQuery] The query parameters
+      # @return [PCPServerSDK::Models::CommerceCasesResponse] The commerce cases
       def get_commerce_cases_request(merchant_id, query_params = nil)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
 
@@ -70,8 +71,8 @@ module PCPServerSDK
           headers: {}
         }
 
-        request = make_api_call(url.to_s, request_init)
-        request.map { |r| deserialize_json(r, PCPServerSDK::Models::CommerceCaseResponse) }
+        response = make_api_call(url.to_s, request_init)
+        deserialize_json(response, PCPServerSDK::Models::CommerceCasesResponse)
       end
 
       # Update a commerce case

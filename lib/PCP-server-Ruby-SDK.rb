@@ -52,6 +52,7 @@ require_relative 'PCP-server-Ruby-SDK/models/checkout_references'
 require_relative 'PCP-server-Ruby-SDK/models/checkout_response'
 require_relative 'PCP-server-Ruby-SDK/models/checkouts_response'
 require_relative 'PCP-server-Ruby-SDK/models/commerce_case_response'
+require_relative 'PCP-server-Ruby-SDK/models/commerce_cases_response'
 require_relative 'PCP-server-Ruby-SDK/models/company_information'
 require_relative 'PCP-server-Ruby-SDK/models/complete_financing_payment_method_specific_input'
 require_relative 'PCP-server-Ruby-SDK/models/complete_order_request'
@@ -175,6 +176,7 @@ require_relative 'PCP-server-Ruby-SDK/models/applepay/apple_pay_payment_data_hea
 require_relative 'PCP-server-Ruby-SDK/models/applepay/apple_pay_payment_method'
 require_relative 'PCP-server-Ruby-SDK/models/applepay/apple_pay_payment_method_type'
 require_relative 'PCP-server-Ruby-SDK/models/applepay/apple_pay_payment_token'
+require_relative 'PCP-server-Ruby-SDK/models/required_field_validation'
 
 # Queries
 require_relative 'PCP-server-Ruby-SDK/queries/get_checkouts_query'
@@ -191,6 +193,8 @@ require_relative 'PCP-server-Ruby-SDK/request_header_generator'
 require_relative 'PCP-server-Ruby-SDK/version'
 
 module PCPServerSDK
+  PCPServerSDK::Models::RequiredFieldValidation.install!
+
   class << self
     # Customize default settings for the SDK using block.
     #   PCPServerSDK.configure do |config|

@@ -1,3 +1,11 @@
+# [1.9.0](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v1.8.0...v1.9.0) (2026-04-29)
+
+### Features
+
+* feat: add alias for renamed function to avoid breaking change ([7f23ddba587455488fd9d89af2a3b20fbfe87f7d](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/commit/7f23ddba587455488fd9d89af2a3b20fbfe87f7d))
+* feat: add missing endpoints and response models ([669cd554f823a7a25c3a8ad4b2fa42ae7d760153](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/commit/669cd554f823a7a25c3a8ad4b2fa42ae7d760153))
+* feat: update API version to 1.50.0 ([62b42f84fe7945b434af4ce7ef340323bab633c1](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/commit/62b42f84fe7945b434af4ce7ef340323bab633c1))
+
 # [1.8.0](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v1.7.0...v1.8.0) (2026-03-31)
 
 ### Features
