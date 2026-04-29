@@ -1,7 +1,7 @@
 openapi: "3.0.3"
 
 info:
-  version: 1.49.0
+  version: 1.50.0
   title: "Commerce Platform API"
   description: |
     RESTful API for the creation of Commerce Cases with Checkouts and the execution of Payments.
@@ -25,7 +25,7 @@ tags:
     description: Resource for operations on Payment Information.
 
 paths:
-  "/v1/{merchantId}/commerce-cases":
+  '/v1/{merchantId}/commerce-cases':
     post:
       summary: Create a Commerce Case
       description: |-
@@ -37,15 +37,15 @@ paths:
         - CommerceCase
       operationId: createCommerceCase
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateCommerceCaseRequest"
+              $ref: '#/components/schemas/CreateCommerceCaseRequest'
       responses:
-        "201":
+        '201':
           x-nullable: true
           description: |-
             The response contains the references to the Commerce Case and the Checkout and if autoExecuteOrder was set
@@ -53,8 +53,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateCommerceCaseResponse"
-        "202":
+                $ref: '#/components/schemas/CreateCommerceCaseResponse'
+        '202':
           x-nullable: true
           description: |-
             The response contains the references to the Commerce case and the Checkout. Status code 202 will be returned
@@ -62,14 +62,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateCommerceCaseResponse"
-        "400":
+                $ref: '#/components/schemas/CreateCommerceCaseResponse'
+        '400':
           x-nullable: true
           description: Commerce Case not found.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
     get:
       summary: Get a list of Commerce Cases based on Search Parameters
       description: |
@@ -80,18 +80,18 @@ paths:
         - CommerceCase
       operationId: getCommerceCases
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/offset"
-        - $ref: "#/components/parameters/size"
-        - $ref: "#/components/parameters/fromDate"
-        - $ref: "#/components/parameters/toDate"
-        - $ref: "#/components/parameters/commerceCaseIdQuery"
-        - $ref: "#/components/parameters/merchantReference"
-        - $ref: "#/components/parameters/merchantCustomerId"
-        - $ref: "#/components/parameters/includeCheckoutStatus"
-        - $ref: "#/components/parameters/includePaymentChannel"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/size'
+        - $ref: '#/components/parameters/fromDate'
+        - $ref: '#/components/parameters/toDate'
+        - $ref: '#/components/parameters/commerceCaseIdQuery'
+        - $ref: '#/components/parameters/merchantReference'
+        - $ref: '#/components/parameters/merchantCustomerId'
+        - $ref: '#/components/parameters/includeCheckoutStatus'
+        - $ref: '#/components/parameters/includePaymentChannel'
       responses:
-        "200":
+        '200':
           x-nullable: true
           description: |
             The response contains all Commerce Cases and Checkouts that match with the provided criteria. 
@@ -99,15 +99,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CommerceCasesResponse"
-        "400":
+                $ref: '#/components/schemas/CommerceCasesResponse'
+        '400':
           x-nullable: true
           description: Exception when requesting Checkouts with unknown parameters.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}':
     get:
       summary: Get Commerce Case Details
       description: This endpoint can be used to get a specific Commerce Case and all linked Checkouts.
@@ -115,23 +115,23 @@ paths:
         - CommerceCase
       operationId: getCommerceCase
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
       responses:
-        "200":
+        '200':
           x-nullable: true
           description: The response contains the Commerce Case and all linked Checkout.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CommerceCaseResponse"
-        "404":
+                $ref: '#/components/schemas/CommerceCaseResponse'
+        '404':
           x-nullable: true
           description: Checkout not found.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
     patch:
       summary: Modify an existing Commerce Case.
       description: This endpoint can be used to update or modify the customer object of a Commerce Case.
@@ -139,19 +139,19 @@ paths:
         - CommerceCase
       operationId: updateCommerceCase
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PatchCommerceCaseRequest"
+              $ref: '#/components/schemas/PatchCommerceCaseRequest'
       responses:
-        "204":
+        '204':
           x-nullable: true
           description: The Commerce Case was updated successfully.
-        "400":
+        '400':
           x-nullable: true
           description: |-
             The request was malformed or was missing required data. When a required property was missing the error
@@ -159,22 +159,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           x-nullable: true
           description: Commerce Case not found.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "503":
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
           x-nullable: true
           description: Service unavailable.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/order":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/order':
     post:
       summary: Creates an Order that will automatially execute a Payment
       description: |
@@ -185,24 +185,24 @@ paths:
         - OrderManagementCheckoutActions
       operationId: createOrder
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/OrderRequest"
+              $ref: '#/components/schemas/OrderRequest'
       responses:
-        "201":
+        '201':
           x-nullable: true
           description: The order request was successfully processed and a payment object was created.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrderResponse"
-        "400":
+                $ref: '#/components/schemas/OrderResponse'
+        '400':
           x-nullable: true
           description: |-
             The request was malformed or was missing required data. When a required property was missing the error
@@ -210,36 +210,36 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "402":
+                $ref: '#/components/schemas/ErrorResponse'
+        '402':
           x-nullable: true
           description: The payment was declined by a 3rd party (acquirer, payment processor, etc.)
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "403":
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
           x-nullable: true
           description: You are not allowed to access the service or account or your API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           x-nullable: true
           description: Payment not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "409":
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
           x-nullable: true
           description: Conflict
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "502":
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
           x-nullable: true
           description: |-
             Any 5XX response points to something that went wrong on our end. This could also be that the system was
@@ -248,15 +248,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "503":
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
           x-nullable: true
           description: Service unavailable
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/complete-order":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/complete-order':
     post:
       summary: Complete an Order
       description: |-
@@ -269,14 +269,14 @@ paths:
         - OrderManagementCheckoutActions
       operationId: completeOrder
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CompleteOrderRequest"
+              $ref: '#/components/schemas/CompleteOrderRequest'
         required: true
       responses:
         200:
@@ -284,60 +284,59 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CompletePaymentResponse"
+                $ref: '#/components/schemas/CompletePaymentResponse'
         400:
           description: Incorrect input data
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         402:
           description: The payment was declined by a 3rd party (acquirer, payment processor, etc.)
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         403:
           description: You are not allowed to access the service or account or your API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         409:
           description: Complete is not allowed
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         422:
           description: The request was well-formed but was unable to be processed due to semantic errors
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         500:
           description: Internal server exception
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         502:
-          description:
-            Any 5XX response points to something that went wrong on our
+          description: Any 5XX response points to something that went wrong on our
             end. This could also be that the system was unable to route the transaction
             to an appropriate acquirer/3rd party. Another reason for such a response
             is when the 3rd party's response could not be understood.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         503:
           description: Service unavailable
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/deliver":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/deliver':
     post:
       summary: Mark items of a Checkout as delivered and automatically capture the payment for the items
       description: |
@@ -351,24 +350,24 @@ paths:
         - OrderManagementCheckoutActions
       operationId: deliverOrder
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DeliverRequest"
+              $ref: '#/components/schemas/DeliverRequest'
       responses:
-        "201":
+        '201':
           x-nullable: true
           description: The deliver was successfully created.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DeliverResponse"
-        "400":
+                $ref: '#/components/schemas/DeliverResponse'
+        '400':
           x-nullable: true
           description: |-
             The request was malformed or was missing required data. When a required property was missing the error
@@ -376,15 +375,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "403":
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
           x-nullable: true
           description: You are not allowed to access the service or account or your API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           x-nullable: true
           description: |-
             The most common cause for this response is that the Checkout status was not PENDING_COMPLETION, BILLED or
@@ -392,8 +391,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/return":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/return':
     post:
       summary: Mark items of a Checkout as returned and automatically refund the payment for the items
       description: |
@@ -405,24 +404,24 @@ paths:
         - OrderManagementCheckoutActions
       operationId: returnOrder
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
       requestBody:
         required: false
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ReturnRequest"
+              $ref: '#/components/schemas/ReturnRequest'
       responses:
-        "201":
+        '201':
           x-nullable: true
           description: The return was successfully executed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ReturnResponse"
-        "400":
+                $ref: '#/components/schemas/ReturnResponse'
+        '400':
           x-nullable: true
           description: |-
             The request was malformed or was missing required data. When a required property was missing the error
@@ -430,15 +429,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "403":
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
           x-nullable: true
           description: You are not allowed to access the service or account or your API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           x-nullable: true
           description: |-
             The most common cause for this response is that the Checkout status was not PENDING_COMPLETION, BILLED or
@@ -446,8 +445,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/cancel":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/cancel':
     post:
       summary: Mark items of a Checkout as cancelled and automatically cancel the payment for the items
       description: |-
@@ -456,7 +455,7 @@ paths:
         The Cancel endpoint can be used to cancel a full or partial order. 
         The Cancel request will mark all or (for cancelType PARTIAL) the provided items as CANCELLED, and – in case of
         an existing authorization – will reverse the payment.
-
+        
         In the light of card payments, reversing an authorization that is not needed will prevent you from having to pay
         a fee/penalty for unused authorization requests.
         Whilst scheme regulations require that acquirers and PSPs support authorization reversals, there are no rules
@@ -472,17 +471,17 @@ paths:
         - OrderManagementCheckoutActions
       operationId: cancelOrder
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
       requestBody:
         required: false
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CancelRequest"
+              $ref: '#/components/schemas/CancelRequest'
       responses:
-        "200":
+        '200':
           x-nullable: true
           description: |-
             The payment has been cancelled. Some acquirers/issuers will provide some feedback in case a reversal of the
@@ -490,50 +489,50 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CancelResponse"
-        "400":
+                $ref: '#/components/schemas/CancelResponse'
+        '400':
           x-nullable: true
           description: Incorrect input data
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "402":
+                $ref: '#/components/schemas/ErrorResponse'
+        '402':
           x-nullable: true
           description: Payment required
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "403":
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
           x-nullable: true
           description: You are not allowed to access the service or account or your API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           x-nullable: true
           description: Payment was not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "409":
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
           x-nullable: true
           description: Cancellation is not allowed because payment is closed
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "500":
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
           x-nullable: true
           description: Internal server exception
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts':
     post:
       summary: Add a Checkout to an existing Commerce Case
       description: |-
@@ -544,38 +543,38 @@ paths:
         - Checkout
       operationId: createCheckout
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateCheckoutRequest"
+              $ref: '#/components/schemas/CreateCheckoutRequest'
       responses:
-        "201":
+        '201':
           x-nullable: true
           description: The response contains the reference of the Checkout and possible the response for the payment.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateCheckoutResponse"
-        "202":
+                $ref: '#/components/schemas/CreateCheckoutResponse'
+        '202':
           x-nullable: true
           description: |-
             The response contains the reference of the Checkout. But the Payment Execution was not successful.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateCheckoutResponse"
-        "400":
+                $ref: '#/components/schemas/CreateCheckoutResponse'
+        '400':
           x-nullable: true
           description: Payment not found.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/checkouts":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/checkouts':
     get:
       summary: Get a list of Checkouts based on Search Parameters
       description: |
@@ -587,57 +586,57 @@ paths:
         - Checkout
       operationId: getCheckouts
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/offset"
-        - $ref: "#/components/parameters/size"
-        - $ref: "#/components/parameters/fromDate"
-        - $ref: "#/components/parameters/toDate"
-        - $ref: "#/components/parameters/fromCheckoutAmount"
-        - $ref: "#/components/parameters/toCheckoutAmount"
-        - $ref: "#/components/parameters/fromOpenAmount"
-        - $ref: "#/components/parameters/toOpenAmount"
-        - $ref: "#/components/parameters/fromCollectedAmount"
-        - $ref: "#/components/parameters/toCollectedAmount"
-        - $ref: "#/components/parameters/fromCancelledAmount"
-        - $ref: "#/components/parameters/toCancelledAmount"
-        - $ref: "#/components/parameters/fromRefundAmount"
-        - $ref: "#/components/parameters/toRefundAmount"
-        - $ref: "#/components/parameters/fromChargebackAmount"
-        - $ref: "#/components/parameters/toChargebackAmount"
-        - $ref: "#/components/parameters/checkoutIdQuery"
-        - $ref: "#/components/parameters/merchantReference"
-        - $ref: "#/components/parameters/merchantCustomerId"
-        - $ref: "#/components/parameters/includePaymentProductId"
-        - $ref: "#/components/parameters/includeCheckoutStatus"
-        - $ref: "#/components/parameters/includeExtendedCheckoutStatus"
-        - $ref: "#/components/parameters/includePaymentChannel"
-        - $ref: "#/components/parameters/paymentReference"
-        - $ref: "#/components/parameters/paymentId"
-        - $ref: "#/components/parameters/firstName"
-        - $ref: "#/components/parameters/surname"
-        - $ref: "#/components/parameters/email"
-        - $ref: "#/components/parameters/phoneNumber"
-        - $ref: "#/components/parameters/dateOfBirth"
-        - $ref: "#/components/parameters/companyInformation"
-        - $ref: "#/components/parameters/terminalId"
-        - $ref: "#/components/parameters/reportingToken"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/size'
+        - $ref: '#/components/parameters/fromDate'
+        - $ref: '#/components/parameters/toDate'
+        - $ref: '#/components/parameters/fromCheckoutAmount'
+        - $ref: '#/components/parameters/toCheckoutAmount'
+        - $ref: '#/components/parameters/fromOpenAmount'
+        - $ref: '#/components/parameters/toOpenAmount'
+        - $ref: '#/components/parameters/fromCollectedAmount'
+        - $ref: '#/components/parameters/toCollectedAmount'
+        - $ref: '#/components/parameters/fromCancelledAmount'
+        - $ref: '#/components/parameters/toCancelledAmount'
+        - $ref: '#/components/parameters/fromRefundAmount'
+        - $ref: '#/components/parameters/toRefundAmount'
+        - $ref: '#/components/parameters/fromChargebackAmount'
+        - $ref: '#/components/parameters/toChargebackAmount'
+        - $ref: '#/components/parameters/checkoutIdQuery'
+        - $ref: '#/components/parameters/merchantReference'
+        - $ref: '#/components/parameters/merchantCustomerId'
+        - $ref: '#/components/parameters/includePaymentProductId'
+        - $ref: '#/components/parameters/includeCheckoutStatus'
+        - $ref: '#/components/parameters/includeExtendedCheckoutStatus'
+        - $ref: '#/components/parameters/includePaymentChannel'
+        - $ref: '#/components/parameters/paymentReference'
+        - $ref: '#/components/parameters/paymentId'
+        - $ref: '#/components/parameters/firstName'
+        - $ref: '#/components/parameters/surname'
+        - $ref: '#/components/parameters/email'
+        - $ref: '#/components/parameters/phoneNumber'
+        - $ref: '#/components/parameters/dateOfBirth'
+        - $ref: '#/components/parameters/companyInformation'
+        - $ref: '#/components/parameters/terminalId'
+        - $ref: '#/components/parameters/reportingToken'
       responses:
-        "200":
+        '200':
           x-nullable: true
           description: |
             The response containing all found Checkouts for the provided criteria.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CheckoutsResponse"
-        "400":
+                $ref: '#/components/schemas/CheckoutsResponse'
+        '400':
           x-nullable: true
           description: Exception when requesting Checkouts with given parameters.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}':
     get:
       summary: Get Checkout Details
       description: This endpoint can be used to get a Checkout.
@@ -645,24 +644,24 @@ paths:
         - Checkout
       operationId: getCheckout
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
       responses:
-        "200":
+        '200':
           x-nullable: true
           description: The response contains the Checkout.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CheckoutResponse"
-        "404":
+                $ref: '#/components/schemas/CheckoutResponse'
+        '404':
           x-nullable: true
           description: Checkout not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
     patch:
       summary: Modify a Checkout
       description: This endpoint can be used to update or modify the data of a Checkout.
@@ -670,33 +669,33 @@ paths:
         - Checkout
       operationId: updateCheckout
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PatchCheckoutRequest"
+              $ref: '#/components/schemas/PatchCheckoutRequest'
       responses:
-        "204":
+        '204':
           x-nullable: true
           description: The Checkout is updated successfully.
-        "400":
+        '400':
           x-nullable: true
           description: Payment not found.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "409":
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
           x-nullable: true
           description: Conflict
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
     delete:
       summary: Delete a Checkout
       description: This endpoint can be used to delete an unused Checkout.
@@ -704,28 +703,28 @@ paths:
         - Checkout
       operationId: deleteCheckout
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
       responses:
-        "204":
+        '204':
           x-nullable: true
           description: The Checkout was successfully deleted.
-        "403":
+        '403':
           x-nullable: true
           description: You are not allowed to delete the Checkout
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           x-nullable: true
           description: The Checkout could not be found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions':
     post:
       summary: Create a Payment
       description: |-
@@ -736,24 +735,24 @@ paths:
         - PaymentExecution
       operationId: createPayment
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PaymentExecutionRequest"
+              $ref: '#/components/schemas/PaymentExecutionRequest'
       responses:
-        "201":
+        '201':
           x-nullable: true
           description: The payment request was successfully processed and a payment object was created.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreatePaymentResponse"
-        "400":
+                $ref: '#/components/schemas/CreatePaymentResponse'
+        '400':
           x-nullable: true
           description: |-
             The request was malformed or was missing required data. When a required property was missing the error
@@ -761,36 +760,36 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "402":
+                $ref: '#/components/schemas/ErrorResponse'
+        '402':
           x-nullable: true
           description: The payment was declined by a 3rd party (acquirer, payment processor, etc.)
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "403":
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
           x-nullable: true
           description: You are not allowed to access the service or account or your API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           x-nullable: true
           description: Payment not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "409":
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
           x-nullable: true
           description: Conflict
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "502":
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
           x-nullable: true
           description: |-
             Any 5XX response points to something that went wrong on our end. This could also be that the system was
@@ -799,15 +798,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "503":
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
           x-nullable: true
           description: Service unavailable
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions/{paymentExecutionId}/capture":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions/{paymentExecutionId}/capture':
     post:
       summary: Capture a Payment
       description: |-
@@ -816,7 +815,7 @@ paths:
         OrderManagementActions will be impossible after using a PaymentExecution endpoint.
         It is possible to perform multiple partial captures by providing an amount that is lower than the total
         authorized amount.
-
+        
         The cancellationReason is mandatory for BNPL payment methods (paymentProductId 3390, 3391 and 3392) if isFinal
         is set to true and the amount of the Capture is lower than the authorized amount.
         For other payment methods the cancellationReason is not mandatory in this case but can be used for reporting and
@@ -825,25 +824,25 @@ paths:
         - PaymentExecution
       operationId: capturePaymentExecution
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
-        - $ref: "#/components/parameters/paymentExecutionId"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
+        - $ref: '#/components/parameters/paymentExecutionId'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CapturePaymentRequest"
+              $ref: '#/components/schemas/CapturePaymentRequest'
       responses:
-        "201":
+        '201':
           x-nullable: true
           description: The Capture was successfully created.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CapturePaymentResponse"
-        "400":
+                $ref: '#/components/schemas/CapturePaymentResponse'
+        '400':
           x-nullable: true
           description: |-
             The request was malformed or was missing required data. When a required property was missing the error
@@ -851,15 +850,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "403":
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
           x-nullable: true
           description: You are not allowed to access the service or account or your API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           x-nullable: true
           description: |-
             The most common cause for this response is that the Checkout status was not PENDING_COMPLETION, BILLED or
@@ -867,15 +866,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions/{paymentExecutionId}/cancel":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions/{paymentExecutionId}/cancel':
     post:
       summary: Cancel a Payment
       description: |-
         This endpoint can be used to reverse the payment associated with this Checkout. The Cancel is only possible for
         the entire amount of the payment and not partial payments.
         OrderManagementActions will be impossible after using a PaymentExecution endpoint.
-
+        
         In the light of card payments, reversing an authorization that is not needed will prevent you from having to pay
         a fee/penalty for unused authorization requests.
         Whilst scheme regulations require that acquirers and PSPs support authorization reversals, there are no rules
@@ -891,18 +890,18 @@ paths:
         - PaymentExecution
       operationId: cancelPaymentExecution
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
-        - $ref: "#/components/parameters/paymentExecutionId"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
+        - $ref: '#/components/parameters/paymentExecutionId'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CancelPaymentRequest"
+              $ref: '#/components/schemas/CancelPaymentRequest'
       responses:
-        "200":
+        '200':
           x-nullable: true
           description: |-
             The payment has been cancelled. Some acquirers/issuers will provide some feedback in case a reversal of the
@@ -910,50 +909,50 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CancelPaymentResponse"
-        "400":
+                $ref: '#/components/schemas/CancelPaymentResponse'
+        '400':
           x-nullable: true
           description: Incorrect input data
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "402":
+                $ref: '#/components/schemas/ErrorResponse'
+        '402':
           x-nullable: true
           description: Payment required
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "403":
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
           x-nullable: true
           description: You are not allowed to access the service or account or your API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           x-nullable: true
           description: Payment was not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "409":
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
           x-nullable: true
           description: Cancellation is not allowed because payment is closed
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "500":
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
           x-nullable: true
           description: Internal server exception
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions/{paymentExecutionId}/refund":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions/{paymentExecutionId}/refund':
     post:
       summary: Refund a Payment
       description: |-
@@ -964,25 +963,25 @@ paths:
         - PaymentExecution
       operationId: refundPaymentExecution
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
-        - $ref: "#/components/parameters/paymentExecutionId"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
+        - $ref: '#/components/parameters/paymentExecutionId'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RefundRequest"
+              $ref: '#/components/schemas/RefundRequest'
       responses:
-        "201":
+        '201':
           x-nullable: true
           description: The Refund was successfully created.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RefundPaymentResponse"
-        "400":
+                $ref: '#/components/schemas/RefundPaymentResponse'
+        '400':
           x-nullable: true
           description: |-
             The request was malformed or was missing required data. When a required property was missing the error
@@ -990,22 +989,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RefundErrorResponse"
-        "403":
+                $ref: '#/components/schemas/RefundErrorResponse'
+        '403':
           x-nullable: true
           description: You are not allowed to access the service or account or your API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           x-nullable: true
           description: The most common cause for this response id that the payment was not in a cancelable state.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RefundErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions/{paymentExecutionId}/complete":
+                $ref: '#/components/schemas/RefundErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions/{paymentExecutionId}/complete':
     post:
       summary: Complete a Payment
       description: |-
@@ -1019,15 +1018,15 @@ paths:
         - PaymentExecution
       operationId: completePayment
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
-        - $ref: "#/components/parameters/paymentExecutionId"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
+        - $ref: '#/components/parameters/paymentExecutionId'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CompletePaymentRequest"
+              $ref: '#/components/schemas/CompletePaymentRequest'
         required: true
       responses:
         200:
@@ -1035,67 +1034,66 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CompletePaymentResponse"
+                $ref: '#/components/schemas/CompletePaymentResponse'
         400:
           description: Incorrect input data
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         402:
           description: The payment was declined by a 3rd party (acquirer, payment processor, etc.)
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         403:
           description: You are not allowed to access the service or account or your API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         409:
           description: Complete is not allowed
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         422:
           description: The request was well-formed but was unable to be processed due to semantic errors
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         500:
           description: Internal server exception
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         502:
-          description:
-            Any 5XX response points to something that went wrong on our
+          description: Any 5XX response points to something that went wrong on our
             end. This could also be that the system was unable to route the transaction
             to an appropriate acquirer/3rd party. Another reason for such a response
             is when the 3rd party's response could not be understood.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         503:
           description: Service unavailable
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions/{paymentExecutionId}/pause":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions/{paymentExecutionId}/pause':
     post:
       summary: Pause a Payment for selected payment methods
       description: |-
         Defers next dunning step-up after a consumer has announced to send
         back a shipped order. Merchant intends to do a REFUND call soon.
         OrderManagementActions will be impossible after using a PaymentExecution endpoint.
-
+        
         Currently only applicable for PAYONE Buy Now, Pay Later (BNPL).
 
         * 3390 - PAYONE Secured Invoice
@@ -1105,86 +1103,82 @@ paths:
         - PaymentExecution
       operationId: pausePayment
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
-        - $ref: "#/components/parameters/paymentExecutionId"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
+        - $ref: '#/components/parameters/paymentExecutionId'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PausePaymentRequest"
+              $ref: '#/components/schemas/PausePaymentRequest'
       responses:
         200:
           description: The pause was successful.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PausePaymentResponse"
+                $ref: '#/components/schemas/PausePaymentResponse'
         400:
           description: Incorrect input data
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         402:
-          description:
-            The payment was declined by a 3rd party (acquirer, payment
+          description: The payment was declined by a 3rd party (acquirer, payment
             processor, etc.)
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         403:
-          description:
-            You are not allowed to access the service or account or your
+          description: You are not allowed to access the service or account or your
             API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         409:
           description: Pause is not allowed
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         422:
-          description:
-            The request was well-formed but was unable to be processed
+          description: The request was well-formed but was unable to be processed
             due to semantic errors
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         500:
           description: Internal server exception
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         502:
-          description:
-            Any 5XX response points to something that went wrong on our
+          description: Any 5XX response points to something that went wrong on our
             end. This could also be that the system was unable to route the transaction
             to an appropriate acquirer/3rd party. Another reason for such a response
             is when the 3rd party's response could not be understood.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         503:
           description: Service unavailable
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions/{paymentExecutionId}/refresh":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-executions/{paymentExecutionId}/refresh':
     post:
       summary: Refresh information of a Payment Execution
       description: |-
         This endpoint can be used to refresh the information of a Payment Execution.
-
+        
         This endpoint can be used to refresh a Payment Execution in two different modes:
         * PAYMENT_EVENTS = Refresh all events that belong to a payment. It can be used for a synchronisation with
         the payment gateway e.g. in case of possible inconsistencies between the Commerce Platform and the payment gateway.
@@ -1192,7 +1186,7 @@ paths:
         * PAYMENT_PROVIDER_DETAILS = Refresh the payment status of the payment and return the payment provider details.
         It can be used for a synchronisation of the payment with the external payment provider. At the moment this call
         will update the customer payment status of a transaction for PAYONE Buy Now, Pay Later (BNPL).
-
+        
         ATTENTION: This Refresh endpoint includes a rate limit of one request per Payment Execution every twelve hours. 
         The reason for this rate limit that for the currently supported use case a change in payment provider details is 
         not expected to change more frequently.
@@ -1200,60 +1194,58 @@ paths:
         - PaymentExecution
       operationId: refreshPayment
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
-        - $ref: "#/components/parameters/paymentExecutionId"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
+        - $ref: '#/components/parameters/paymentExecutionId'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RefreshPaymentRequest"
+              $ref: '#/components/schemas/RefreshPaymentRequest'
       responses:
         200:
           description: The refresh was successful.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaymentExecution"
+                $ref: '#/components/schemas/PaymentExecution'
         400:
           description: Incorrect input data
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         403:
-          description:
-            You are not allowed to access the service or account or your
+          description: You are not allowed to access the service or account or your
             API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         500:
           description: Internal server exception
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         502:
-          description:
-            Any 5XX response points to something that went wrong on our
+          description: Any 5XX response points to something that went wrong on our
             end. This could also be that the system was unable to route the transaction
             to an appropriate acquirer/3rd party. Another reason for such a response
             is when the 3rd party's response could not be understood.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
         503:
           description: Service unavailable
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
+                $ref: '#/components/schemas/ErrorResponse'
 
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-information":
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-information':
     post:
       summary: Create a Payment Information
       description: |-
@@ -1262,52 +1254,52 @@ paths:
         - PaymentInformation
       operationId: createPaymentInformation
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PaymentInformationRequest"
+              $ref: '#/components/schemas/PaymentInformationRequest'
       responses:
-        "201":
+        '201':
           x-nullable: true
           description: The response contains the reference of the created Payment Information.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaymentInformationResponse"
-        "400":
+                $ref: '#/components/schemas/PaymentInformationResponse'
+        '400':
           x-nullable: true
           description: Incorrect input data
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           x-nullable: true
           description: Payment not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "409":
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
           x-nullable: true
           description: Creation of Payment Information is not allowed
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "500":
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
           x-nullable: true
           description: Internal server exception
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-information/{paymentInformationId}":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-information/{paymentInformationId}':
     get:
       summary: Get a Payment Information
       description: |-
@@ -1316,26 +1308,26 @@ paths:
         - PaymentInformation
       operationId: getPaymentInformation
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
-        - $ref: "#/components/parameters/paymentInformationId"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
+        - $ref: '#/components/parameters/paymentInformationId'
       responses:
-        "200":
+        '200':
           x-nullable: true
           description: The response contains the reference of the created Payment Information.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaymentInformationResponse"
-        "404":
+                $ref: '#/components/schemas/PaymentInformationResponse'
+        '404':
           x-nullable: true
           description: Payment not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-  "/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-information/{paymentInformationId}/refund":
+                $ref: '#/components/schemas/ErrorResponse'
+  '/v1/{merchantId}/commerce-cases/{commerceCaseId}/checkouts/{checkoutId}/payment-information/{paymentInformationId}/refund':
     post:
       summary: Refund a Payment Information
       description: |-
@@ -1345,25 +1337,25 @@ paths:
         - PaymentInformation
       operationId: refundPaymentInformation
       parameters:
-        - $ref: "#/components/parameters/merchantIdPath"
-        - $ref: "#/components/parameters/commerceCaseIdPath"
-        - $ref: "#/components/parameters/checkoutIdPath"
-        - $ref: "#/components/parameters/paymentInformationId"
+        - $ref: '#/components/parameters/merchantIdPath'
+        - $ref: '#/components/parameters/commerceCaseIdPath'
+        - $ref: '#/components/parameters/checkoutIdPath'
+        - $ref: '#/components/parameters/paymentInformationId'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PaymentInformationRefundRequest"
+              $ref: '#/components/schemas/PaymentInformationRefundRequest'
       responses:
-        "201":
+        '201':
           x-nullable: true
           description: The Refund was successfully created.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PaymentInformationRefundResponse"
-        "400":
+                $ref: '#/components/schemas/PaymentInformationRefundResponse'
+        '400':
           x-nullable: true
           description: |-
             The request was malformed or was missing required data. When a required property was missing the error
@@ -1371,21 +1363,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RefundErrorResponse"
-        "403":
+                $ref: '#/components/schemas/RefundErrorResponse'
+        '403':
           x-nullable: true
           description: You are not allowed to access the service or account or your API authentication failed.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "404":
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           x-nullable: true
           description: The most common cause for this response id that the payment was not in a cancelable state.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RefundErrorResponse"
+                $ref: '#/components/schemas/RefundErrorResponse'
 
 components:
   parameters:
@@ -1560,7 +1552,7 @@ components:
       schema:
         type: array
         items:
-          $ref: "#/components/schemas/StatusCheckout"
+          $ref: '#/components/schemas/StatusCheckout'
     includeExtendedCheckoutStatus:
       in: query
       name: includeExtendedCheckoutStatus
@@ -1569,7 +1561,7 @@ components:
       schema:
         type: array
         items:
-          $ref: "#/components/schemas/ExtendedCheckoutStatus"
+          $ref: '#/components/schemas/ExtendedCheckoutStatus'
     includePaymentChannel:
       in: query
       name: includePaymentChannel
@@ -1579,7 +1571,7 @@ components:
       schema:
         type: array
         items:
-          $ref: "#/components/schemas/PaymentChannel"
+          $ref: '#/components/schemas/PaymentChannel'
     includePaymentProductId:
       in: query
       name: includePaymentProductId
@@ -1667,7 +1659,7 @@ components:
       schema:
         type: string
         x-trim-at: 20
-      example: "+1234567890"
+      example: '+1234567890'
     reportingToken:
       in: query
       name: reportingToken
@@ -1889,7 +1881,7 @@ components:
           minLength: 2
           maxLength: 10
         name:
-          $ref: "#/components/schemas/PersonalName"
+          $ref: '#/components/schemas/PersonalName'
     AllowedPaymentActions:
       type: string
       enum:
@@ -2008,7 +2000,7 @@ components:
             signature includes the signing certificate, its intermediate CA certificate, and information about the
             signing algorithm.
         header:
-          $ref: "#/components/schemas/ApplePaymentDataTokenHeaderInformation"
+          $ref: '#/components/schemas/ApplePaymentDataTokenHeaderInformation'
       required:
         - version
         - signature
@@ -2025,7 +2017,7 @@ components:
         authortizations can be reversed and can be captured within 30 days. The capture amount can be lower than the
         authorized amount. 
           * SALE - The payment creation results in an authorization that is already captured at the moment of approval. 
-
+        
         If the parameter is not provided in the request, the default value will be PRE_AUTHORIZATION
     BankAccountInformation:
       type: object
@@ -2067,7 +2059,7 @@ components:
             Payment product identifier - please check product documentation for a full overview of possible values.
           example: 772
         paymentProduct772SpecificInput:
-          $ref: "#/components/schemas/SepaTransferPaymentProduct772SpecificInput"
+          $ref: '#/components/schemas/SepaTransferPaymentProduct772SpecificInput'
     CancelItem:
       type: object
       properties:
@@ -2117,13 +2109,13 @@ components:
       type: object
       properties:
         cancellationReason:
-          $ref: "#/components/schemas/CancellationReason"
+          $ref: '#/components/schemas/CancellationReason'
     CancelPaymentResponse:
       type: object
       additionalProperties: false
       properties:
         payment:
-          $ref: "#/components/schemas/PaymentResponse"
+          $ref: '#/components/schemas/PaymentResponse'
     CancelRequest:
       type: object
       description: |
@@ -2132,26 +2124,26 @@ components:
         A Cancel can be created for a full or the partial ShoppingCart of the Checkout. 
         The platform will automatically calculate the respective amount to trigger the Cancel. For a partial Cancel a
         list of items must be provided.
-
+        
         The cancellationReason is mandatory for BNPL payment methods (paymentProductId 3390, 3391 and 3392).
         For other payment methods the cancellationReason is not mandatory but can be used for reporting and
         reconciliation purposes.
       properties:
         cancelType:
-          $ref: "#/components/schemas/CancelType"
+          $ref: '#/components/schemas/CancelType'
         cancellationReason:
-          $ref: "#/components/schemas/CancellationReason"
+          $ref: '#/components/schemas/CancellationReason'
         cancelItems:
           type: array
           items:
-            $ref: "#/components/schemas/CancelItem"
+            $ref: '#/components/schemas/CancelItem'
     CancelResponse:
       type: object
       properties:
         cancelPaymentResponse:
-          $ref: "#/components/schemas/CancelPaymentResponse"
+          $ref: '#/components/schemas/CancelPaymentResponse'
         shoppingCart:
-          $ref: "#/components/schemas/ShoppingCartResult"
+          $ref: '#/components/schemas/ShoppingCartResult'
     CancelType:
       type: string
       description: |
@@ -2162,7 +2154,7 @@ components:
         should not be made for the entire ShoppingCart. For this type the list of items has to be provided. 
         Please note that a reversal for a partial payment will not reverse the respective amount from the authorization
         but only reduces the openAmount that is ready for collecting.
-
+        
         Following conditions apply to the Cancel request:
           * items must be in status ORDERED
           * there was no Capture, Refund or Cancel triggered over the Payment Execution resource
@@ -2178,7 +2170,7 @@ components:
       additionalProperties: false
       properties:
         amountOfMoney:
-          $ref: "#/components/schemas/AmountOfMoney"
+          $ref: '#/components/schemas/AmountOfMoney'
         merchantParameters:
           type: string
           description: |-
@@ -2187,12 +2179,12 @@ components:
           maxLength: 1000
           example: "{'SessionID':'126548354','ShopperID':'7354131'}"
         references:
-          $ref: "#/components/schemas/PaymentReferences"
+          $ref: '#/components/schemas/PaymentReferences'
         paymentMethod:
           type: string
           description: Payment method identifier used by our payment engine.
         paymentInstructions:
-          $ref: "#/components/schemas/PaymentInstructions"
+          $ref: '#/components/schemas/PaymentInstructions'
     CapturePaymentRequest:
       type: object
       additionalProperties: false
@@ -2217,29 +2209,29 @@ components:
             This property indicates whether this will be the final operation. 
             If the full amount should not captured but the property is set to true, the remaining amount will automatically be cancelled.
         cancellationReason:
-          $ref: "#/components/schemas/CancellationReason"
+          $ref: '#/components/schemas/CancellationReason'
         references:
-          $ref: "#/components/schemas/PaymentReferences"
+          $ref: '#/components/schemas/PaymentReferences'
         delivery:
-          $ref: "#/components/schemas/DeliveryInformation"
+          $ref: '#/components/schemas/DeliveryInformation'
         fundSplit:
-          $ref: "#/components/schemas/FundSplit"
+          $ref: '#/components/schemas/FundSplit'
     CapturePaymentResponse:
       type: object
       additionalProperties: false
       properties:
         captureOutput:
-          $ref: "#/components/schemas/CaptureOutput"
+          $ref: '#/components/schemas/CaptureOutput'
         status:
-          $ref: "#/components/schemas/StatusValue"
+          $ref: '#/components/schemas/StatusValue'
         statusOutput:
-          $ref: "#/components/schemas/PaymentStatusOutput"
+          $ref: '#/components/schemas/PaymentStatusOutput'
         fundSplit:
-          $ref: "#/components/schemas/FundSplit"
+          $ref: '#/components/schemas/FundSplit'
         id:
           type: string
           description: Unique payment transaction identifier of the payment gateway.
-          example: "3066019730_1"
+          example: '3066019730_1'
     CardFraudResults:
       type: object
       description: |
@@ -2343,7 +2335,7 @@ components:
       description: Detailed information regarding an occurred payment event.
       properties:
         cartItemStatus:
-          $ref: "#/components/schemas/CartItemStatus"
+          $ref: '#/components/schemas/CartItemStatus'
         quantity:
           type: integer
           description: |-
@@ -2359,9 +2351,9 @@ components:
       additionalProperties: false
       properties:
         authorizationMode:
-          $ref: "#/components/schemas/AuthorizationMode"
+          $ref: '#/components/schemas/AuthorizationMode'
         recurring:
-          $ref: "#/components/schemas/CardRecurrenceDetails"
+          $ref: '#/components/schemas/CardRecurrenceDetails'
         paymentProcessingToken:
           type: string
           description: ID of the token to use to create the payment.
@@ -2374,15 +2366,15 @@ components:
           example: 12a037cc-833d-8b45-8f6f-11c34171f4e1
           maxLength: 40
         transactionChannel:
-          $ref: "#/components/schemas/TransactionChannel"
+          $ref: '#/components/schemas/TransactionChannel'
         unscheduledCardOnFileRequestor:
-          $ref: "#/components/schemas/UnscheduledCardOnFileRequestor"
+          $ref: '#/components/schemas/UnscheduledCardOnFileRequestor'
         unscheduledCardOnFileSequenceIndicator:
-          $ref: "#/components/schemas/UnscheduledCardOnFileSequenceIndicator"
+          $ref: '#/components/schemas/UnscheduledCardOnFileSequenceIndicator'
         paymentProductId:
-          $ref: "#/components/schemas/PaymentProductId"
+          $ref: '#/components/schemas/PaymentProductId'
         card:
-          $ref: "#/components/schemas/CardInfo"
+          $ref: '#/components/schemas/CardInfo'
         returnUrl:
           type: string
           description: |-
@@ -2403,7 +2395,7 @@ components:
             * Yearly
             * Quarterly
             * Monthly
-
+            
             * Weekly
             * Daily
             Supported soon
@@ -2427,14 +2419,14 @@ components:
       additionalProperties: false
       properties:
         paymentProductId:
-          $ref: "#/components/schemas/PaymentProductId"
+          $ref: '#/components/schemas/PaymentProductId'
         authorisationCode:
           description: Card Authorization code as returned by the acquirer
           type: string
         fraudResults:
-          $ref: "#/components/schemas/CardFraudResults"
+          $ref: '#/components/schemas/CardFraudResults'
         threeDSecureResults:
-          $ref: "#/components/schemas/ThreeDSecureResults"
+          $ref: '#/components/schemas/ThreeDSecureResults'
     CardRecurrenceDetails:
       type: object
       description: Object containing data related to recurring.
@@ -2461,11 +2453,11 @@ components:
       additionalProperties: false
       properties:
         invoiceData:
-          $ref: "#/components/schemas/CartItemInvoiceData"
+          $ref: '#/components/schemas/CartItemInvoiceData'
         orderLineDetails:
-          $ref: "#/components/schemas/OrderLineDetailsInput"
+          $ref: '#/components/schemas/OrderLineDetailsInput'
         supplierReferences:
-          $ref: "#/components/schemas/CartItemSupplierReferences"
+          $ref: '#/components/schemas/CartItemSupplierReferences'
     CartItemInvoiceData:
       type: object
       description: Object containing the line items of the invoice or shopping cart.
@@ -2484,11 +2476,11 @@ components:
       additionalProperties: false
       properties:
         invoiceData:
-          $ref: "#/components/schemas/CartItemInvoiceData"
+          $ref: '#/components/schemas/CartItemInvoiceData'
         orderLineDetails:
-          $ref: "#/components/schemas/OrderLineDetailsPatch"
+          $ref: '#/components/schemas/OrderLineDetailsPatch'
         supplierReferences:
-          $ref: "#/components/schemas/CartItemSupplierReferences"
+          $ref: '#/components/schemas/CartItemSupplierReferences'
     CartItemResult:
       type: object
       description: This object contains information of all items in the cart.
@@ -2496,11 +2488,11 @@ components:
       additionalProperties: false
       properties:
         invoiceData:
-          $ref: "#/components/schemas/CartItemInvoiceData"
+          $ref: '#/components/schemas/CartItemInvoiceData'
         orderLineDetails:
-          $ref: "#/components/schemas/OrderLineDetailsResult"
+          $ref: '#/components/schemas/OrderLineDetailsResult'
         supplierReferences:
-          $ref: "#/components/schemas/CartItemSupplierReferences"
+          $ref: '#/components/schemas/CartItemSupplierReferences'
     CartItemStatus:
       type: string
       enum:
@@ -2518,7 +2510,9 @@ components:
       properties:
         supplierId:
           type: string
-          description: Unique identifier for the supplier.
+          description: |
+            Unique identifier for the supplier. Used for reporting to identify to which supplier the item belongs.
+            Only allowed for marketplace merchants or if feature to ignore Marketplace fields is enabled in configuration.
           maxLength: 64
           example: "5678"
         orderReference:
@@ -2527,10 +2521,12 @@ components:
             Reference of the order for the supplier.
           maxLength: 64
           example: "Order-5678"
+      required:
+        - supplierId
     CheckoutResponse:
       type: object
       xml:
-        name: "checkoutResponse"
+        name: 'checkoutResponse'
       description: |
         The Checkout corresponds to the order of the WL API. We do not take additionalInput from the WL API. We have no 
         shipping and use deliveryAddress instead of address.
@@ -2551,31 +2547,31 @@ components:
           maxLength: 20
           example: "1234"
         amountOfMoney:
-          $ref: "#/components/schemas/AmountOfMoney"
+          $ref: '#/components/schemas/AmountOfMoney'
         references:
-          $ref: "#/components/schemas/CheckoutReferences"
+          $ref: '#/components/schemas/CheckoutReferences'
         shipping:
-          $ref: "#/components/schemas/Shipping"
+          $ref: '#/components/schemas/Shipping'
         shoppingCart:
-          $ref: "#/components/schemas/ShoppingCartResult"
+          $ref: '#/components/schemas/ShoppingCartResult'
         paymentExecutions:
           type: array
           items:
-            $ref: "#/components/schemas/PaymentExecution"
+            $ref: '#/components/schemas/PaymentExecution'
         checkoutStatus:
-          $ref: "#/components/schemas/StatusCheckout"
+          $ref: '#/components/schemas/StatusCheckout'
         statusOutput:
-          $ref: "#/components/schemas/StatusOutput"
+          $ref: '#/components/schemas/StatusOutput'
         paymentInformation:
           type: array
           items:
-            $ref: "#/components/schemas/PaymentInformationResponse"
+            $ref: '#/components/schemas/PaymentInformationResponse'
         creationDateTime:
-          $ref: "#/components/schemas/CreationDateTime"
+          $ref: '#/components/schemas/CreationDateTime'
         allowedPaymentActions:
           type: array
           items:
-            $ref: "#/components/schemas/AllowedPaymentActions"
+            $ref: '#/components/schemas/AllowedPaymentActions'
     CompleteFinancingPaymentMethodSpecificInput:
       type: object
       description: |
@@ -2597,10 +2593,10 @@ components:
             * true = the payment requires approval before the funds will be captured using the Approve payment or
             Capture payment API
             * false = the payment does not require approval, and the funds will be captured automatically
-
+            
             If the parameter is not provided in the request, the default value will be true
         paymentProduct3391SpecificInput:
-          $ref: "#/components/schemas/PaymentProduct3391SpecificInput"
+          $ref: '#/components/schemas/PaymentProduct3391SpecificInput'
     CompleteOrderRequest:
       type: object
       description: |-
@@ -2608,16 +2604,16 @@ components:
         The previously provided data from the Commerce Case, Checkout and Order will automatically be loaded and used for the completion of the Order.
       properties:
         completePaymentMethodSpecificInput:
-          $ref: "#/components/schemas/CompletePaymentMethodSpecificInput"
+          $ref: '#/components/schemas/CompletePaymentMethodSpecificInput'
     CompletePaymentMethodSpecificInput:
       type: object
       description: |
         To complete the Order the completePaymentMethodSpecificInput has to be provided, containing the selected installmentOptionId as well as the the bankAccountInformation of the customer.
       properties:
         paymentProduct3391SpecificInput:
-          $ref: "#/components/schemas/PaymentProduct3391SpecificInput"
+          $ref: '#/components/schemas/PaymentProduct3391SpecificInput'
         paymentProduct840SpecificInput:
-          $ref: "#/components/schemas/CompletePaymentProduct840SpecificInput"
+          $ref: '#/components/schemas/CompletePaymentProduct840SpecificInput'
     CompletePaymentProduct840SpecificInput:
       type: object
       description: |-
@@ -2649,58 +2645,58 @@ components:
         The data for the order object should not differ from the previously provided information in Commerce Case, Checkout and Payment, but will not be validated nor automatically loaded from the Commerce Platform.
       properties:
         financingPaymentMethodSpecificInput:
-          $ref: "#/components/schemas/CompleteFinancingPaymentMethodSpecificInput"
+          $ref: '#/components/schemas/CompleteFinancingPaymentMethodSpecificInput'
         redirectPaymentMethodSpecificInput:
-          $ref: "#/components/schemas/CompleteRedirectPaymentMethodSpecificInput"
+          $ref: '#/components/schemas/CompleteRedirectPaymentMethodSpecificInput'
         order:
-          $ref: "#/components/schemas/Order"
+          $ref: '#/components/schemas/Order'
         device:
-          $ref: "#/components/schemas/CustomerDevice"
+          $ref: '#/components/schemas/CustomerDevice'
     CompletePaymentResponse:
       type: object
       description: |-
         Object containing the response of the completed Payment.
       properties:
         creationOutput:
-          $ref: "#/components/schemas/PaymentCreationOutput"
+          $ref: '#/components/schemas/PaymentCreationOutput'
         merchantAction:
-          $ref: "#/components/schemas/MerchantAction"
+          $ref: '#/components/schemas/MerchantAction'
         payment:
-          $ref: "#/components/schemas/PaymentResponse"
+          $ref: '#/components/schemas/PaymentResponse'
     CompleteRedirectPaymentMethodSpecificInput:
       type: object
       description: |-
         Object containing the redirect payment product details.
       properties:
         paymentProductId:
-          $ref: "#/components/schemas/PaymentProductId"
+          $ref: '#/components/schemas/PaymentProductId'
         paymentProduct840SpecificInput:
-          $ref: "#/components/schemas/CompletePaymentProduct840SpecificInput"
+          $ref: '#/components/schemas/CompletePaymentProduct840SpecificInput'
     CreateCheckoutRequest:
       type: object
       description: |
         Request to create a Checkout for a Commerce Case.
         The payment for the Checkout can be directly executed if autoExecuteOrder = true.
         In this case, the paymentMethodSpecificInput must be provided and only a full order is possible.
-
+        
         If no amountOfMoney is provided, the platform will calculate the respective Checkout amount based on the
         cartItem productPrice and quantity.
-
+        
         In case of a payment error, the payment can be retried by providing the respective commerceCaseId and checkoutId
         to the the Order or Payment Execution endpoint.
       properties:
         amountOfMoney:
-          $ref: "#/components/schemas/AmountOfMoney"
+          $ref: '#/components/schemas/AmountOfMoney'
         references:
-          $ref: "#/components/schemas/CheckoutReferences"
+          $ref: '#/components/schemas/CheckoutReferences'
         shipping:
-          $ref: "#/components/schemas/Shipping"
+          $ref: '#/components/schemas/Shipping'
         shoppingCart:
-          $ref: "#/components/schemas/ShoppingCartInput"
+          $ref: '#/components/schemas/ShoppingCartInput'
         orderRequest:
-          $ref: "#/components/schemas/OrderRequest"
+          $ref: '#/components/schemas/OrderRequest'
         creationDateTime:
-          $ref: "#/components/schemas/CreationDateTime"
+          $ref: '#/components/schemas/CreationDateTime'
         autoExecuteOrder:
           description: |
             Set this flag to directly execute a payment when creating a Commerce Case or Checkout.
@@ -2721,29 +2717,29 @@ components:
           format: UUID
           example: "707ef15b-7a0a-48f2-b7d8-c95103418a9c"
         shoppingCart:
-          $ref: "#/components/schemas/ShoppingCartResult"
+          $ref: '#/components/schemas/ShoppingCartResult'
         paymentResponse:
-          $ref: "#/components/schemas/CreatePaymentResponse"
+          $ref: '#/components/schemas/CreatePaymentResponse'
         errorResponse:
-          $ref: "#/components/schemas/ErrorResponse"
+          $ref: '#/components/schemas/ErrorResponse'
         amountOfMoney:
-          $ref: "#/components/schemas/AmountOfMoney"
+          $ref: '#/components/schemas/AmountOfMoney'
         references:
-          $ref: "#/components/schemas/CheckoutReferences"
+          $ref: '#/components/schemas/CheckoutReferences'
         shipping:
-          $ref: "#/components/schemas/Shipping"
+          $ref: '#/components/schemas/Shipping'
         paymentExecution:
-          $ref: "#/components/schemas/PaymentExecution"
+          $ref: '#/components/schemas/PaymentExecution'
         checkoutStatus:
-          $ref: "#/components/schemas/StatusCheckout"
+          $ref: '#/components/schemas/StatusCheckout'
         statusOutput:
-          $ref: "#/components/schemas/StatusOutput"
+          $ref: '#/components/schemas/StatusOutput'
         creationDateTime:
-          $ref: "#/components/schemas/CreationDateTime"
+          $ref: '#/components/schemas/CreationDateTime'
         allowedPaymentActions:
           type: array
           items:
-            $ref: "#/components/schemas/AllowedPaymentActions"
+            $ref: '#/components/schemas/AllowedPaymentActions'
     CheckoutReferences:
       type: object
       description: Object containing all details that are linked to the Checkout.
@@ -2756,7 +2752,8 @@ components:
           example: customer-order-1234
         merchantShopReference:
           type: string
-          description: Optional parameter to define the shop or touchpoint where a sale has been realized (e.g. different stores).
+          description:
+            Optional parameter to define the shop or touchpoint where a sale has been realized (e.g. different stores).
           maxLength: 64
           example: Shop-12345
     CheckoutsResponse:
@@ -2774,7 +2771,7 @@ components:
           type: array
           description: List of Checkouts
           items:
-            $ref: "#/components/schemas/CheckoutResponse"
+            $ref: '#/components/schemas/CheckoutResponse'
     CompanyInformation:
       description: Object containing details of the company.
       type: object
@@ -2800,18 +2797,18 @@ components:
             Unique ID reference of the Commerce Case. It can be used to add additional Checkouts to the Commerce Case.
           example: 0c3ab9d7-19ed-40da-9a0e-1f96f4cfb8ae
         customer:
-          $ref: "#/components/schemas/Customer"
+          $ref: '#/components/schemas/Customer'
         checkouts:
           type: array
           items:
-            $ref: "#/components/schemas/CheckoutResponse"
+            $ref: '#/components/schemas/CheckoutResponse'
         creationDateTime:
-          $ref: "#/components/schemas/CreationDateTime"
+          $ref: '#/components/schemas/CreationDateTime'
     CommerceCasesResponse:
       type: array
       description: List of Commerce Cases
       items:
-        $ref: "#/components/schemas/CommerceCaseResponse"
+        $ref: '#/components/schemas/CommerceCaseResponse'
     ContactDetails:
       type: object
       description: |-
@@ -2837,11 +2834,11 @@ components:
           maxLength: 40
           example: customer-commerce-case-123
         customer:
-          $ref: "#/components/schemas/Customer"
+          $ref: '#/components/schemas/Customer'
         creationDateTime:
-          $ref: "#/components/schemas/CreationDateTime"
+          $ref: '#/components/schemas/CreationDateTime'
         checkout:
-          $ref: "#/components/schemas/CreateCheckoutRequest"
+          $ref: '#/components/schemas/CreateCheckoutRequest'
     CreateCommerceCaseResponse:
       type: object
       description: |-
@@ -2860,24 +2857,24 @@ components:
           maxLength: 40
           example: customer-commerce-case-123
         customer:
-          $ref: "#/components/schemas/Customer"
+          $ref: '#/components/schemas/Customer'
         checkout:
-          $ref: "#/components/schemas/CreateCheckoutResponse"
+          $ref: '#/components/schemas/CreateCheckoutResponse'
         creationDateTime:
-          $ref: "#/components/schemas/CreationDateTime"
+          $ref: '#/components/schemas/CreationDateTime'
     CreatePaymentResponse:
       type: object
       description: Object containing details on the created payment it has directly be executed.
       additionalProperties: false
       properties:
         creationOutput:
-          $ref: "#/components/schemas/PaymentCreationOutput"
+          $ref: '#/components/schemas/PaymentCreationOutput'
         merchantAction:
-          $ref: "#/components/schemas/MerchantAction"
+          $ref: '#/components/schemas/MerchantAction'
         payment:
-          $ref: "#/components/schemas/PaymentResponse"
+          $ref: '#/components/schemas/PaymentResponse'
         fundSplit:
-          $ref: "#/components/schemas/FundSplit"
+          $ref: '#/components/schemas/FundSplit'
         paymentExecutionId:
           description: reference to the paymentExecution.
           type: string
@@ -2891,7 +2888,7 @@ components:
         otherwise will be automatically set to the time when the request CreateCommerceCase was received.
         Response values will always be in UTC time, but when providing this field in the requests, the time offset
         can have different formats.
-
+        
         Accepted formats are:
         * YYYY-MM-DD'T'HH:mm:ss'Z'
         * YYYY-MM-DD'T'HH:mm:ss+XX:XX
@@ -2899,7 +2896,7 @@ components:
         * YYYY-MM-DD'T'HH:mm'Z'
         * YYYY-MM-DD'T'HH:mm+XX:XX
         * YYYY-MM-DD'T'HH:mm-XX:XX
-
+        
         All other formats may be ignored by the system.
       example: 2023-12-06T23:59:60Z
     Customer:
@@ -2909,16 +2906,16 @@ components:
       additionalProperties: false
       properties:
         companyInformation:
-          $ref: "#/components/schemas/CompanyInformation"
+          $ref: '#/components/schemas/CompanyInformation'
         merchantCustomerId:
           type: string
           description: Unique identifier for the customer.
           maxLength: 20
           example: "1234"
         billingAddress:
-          $ref: "#/components/schemas/Address"
+          $ref: '#/components/schemas/Address'
         contactDetails:
-          $ref: "#/components/schemas/ContactDetails"
+          $ref: '#/components/schemas/ContactDetails'
         fiscalNumber:
           maxLength: 14
           type: string
@@ -2951,13 +2948,13 @@ components:
           type: string
           description: |-
             The locale that the customer should be addressed in (for 3rd parties). 
-
+            
             Note: Only the language code is supported.
           example: de
         personalInformation:
-          $ref: "#/components/schemas/PersonalInformation"
+          $ref: '#/components/schemas/PersonalInformation'
         account:
-          $ref: "#/components/schemas/CustomerAccount"
+          $ref: '#/components/schemas/CustomerAccount'
     CustomerAccount:
       type: object
       description: Object containing data related to the account the customer has with you.
@@ -2980,7 +2977,7 @@ components:
       properties:
         acceptHeader:
           type: string
-          description: |
+          description: | 
             The accept-header of the customer client from the HTTP Headers. 
             This field can be mandatory depending on the selected payment method and routing option.
           maxLength: 2048
@@ -2992,8 +2989,7 @@ components:
         deviceToken:
           maxLength: 255
           type: string
-          description:
-            Tokenized representation of the end customers device. For example
+          description: Tokenized representation of the end customers device. For example
             used for PAYONE Buy Now, Pay Later (BNPL).
         userAgent:
           type: string
@@ -3032,14 +3028,14 @@ components:
         The platform will automatically calculate the respective amount to trigger the Capture. For a partial Deliver a
         list of items must be provided.
         The item details for the Capture will be automatically loaded from the Checkout.   
-
+        
         The cancellationReason must be provided if deliverType is set to PARTIAL and isFinal is set to true for BNPL
         payment methods (paymentProductId 3390, 3391 and 3392).
         For other payment methods the cancellationReason is not mandatory in this case but can be used for reporting
         and reconciliation purposes.
       properties:
         deliverType:
-          $ref: "#/components/schemas/DeliverType"
+          $ref: '#/components/schemas/DeliverType'
         isFinal:
           type: boolean
           default: false
@@ -3048,20 +3044,20 @@ components:
             For deliverType FULL, it is always the final operation.
             If deliverType PARTIAL is provided and the property is set to true, the remaining amount of the items will be cancelled and the items are marked as CANCELLED.
         cancellationReason:
-          $ref: "#/components/schemas/CancellationReason"
+          $ref: '#/components/schemas/CancellationReason'
         deliverItems:
           type: array
           items:
-            $ref: "#/components/schemas/DeliverItem"
+            $ref: '#/components/schemas/DeliverItem'
         fundSplit:
-          $ref: "#/components/schemas/FundSplit"
+          $ref: '#/components/schemas/FundSplit'
     DeliverResponse:
       type: object
       properties:
         capturePaymentResponse:
-          $ref: "#/components/schemas/CapturePaymentResponse"
+          $ref: '#/components/schemas/CapturePaymentResponse'
         shoppingCart:
-          $ref: "#/components/schemas/ShoppingCartResult"
+          $ref: '#/components/schemas/ShoppingCartResult'
     DeliverType:
       type: string
       description: |
@@ -3088,7 +3084,7 @@ components:
           type: array
           description: Items delivered.
           items:
-            $ref: "#/components/schemas/CartItemInput"
+            $ref: '#/components/schemas/CartItemInput'
     ErrorResponse:
       type: object
       additionalProperties: false
@@ -3099,7 +3095,7 @@ components:
         errors:
           type: array
           items:
-            $ref: "#/components/schemas/APIError"
+            $ref: '#/components/schemas/APIError'
     ExtendedCheckoutStatus:
       type: string
       description: |
@@ -3149,10 +3145,10 @@ components:
             * true = the payment requires approval before the funds will be captured using the Approve payment or
             Capture payment API
             * false = the payment does not require approval, and the funds will be captured automatically
-
+            
             If the parameter is not provided in the request, the default value will be true
         paymentProduct3392SpecificInput:
-          $ref: "#/components/schemas/PaymentProduct3392SpecificInput"
+          $ref: '#/components/schemas/PaymentProduct3392SpecificInput'
     FinancingPaymentMethodSpecificOutput:
       type: object
       description: Object containing the specific output details for financing payment methods (Buy Now Pay Later)
@@ -3170,9 +3166,9 @@ components:
           format: int32
           example: 3390
         paymentProduct3391SpecificOutput:
-          $ref: "#/components/schemas/PaymentProduct3391SpecificOutput"
+          $ref: '#/components/schemas/PaymentProduct3391SpecificOutput'
         paymentInstructions:
-          $ref: "#/components/schemas/PaymentInstructions"
+          $ref: '#/components/schemas/PaymentInstructions'
     FundDistribution:
       type: object
       description: Instructions for distributing funds to multiple sellers or partners in a marketplace context.
@@ -3227,7 +3223,9 @@ components:
         - type
     FundSplit:
       type: object
-      description: Instructions for distributing funds to multiple sellers or partners in a marketplace context.
+      description: |
+        Instructions for distributing funds to multiple suppliers or partners in a marketplace context.
+        Only allowed for marketplace merchants or if feature to ignore Marketplace fields is enabled in configuration.
       additionalProperties: false
       properties:
         id:
@@ -3241,14 +3239,13 @@ components:
         fundDistributions:
           type: array
           items:
-            $ref: "#/components/schemas/FundDistribution"
+            $ref: '#/components/schemas/FundDistribution'
     InstallmentOption:
       type: object
       properties:
         installmentOptionId:
           type: string
-          description:
-            Installment option Identifier. Use this in the Complete Payment
+          description: Installment option Identifier. Use this in the Complete Payment
             for the selected installment option.
           example: IOP_478d44fea0494eea86bc87f9e4a63328
         numberOfPayments:
@@ -3260,12 +3257,12 @@ components:
           type: object
           description: Monthly rate amount.
           allOf:
-            - $ref: "#/components/schemas/AmountOfMoney"
+            - $ref: '#/components/schemas/AmountOfMoney'
         lastRateAmount:
           type: object
           description: Last rate amount.
           allOf:
-            - $ref: "#/components/schemas/AmountOfMoney"
+            - $ref: '#/components/schemas/AmountOfMoney'
         effectiveInterestRate:
           type: integer
           description: Effective interest amount in percent with two decimals.
@@ -3280,7 +3277,7 @@ components:
           type: object
           description: Total rate amount.
           allOf:
-            - $ref: "#/components/schemas/AmountOfMoney"
+            - $ref: '#/components/schemas/AmountOfMoney'
         firstRateDate:
           maxLength: 8
           pattern: ^((19|20|21)\d{6})?$
@@ -3292,7 +3289,7 @@ components:
           type: object
           description: Link with credit information.
           allOf:
-            - $ref: "#/components/schemas/LinkInformation"
+            - $ref: '#/components/schemas/LinkInformation'
       required:
         - creditInformation
         - effectiveInterestRate
@@ -3356,16 +3353,16 @@ components:
             - MOBILE_THREEDS_CHALLENGE
             - CALL_THIRD_PARTY
         redirectData:
-          $ref: "#/components/schemas/RedirectData"
+          $ref: '#/components/schemas/RedirectData'
     MobilePaymentMethodSpecificInput:
       type: object
       description: Object containing the specific input details for mobile payments.
       additionalProperties: false
       properties:
         paymentProductId:
-          $ref: "#/components/schemas/PaymentProductId"
+          $ref: '#/components/schemas/PaymentProductId'
         authorizationMode:
-          $ref: "#/components/schemas/AuthorizationMode"
+          $ref: '#/components/schemas/AuthorizationMode'
         encryptedPaymentData:
           type: string
           description: |-
@@ -3380,11 +3377,11 @@ components:
           type: string
           description: Ephemeral Key A unique generated key used by Apple to encrypt data.
         threeDSecure:
-          $ref: "#/components/schemas/MobilePaymentThreeDSecure"
+          $ref: '#/components/schemas/MobilePaymentThreeDSecure'
         paymentProduct302SpecificInput:
-          $ref: "#/components/schemas/PaymentProduct302SpecificInput"
+          $ref: '#/components/schemas/PaymentProduct302SpecificInput'
         paymentProduct5002SpecificInput:
-          $ref: "#/components/schemas/PaymentProduct5002SpecificInput"
+          $ref: '#/components/schemas/PaymentProduct5002SpecificInput'
     MobilePaymentMethodSpecificOutput:
       type: object
       description: Object containing the mobile payment method details.
@@ -3402,9 +3399,9 @@ components:
           description: Card Authorization code as returned by the acquirer
           type: string
         fraudResults:
-          $ref: "#/components/schemas/CardFraudResults"
+          $ref: '#/components/schemas/CardFraudResults'
         threeDSecureResults:
-          $ref: "#/components/schemas/ThreeDSecureResults"
+          $ref: '#/components/schemas/ThreeDSecureResults'
         network:
           type: string
           description: The card network that was used for a mobile payment method operation
@@ -3433,7 +3430,7 @@ components:
         Necessary to perform 3D Secure when there is no liability shift from the wallet and corresponding card network.
       properties:
         redirectionData:
-          $ref: "#/components/schemas/RedirectionData"
+          $ref: '#/components/schemas/RedirectionData'
     Order:
       type: object
       description: |-
@@ -3441,15 +3438,15 @@ components:
         amount.
       properties:
         amountOfMoney:
-          $ref: "#/components/schemas/AmountOfMoney"
+          $ref: '#/components/schemas/AmountOfMoney'
         customer:
-          $ref: "#/components/schemas/Customer"
+          $ref: '#/components/schemas/Customer'
         references:
-          $ref: "#/components/schemas/References"
+          $ref: '#/components/schemas/References'
         shipping:
-          $ref: "#/components/schemas/Shipping"
+          $ref: '#/components/schemas/Shipping'
         shoppingCart:
-          $ref: "#/components/schemas/ShoppingCartInput"
+          $ref: '#/components/schemas/ShoppingCartInput'
       required:
         - references
     OrderItem:
@@ -3493,7 +3490,7 @@ components:
           minimum: 0
           example: 480
         productType:
-          $ref: "#/components/schemas/ProductType"
+          $ref: '#/components/schemas/ProductType'
         quantity:
           type: integer
           description: |-
@@ -3512,7 +3509,7 @@ components:
           example: 0
         taxAmountPerUnit:
           type: boolean
-          description: |-
+          description: |- 
             This field indicates if the `taxAmount` is to be interpreted as the tax amount per unit rather than for the entire line item. 
             This field is included in the response only when `taxAmount` is set; otherwise, it will return as `null`.
           format: int64
@@ -3560,7 +3557,7 @@ components:
         Object containing additional information that when supplied can have a beneficial effect on the discountrates.
       additionalProperties: false
       allOf:
-        - $ref: "#/components/schemas/OrderLineDetailsInput"
+        - $ref: '#/components/schemas/OrderLineDetailsInput'
         - type: object
           properties:
             id:
@@ -3571,14 +3568,14 @@ components:
             status:
               type: array
               items:
-                $ref: "#/components/schemas/CartItemOrderStatus"
+                $ref: '#/components/schemas/CartItemOrderStatus'
     OrderLineDetailsResult:
       type: object
       description: |
         Object containing additional information that when supplied can have a beneficial effect on the discountrates.
       additionalProperties: false
       allOf:
-        - $ref: "#/components/schemas/OrderLineDetailsInput"
+        - $ref: '#/components/schemas/OrderLineDetailsInput'
       properties:
         id:
           description: Unique identifier of a cart item
@@ -3588,7 +3585,7 @@ components:
         status:
           type: array
           items:
-            $ref: "#/components/schemas/CartItemOrderStatus"
+            $ref: '#/components/schemas/CartItemOrderStatus'
     OrderRequest:
       type: object
       description: |
@@ -3602,26 +3599,26 @@ components:
         execution.
       properties:
         orderType:
-          $ref: "#/components/schemas/OrderType"
+          $ref: '#/components/schemas/OrderType'
         orderReferences:
-          $ref: "#/components/schemas/References"
+          $ref: '#/components/schemas/References'
         items:
           type: array
           items:
-            $ref: "#/components/schemas/OrderItem"
+            $ref: '#/components/schemas/OrderItem'
         paymentMethodSpecificInput:
-          $ref: "#/components/schemas/PaymentMethodSpecificInput"
+          $ref: '#/components/schemas/PaymentMethodSpecificInput'
         fundSplit:
-          $ref: "#/components/schemas/FundSplit"
+          $ref: '#/components/schemas/FundSplit'
     OrderResponse:
       type: object
       description: Object that contains details on the created payment in case one has been created.
       additionalProperties: false
       properties:
         createPaymentResponse:
-          $ref: "#/components/schemas/CreatePaymentResponse"
+          $ref: '#/components/schemas/CreatePaymentResponse'
         shoppingCart:
-          $ref: "#/components/schemas/ShoppingCartResult"
+          $ref: '#/components/schemas/ShoppingCartResult'
     OrderType:
       type: string
       description: |
@@ -3645,31 +3642,31 @@ components:
         An existing shopping cart of a Checkout will not be overwritten with the Patch request.
         New items can be added to the shoppingCart by providing them in the request.
         To change existing items (delete, modify or add), the respective itemId must be provided. An item can be completely removed if quantity = 0 is provided.
-
+        
         The price of an item can be changed as long as no payment has happened for this item (i.e. as long as an item has no specific status).
         Items with a status can no longer be removed entirely, however the quantity can be increased or decreased (for items without payment) by using the itemId.
-
+        
         If no amountOfMoney for the Checkout is provided, the platform will calculate the respective amount based on the cartItem productPrice and productQuantity.
       properties:
         amountOfMoney:
-          $ref: "#/components/schemas/AmountOfMoney"
+          $ref: '#/components/schemas/AmountOfMoney'
         references:
-          $ref: "#/components/schemas/CheckoutReferences"
+          $ref: '#/components/schemas/CheckoutReferences'
         shipping:
-          $ref: "#/components/schemas/Shipping"
+          $ref: '#/components/schemas/Shipping'
         shoppingCart:
-          $ref: "#/components/schemas/ShoppingCartPatch"
+          $ref: '#/components/schemas/ShoppingCartPatch'
         paymentMethodSpecificInput:
-          $ref: "#/components/schemas/PaymentMethodSpecificInput"
+          $ref: '#/components/schemas/PaymentMethodSpecificInput'
         paymentReferences:
-          $ref: "#/components/schemas/References"
+          $ref: '#/components/schemas/References'
     PatchCommerceCaseRequest:
       type: object
       description: |
         Update the customer data of the given Commerce Case
       properties:
         customer:
-          $ref: "#/components/schemas/Customer"
+          $ref: '#/components/schemas/Customer'
     PausePaymentRequest:
       type: object
       description: Request to pause a payment for a specific payment method.
@@ -3678,7 +3675,7 @@ components:
       type: object
       properties:
         status:
-          $ref: "#/components/schemas/StatusValue"
+          $ref: '#/components/schemas/StatusValue'
     PaymentChannel:
       type: string
       enum:
@@ -3721,13 +3718,13 @@ components:
       description: Detailed information regarding an occurred payment event.
       properties:
         type:
-          $ref: "#/components/schemas/PaymentType"
+          $ref: '#/components/schemas/PaymentType'
         amountOfMoney:
-          $ref: "#/components/schemas/AmountOfMoney"
+          $ref: '#/components/schemas/AmountOfMoney'
         paymentStatus:
-          $ref: "#/components/schemas/StatusValue"
+          $ref: '#/components/schemas/StatusValue'
         cancellationReason:
-          $ref: "#/components/schemas/CancellationReason"
+          $ref: '#/components/schemas/CancellationReason'
         returnReason:
           type: string
           description: |-
@@ -3735,7 +3732,7 @@ components:
           maxLength: 255
           example: Customer complained
         paymentInstructions:
-          $ref: "#/components/schemas/PaymentInstructions"
+          $ref: '#/components/schemas/PaymentInstructions'
         paymentEventId:
           type: string
           format: UUID
@@ -3746,7 +3743,7 @@ components:
           readOnly: true
           description: |-
             The date and time when the payment event was created.
-
+            
             Format will be in one of the following formats:
             * YYYY-MM-DD'T'HH:mm:ss'Z'
             * YYYY-MM-DD'T'HH:mm:ss+XX:XX
@@ -3771,23 +3768,23 @@ components:
         paymentId:
           type: string
           description: Unique payment transaction identifier of the payment gateway.
-          example: "3066019730_1"
+          example: '3066019730_1'
         cardPaymentMethodSpecificInput:
-          $ref: "#/components/schemas/CardPaymentMethodSpecificInput"
+          $ref: '#/components/schemas/CardPaymentMethodSpecificInput'
         mobilePaymentMethodSpecificInput:
-          $ref: "#/components/schemas/MobilePaymentMethodSpecificInput"
+          $ref: '#/components/schemas/MobilePaymentMethodSpecificInput'
         redirectPaymentMethodSpecificInput:
-          $ref: "#/components/schemas/RedirectPaymentMethodSpecificInput"
+          $ref: '#/components/schemas/RedirectPaymentMethodSpecificInput'
         sepaDirectDebitPaymentMethodSpecificInput:
-          $ref: "#/components/schemas/SepaDirectDebitPaymentMethodSpecificInput"
+          $ref: '#/components/schemas/SepaDirectDebitPaymentMethodSpecificInput'
         financingPaymentMethodSpecificInput:
-          $ref: "#/components/schemas/FinancingPaymentMethodSpecificInput"
+          $ref: '#/components/schemas/FinancingPaymentMethodSpecificInput'
         bankPayoutMethodSpecificInput:
-          $ref: "#/components/schemas/BankPayoutMethodSpecificInput"
+          $ref: '#/components/schemas/BankPayoutMethodSpecificInput'
         paymentChannel:
-          $ref: "#/components/schemas/PaymentChannel"
+          $ref: '#/components/schemas/PaymentChannel'
         references:
-          $ref: "#/components/schemas/References"
+          $ref: '#/components/schemas/References'
         previousPayment:
           type: string
           format: UUID
@@ -3797,7 +3794,7 @@ components:
           format: date-time
           description: |-
             The date and time when the payment was created.
-
+            
             Format will be in one of the following formats:
             * YYYY-MM-DD'T'HH:mm:ss'Z'
             * YYYY-MM-DD'T'HH:mm:ss+XX:XX
@@ -3808,7 +3805,7 @@ components:
           format: date-time
           description: |-
             The date and time when the payment was last updated.
-
+            
             Format will be in one of the following formats:
             * YYYY-MM-DD'T'HH:mm:ss'Z'
             * YYYY-MM-DD'T'HH:mm:ss+XX:XX
@@ -3817,11 +3814,11 @@ components:
         events:
           type: array
           items:
-            $ref: "#/components/schemas/PaymentEvent"
+            $ref: '#/components/schemas/PaymentEvent'
         fundSplits:
           type: array
           items:
-            $ref: "#/components/schemas/FundSplit"
+            $ref: '#/components/schemas/FundSplit'
     PaymentExecutionRequest:
       type: object
       description: |
@@ -3832,9 +3829,9 @@ components:
         For more details regarding payment method specific input please check the documentation.
       properties:
         paymentMethodSpecificInput:
-          $ref: "#/components/schemas/PaymentMethodSpecificInput"
+          $ref: '#/components/schemas/PaymentMethodSpecificInput'
         paymentExecutionSpecificInput:
-          $ref: "#/components/schemas/PaymentExecutionSpecificInput"
+          $ref: '#/components/schemas/PaymentExecutionSpecificInput'
     PaymentExecutionSpecificInput:
       type: object
       description: |
@@ -3846,13 +3843,13 @@ components:
         If the ShoppingCart elements differ from the data provided in the Checkout, the existing data will not be overwritten.
       properties:
         amountOfMoney:
-          $ref: "#/components/schemas/AmountOfMoney"
+          $ref: '#/components/schemas/AmountOfMoney'
         shoppingCart:
-          $ref: "#/components/schemas/ShoppingCartInput"
+          $ref: '#/components/schemas/ShoppingCartInput'
         paymentReferences:
-          $ref: "#/components/schemas/References"
+          $ref: '#/components/schemas/References'
         fundSplit:
-          $ref: "#/components/schemas/FundSplit"
+          $ref: '#/components/schemas/FundSplit'
       required:
         - paymentReferences
     PaymentInformationRefundRequest:
@@ -3863,9 +3860,9 @@ components:
       additionalProperties: false
       properties:
         amountOfMoney:
-          $ref: "#/components/schemas/PositiveAmountOfMoney"
+          $ref: '#/components/schemas/PositiveAmountOfMoney'
         references:
-          $ref: "#/components/schemas/PaymentReferences"
+          $ref: '#/components/schemas/PaymentReferences'
         accountHolder:
           maxLength: 50
           type: string
@@ -3881,7 +3878,7 @@ components:
       additionalProperties: false
       properties:
         payment:
-          $ref: "#/components/schemas/PayoutResponse"
+          $ref: '#/components/schemas/PayoutResponse'
         paymentExecutionId:
           description: reference to the paymentExecution.
           type: string
@@ -3892,13 +3889,13 @@ components:
       additionalProperties: false
       properties:
         amountOfMoney:
-          $ref: "#/components/schemas/AmountOfMoney"
+          $ref: '#/components/schemas/AmountOfMoney'
         type:
-          $ref: "#/components/schemas/PaymentType"
+          $ref: '#/components/schemas/PaymentType'
         paymentChannel:
-          $ref: "#/components/schemas/PaymentChannel"
+          $ref: '#/components/schemas/PaymentChannel'
         paymentProductId:
-          $ref: "#/components/schemas/PaymentProductId"
+          $ref: '#/components/schemas/PaymentProductId'
         merchantReference:
           type: string
           description: |
@@ -3937,9 +3934,9 @@ components:
           format: UUID
           example: "637ef15b-1a0a-48f2-27d8-c954a344329c"
         paymentChannel:
-          $ref: "#/components/schemas/PaymentChannel"
+          $ref: '#/components/schemas/PaymentChannel'
         paymentProductId:
-          $ref: "#/components/schemas/PaymentProductId"
+          $ref: '#/components/schemas/PaymentProductId'
         terminalId:
           description: Unique identifier of the POS terminal of the payment transaction.
           type: string
@@ -3966,7 +3963,7 @@ components:
           format: date-time
           description: |-
             The date and time when the payment was created.
-
+            
             Format will be in one of the following formats:
             * YYYY-MM-DD'T'HH:mm:ss'Z'
             * YYYY-MM-DD'T'HH:mm:ss+XX:XX
@@ -3977,18 +3974,18 @@ components:
           format: date-time
           description: |-
             The date and time when the payment was last updated.
-
+            
             Format will be in one of the following formats:
             * YYYY-MM-DD'T'HH:mm:ss'Z'
             * YYYY-MM-DD'T'HH:mm:ss+XX:XX
             * YYYY-MM-DD'T'HH:mm:ss-XX:XX
           example: 2022-01-01T00:00:00Z
         cardPaymentDetails:
-          $ref: "#/components/schemas/CardPaymentDetails"
+          $ref: '#/components/schemas/CardPaymentDetails'
         events:
           type: array
           items:
-            $ref: "#/components/schemas/PaymentEvent"
+            $ref: '#/components/schemas/PaymentEvent'
     PaymentInstructions:
       required:
         - payee
@@ -3997,7 +3994,7 @@ components:
       type: object
       properties:
         payee:
-          $ref: "#/components/schemas/Payee"
+          $ref: '#/components/schemas/Payee'
         dueDate:
           maxLength: 8
           pattern: ^((19|20|21)\d{6})?$
@@ -4022,19 +4019,19 @@ components:
         If a new input will be provided, the existing input will be updated.
       properties:
         cardPaymentMethodSpecificInput:
-          $ref: "#/components/schemas/CardPaymentMethodSpecificInput"
+          $ref: '#/components/schemas/CardPaymentMethodSpecificInput'
         mobilePaymentMethodSpecificInput:
-          $ref: "#/components/schemas/MobilePaymentMethodSpecificInput"
+          $ref: '#/components/schemas/MobilePaymentMethodSpecificInput'
         redirectPaymentMethodSpecificInput:
-          $ref: "#/components/schemas/RedirectPaymentMethodSpecificInput"
+          $ref: '#/components/schemas/RedirectPaymentMethodSpecificInput'
         sepaDirectDebitPaymentMethodSpecificInput:
-          $ref: "#/components/schemas/SepaDirectDebitPaymentMethodSpecificInput"
+          $ref: '#/components/schemas/SepaDirectDebitPaymentMethodSpecificInput'
         financingPaymentMethodSpecificInput:
-          $ref: "#/components/schemas/FinancingPaymentMethodSpecificInput"
+          $ref: '#/components/schemas/FinancingPaymentMethodSpecificInput'
         customerDevice:
-          $ref: "#/components/schemas/CustomerDevice"
+          $ref: '#/components/schemas/CustomerDevice'
         paymentChannel:
-          $ref: "#/components/schemas/PaymentChannel"
+          $ref: '#/components/schemas/PaymentChannel'
     PaymentOutput:
       type: object
       description: |
@@ -4042,7 +4039,7 @@ components:
       additionalProperties: false
       properties:
         amountOfMoney:
-          $ref: "#/components/schemas/AmountOfMoney"
+          $ref: '#/components/schemas/AmountOfMoney'
         merchantParameters:
           type: string
           description:
@@ -4051,20 +4048,20 @@ components:
           maxLength: 1000
           example: "{'SessionID':'126548354','ShopperID':'7354131'}"
         references:
-          $ref: "#/components/schemas/PaymentReferences"
+          $ref: '#/components/schemas/PaymentReferences'
         cardPaymentMethodSpecificOutput:
-          $ref: "#/components/schemas/CardPaymentMethodSpecificOutput"
+          $ref: '#/components/schemas/CardPaymentMethodSpecificOutput'
         mobilePaymentMethodSpecificOutput:
-          $ref: "#/components/schemas/MobilePaymentMethodSpecificOutput"
+          $ref: '#/components/schemas/MobilePaymentMethodSpecificOutput'
         paymentMethod:
           type: string
           description: Payment method identifier based on the paymentProductId.
         redirectPaymentMethodSpecificOutput:
-          $ref: "#/components/schemas/RedirectPaymentMethodSpecificOutput"
+          $ref: '#/components/schemas/RedirectPaymentMethodSpecificOutput'
         sepaDirectDebitPaymentMethodSpecificOutput:
-          $ref: "#/components/schemas/SepaDirectDebitPaymentMethodSpecificOutput"
+          $ref: '#/components/schemas/SepaDirectDebitPaymentMethodSpecificOutput'
         financingPaymentMethodSpecificOutput:
-          $ref: "#/components/schemas/FinancingPaymentMethodSpecificOutput"
+          $ref: '#/components/schemas/FinancingPaymentMethodSpecificOutput'
     PaymentProduct302SpecificInput:
       type: object
       description: Object containing additional Information needed for Apple Pay payment transactions.
@@ -4080,9 +4077,9 @@ components:
             - MASS_ENABLEMENT
           example: MASS_ENABLEMENT
         network:
-          $ref: "#/components/schemas/MobilePaymentNetwork"
+          $ref: '#/components/schemas/MobilePaymentNetwork'
         token:
-          $ref: "#/components/schemas/ApplePaymentDataTokenInformation"
+          $ref: '#/components/schemas/ApplePaymentDataTokenInformation'
         domainName:
           type: string
           description: Domain of your Webshop. Needed for initialization of the Apple Pay payment session with integrationType=MASS_ENABLEMENT.
@@ -4100,7 +4097,7 @@ components:
             ID of the selected installment option. Will be provided in the response of the Order / Payment Execution
             request.
         bankAccountInformation:
-          $ref: "#/components/schemas/BankAccountInformation"
+          $ref: '#/components/schemas/BankAccountInformation'
       required:
         - bankAccountInformation
         - installmentOptionId
@@ -4111,14 +4108,14 @@ components:
           type: array
           description: List of installment options.
           items:
-            $ref: "#/components/schemas/InstallmentOption"
+            $ref: '#/components/schemas/InstallmentOption'
       description: Object containing specific information for PAYONE Secured Installment.
     PaymentProduct3392SpecificInput:
       type: object
       description: Object containing specific information for PAYONE Secured Direct Debit.
       properties:
         bankAccountInformation:
-          $ref: "#/components/schemas/BankAccountInformation"
+          $ref: '#/components/schemas/BankAccountInformation'
       required:
         - bankAccountInformation
     PaymentProduct5002SpecificInput:
@@ -4126,7 +4123,7 @@ components:
       description: Object containing additional Information needed for Click To Pay processing.
       properties:
         network:
-          $ref: "#/components/schemas/MobilePaymentNetwork"
+          $ref: '#/components/schemas/MobilePaymentNetwork'
         paymentCheckoutData:
           type: string
           description: |-
@@ -4175,11 +4172,11 @@ components:
       additionalProperties: false
       properties:
         billingAddress:
-          $ref: "#/components/schemas/Address"
+          $ref: '#/components/schemas/Address'
         customerAccount:
-          $ref: "#/components/schemas/PaymentProduct840CustomerAccount"
+          $ref: '#/components/schemas/PaymentProduct840CustomerAccount'
         shippingAddress:
-          $ref: "#/components/schemas/Address"
+          $ref: '#/components/schemas/Address'
         payPalTransactionId:
           type: string
           maxLength: 20
@@ -4203,7 +4200,9 @@ components:
         merchantReference:
           type: string
           description: |-
-            Unique reference of the Commerce Case that is also returned for reporting and reconciliation purposes.
+            Unique reference of payment transactions, also returned for reporting and reconciliation purposes.
+            For capture requests, providing this value is recommended to support an end-to-end refund flow.
+            If provided for captures or refunds, it must be unique per Checkout.
           maxLength: 20
           example: your-order-6372
     PaymentReferencesForRefund:
@@ -4211,7 +4210,7 @@ components:
       description: Object that holds all reference properties that are linked to this transaction.
       additionalProperties: false
       allOf:
-        - $ref: "#/components/schemas/PaymentReferences"
+        - $ref: '#/components/schemas/PaymentReferences'
         - type: object
           properties:
             captureReference:
@@ -4225,11 +4224,11 @@ components:
       additionalProperties: false
       properties:
         paymentOutput:
-          $ref: "#/components/schemas/PaymentOutput"
+          $ref: '#/components/schemas/PaymentOutput'
         status:
-          $ref: "#/components/schemas/StatusValue"
+          $ref: '#/components/schemas/StatusValue'
         statusOutput:
-          $ref: "#/components/schemas/PaymentStatusOutput"
+          $ref: '#/components/schemas/PaymentStatusOutput'
         id:
           type: string
           description: Unique payment transaction identifier of the payment gateway.
@@ -4246,7 +4245,7 @@ components:
           type: boolean
           description: Flag indicating if the payment can be cancelled
         statusCategory:
-          $ref: "#/components/schemas/StatusCategoryValue"
+          $ref: '#/components/schemas/StatusCategoryValue'
         isAuthorized:
           description: Indicates if the transaction has been authorized
           type: boolean
@@ -4273,9 +4272,9 @@ components:
       additionalProperties: false
       properties:
         amountOfMoney:
-          $ref: "#/components/schemas/AmountOfMoney"
+          $ref: '#/components/schemas/AmountOfMoney'
         references:
-          $ref: "#/components/schemas/PaymentReferences"
+          $ref: '#/components/schemas/PaymentReferences'
         paymentMethod:
           type: string
           description: Payment method identifier based on the paymentProductId.
@@ -4285,11 +4284,11 @@ components:
       additionalProperties: false
       properties:
         payoutOutput:
-          $ref: "#/components/schemas/PayoutOutput"
+          $ref: '#/components/schemas/PayoutOutput'
         status:
-          $ref: "#/components/schemas/StatusValue"
+          $ref: '#/components/schemas/StatusValue'
         statusCategory:
-          $ref: "#/components/schemas/StatusCategoryValue"
+          $ref: '#/components/schemas/StatusCategoryValue'
         id:
           type: string
           description: Unique payment transaction identifier of the payment gateway.
@@ -4318,7 +4317,7 @@ components:
             - FEMALE
             - UNKNOWN
         name:
-          $ref: "#/components/schemas/PersonalName"
+          $ref: '#/components/schemas/PersonalName'
     PersonalName:
       type: object
       description: Object containing the name details of the customer
@@ -4368,9 +4367,9 @@ components:
         Renamed from CreateMandateWithReturnUrl to ProcessingMandateInformation.
       properties:
         bankAccountIban:
-          $ref: "#/components/schemas/BankAccountInformation"
+          $ref: '#/components/schemas/BankAccountInformation'
         recurrenceType:
-          $ref: "#/components/schemas/MandateRecurrenceType"
+          $ref: '#/components/schemas/MandateRecurrenceType'
         uniqueMandateReference:
           maxLength: 35
           pattern: ^[A-Za-z0-9\+\-\.()]{1,35}$
@@ -4453,7 +4452,7 @@ components:
             * true = the payment requires approval before the funds will be captured using the Approve payment or
             Capture payment API
             * false = the payment does not require approval, and the funds will be captured automatically
-
+            
             If the parameter is not provided in the request, the default value will be true
         paymentProcessingToken:
           type: string
@@ -4475,11 +4474,11 @@ components:
             tokenization of recurring payments.
             example: false
         paymentProductId:
-          $ref: "#/components/schemas/PaymentProductId"
+          $ref: '#/components/schemas/PaymentProductId'
         paymentProduct840SpecificInput:
-          $ref: "#/components/schemas/RedirectPaymentProduct840SpecificInput"
+          $ref: '#/components/schemas/RedirectPaymentProduct840SpecificInput'
         redirectionData:
-          $ref: "#/components/schemas/RedirectionData"
+          $ref: '#/components/schemas/RedirectionData'
     RedirectPaymentMethodSpecificOutput:
       type: object
       description: |
@@ -4487,9 +4486,9 @@ components:
       additionalProperties: false
       properties:
         paymentProductId:
-          $ref: "#/components/schemas/PaymentProductId"
+          $ref: '#/components/schemas/PaymentProductId'
         paymentProduct840SpecificOutput:
-          $ref: "#/components/schemas/PaymentProduct840SpecificOutput"
+          $ref: '#/components/schemas/PaymentProduct840SpecificOutput'
         paymentProcessingToken:
           type: string
           description: ID of the token. This property is populated when the payment was done with a token.
@@ -4599,7 +4598,7 @@ components:
       description: Request to refresh the payment status of a specific payment.
       properties:
         refreshType:
-          $ref: "#/components/schemas/RefreshType"
+          $ref: '#/components/schemas/RefreshType'
       required:
         - refreshType
     RefreshType:
@@ -4625,7 +4624,7 @@ components:
         errors:
           type: array
           items:
-            $ref: "#/components/schemas/APIError"
+            $ref: '#/components/schemas/APIError'
     RefundOutput:
       type: object
       description: |
@@ -4633,7 +4632,7 @@ components:
       additionalProperties: false
       properties:
         amountOfMoney:
-          $ref: "#/components/schemas/AmountOfMoney"
+          $ref: '#/components/schemas/AmountOfMoney'
         merchantParameters:
           type: string
           description: |
@@ -4642,7 +4641,7 @@ components:
           maxLength: 1000
           example: "{'SessionID':'126548354','ShopperID':'7354131'}"
         references:
-          $ref: "#/components/schemas/PaymentReferences"
+          $ref: '#/components/schemas/PaymentReferences'
         paymentMethod:
           type: string
           description: Payment method identifier used by the our payment engine.
@@ -4655,17 +4654,17 @@ components:
       additionalProperties: false
       properties:
         refundOutput:
-          $ref: "#/components/schemas/RefundOutput"
+          $ref: '#/components/schemas/RefundOutput'
         status:
-          $ref: "#/components/schemas/StatusValue"
+          $ref: '#/components/schemas/StatusValue'
         statusOutput:
-          $ref: "#/components/schemas/PaymentStatusOutput"
+          $ref: '#/components/schemas/PaymentStatusOutput'
         fundSplit:
-          $ref: "#/components/schemas/FundSplit"
+          $ref: '#/components/schemas/FundSplit'
         id:
           type: string
           description: Unique payment transaction identifier of the payment gateway.
-          example: "3066019730_1"
+          example: '3066019730_1'
     RefundRequest:
       type: object
       description: |
@@ -4675,13 +4674,13 @@ components:
       additionalProperties: false
       properties:
         amountOfMoney:
-          $ref: "#/components/schemas/PositiveAmountOfMoney"
+          $ref: '#/components/schemas/PositiveAmountOfMoney'
         references:
-          $ref: "#/components/schemas/PaymentReferencesForRefund"
+          $ref: '#/components/schemas/PaymentReferencesForRefund'
         return:
-          $ref: "#/components/schemas/ReturnInformation"
+          $ref: '#/components/schemas/ReturnInformation'
         fundSplit:
-          $ref: "#/components/schemas/FundSplit"
+          $ref: '#/components/schemas/FundSplit'
     ReturnInformation:
       type: object
       description: |-
@@ -4699,7 +4698,7 @@ components:
           description: |-
             Items returned.
           items:
-            $ref: "#/components/schemas/CartItemInput"
+            $ref: '#/components/schemas/CartItemInput'
     ReturnItem:
       type: object
       properties:
@@ -4732,7 +4731,7 @@ components:
         The returnReason can be provided for reporting and reconciliation purposes but is not mandatory.
       properties:
         returnType:
-          $ref: "#/components/schemas/ReturnType"
+          $ref: '#/components/schemas/ReturnType'
         returnReason:
           type: string
           description: |-
@@ -4742,16 +4741,16 @@ components:
         returnItems:
           type: array
           items:
-            $ref: "#/components/schemas/ReturnItem"
+            $ref: '#/components/schemas/ReturnItem'
         fundSplit:
-          $ref: "#/components/schemas/FundSplit"
+          $ref: '#/components/schemas/FundSplit'
     ReturnResponse:
       type: object
       properties:
         returnPaymentResponse:
-          $ref: "#/components/schemas/RefundPaymentResponse"
+          $ref: '#/components/schemas/RefundPaymentResponse'
         shoppingCart:
-          $ref: "#/components/schemas/ShoppingCartResult"
+          $ref: '#/components/schemas/ShoppingCartResult'
     ReturnType:
       type: string
       description: |
@@ -4774,18 +4773,18 @@ components:
       additionalProperties: false
       properties:
         paymentProduct771SpecificInput:
-          $ref: "#/components/schemas/SepaDirectDebitPaymentProduct771SpecificInput"
+          $ref: '#/components/schemas/SepaDirectDebitPaymentProduct771SpecificInput'
         paymentProductId:
-          $ref: "#/components/schemas/PaymentProductId"
+          $ref: '#/components/schemas/PaymentProductId'
     SepaDirectDebitPaymentMethodSpecificOutput:
       type: object
       description: Object containing the SEPA direct debit details.
       additionalProperties: false
       properties:
         paymentProductId:
-          $ref: "#/components/schemas/PaymentProductId"
+          $ref: '#/components/schemas/PaymentProductId'
         paymentProduct771SpecificOutput:
-          $ref: "#/components/schemas/PaymentProduct771SpecificOutput"
+          $ref: '#/components/schemas/PaymentProduct771SpecificOutput'
     SepaDirectDebitPaymentProduct771SpecificInput:
       type: object
       description: Object containing information specific to SEPA Direct Debit
@@ -4793,15 +4792,15 @@ components:
         existingUniqueMandateReference:
           type: string
           description: The unique reference of the existing mandate to use in this payment.
-          example: "exampleMandateReference"
+          example: 'exampleMandateReference'
         mandate:
-          $ref: "#/components/schemas/ProcessingMandateInformation"
+          $ref: '#/components/schemas/ProcessingMandateInformation'
     SepaTransferPaymentProduct772SpecificInput:
       type: object
       description: Object containing the specific input details for SEPA credit transfers excluding cross-border ones
       properties:
         bankAccountInformation:
-          $ref: "#/components/schemas/BankAccountInformation"
+          $ref: '#/components/schemas/BankAccountInformation'
     Shipping:
       type: object
       description: |
@@ -4809,7 +4808,7 @@ components:
       additionalProperties: false
       properties:
         address:
-          $ref: "#/components/schemas/AddressPersonal"
+          $ref: '#/components/schemas/AddressPersonal'
     ShoppingCartInput:
       type: object
       description: |
@@ -4818,7 +4817,7 @@ components:
         items:
           type: array
           items:
-            $ref: "#/components/schemas/CartItemInput"
+            $ref: '#/components/schemas/CartItemInput'
     ShoppingCartPatch:
       type: object
       description: |
@@ -4827,7 +4826,7 @@ components:
         items:
           type: array
           items:
-            $ref: "#/components/schemas/CartItemPatch"
+            $ref: '#/components/schemas/CartItemPatch'
     ShoppingCartResult:
       type: object
       description: |
@@ -4836,7 +4835,7 @@ components:
         items:
           type: array
           items:
-            $ref: "#/components/schemas/CartItemResult"
+            $ref: '#/components/schemas/CartItemResult'
     StatusCategoryValue:
       type: string
       description: Highlevel status of the payment, payout or Refund.

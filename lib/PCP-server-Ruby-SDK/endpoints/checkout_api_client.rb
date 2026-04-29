@@ -109,7 +109,7 @@ module PCPServerSDK
       # @param commerce_case_id [String] The commerce case identifier
       # @param checkout_id [String] The checkout identifier
       # @return [nil]
-      def remove_checkout_request(merchant_id, commerce_case_id, checkout_id)
+      def delete_checkout_request(merchant_id, commerce_case_id, checkout_id)
         raise TypeError, MERCHANT_ID_REQUIRED_ERROR if merchant_id.nil? || merchant_id.empty?
         raise TypeError, COMMERCE_CASE_ID_REQUIRED_ERROR if commerce_case_id.nil? || commerce_case_id.empty?
         raise TypeError, CHECKOUT_ID_REQUIRED_ERROR if checkout_id.nil? || checkout_id.empty?
@@ -124,6 +124,8 @@ module PCPServerSDK
         make_api_call(url.to_s, request_init)
         nil
       end
+
+      alias remove_checkout_request delete_checkout_request
 
       # Complete a checkout
       # @param merchant_id [String] The merchant identifier

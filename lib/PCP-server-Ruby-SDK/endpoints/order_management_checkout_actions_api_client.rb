@@ -4,6 +4,7 @@ require 'uri'
 require_relative 'base_api_client'
 require_relative '../models/cancel_response'
 require_relative '../models/deliver_response'
+require_relative '../models/complete_payment_response'
 require_relative '../models/order_response'
 require_relative '../models/return_response'
 module PCPServerSDK
@@ -22,6 +23,7 @@ module PCPServerSDK
       # @return [PCPServerSDK::Models::OrderResponse] The order response
       def create_order(merchant_id, commerce_case_id, checkout_id, payload)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
+        raise TypeError, PAYLOAD_REQUIRED_ERROR if payload.nil?
 
         url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts/#{checkout_id}/order")
 
@@ -35,6 +37,28 @@ module PCPServerSDK
         deserialize_json(response, PCPServerSDK::Models::OrderResponse)
       end
 
+      # Complete an order
+      # @param merchant_id [String] The merchant identifier
+      # @param commerce_case_id [String] The commerce case identifier
+      # @param checkout_id [String] The checkout identifier
+      # @param payload [PCPServerSDK::Models::CompleteOrderRequest] The complete order request
+      # @return [PCPServerSDK::Models::CompletePaymentResponse] The complete payment response
+      def complete_order(merchant_id, commerce_case_id, checkout_id, payload)
+        validate_ids(merchant_id, commerce_case_id, checkout_id)
+        raise TypeError, PAYLOAD_REQUIRED_ERROR if payload.nil?
+
+        url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts/#{checkout_id}/complete-order")
+
+        request_init = {
+          method: 'POST',
+          headers: { 'Content-Type' => 'application/json' },
+          body: JSON.generate(payload)
+        }
+
+        response = make_api_call(url.to_s, request_init)
+        deserialize_json(response, PCPServerSDK::Models::CompletePaymentResponse)
+      end
+
       # Deliver an order
       # @param merchant_id [String] The merchant identifier
       # @param commerce_case_id [String] The commerce case identifier
@@ -43,6 +67,7 @@ module PCPServerSDK
       # @return [PCPServerSDK::Models::DeliverResponse] The deliver response
       def deliver_order(merchant_id, commerce_case_id, checkout_id, payload)
         validate_ids(merchant_id, commerce_case_id, checkout_id)
+        raise TypeError, PAYLOAD_REQUIRED_ERROR if payload.nil?
 
         url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts/#{checkout_id}/deliver")
 
