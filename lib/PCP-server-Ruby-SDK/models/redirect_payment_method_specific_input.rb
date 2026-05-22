@@ -23,6 +23,8 @@ module PCPServerSDK
 
       attr_accessor :payment_product840_specific_input
 
+      attr_accessor :payment_product900_specific_input
+
       attr_accessor :redirection_data
 
       # Attribute mapping from ruby-style variable name to JSON key.
@@ -34,6 +36,7 @@ module PCPServerSDK
           :'tokenize' => :'tokenize',
           :'payment_product_id' => :'paymentProductId',
           :'payment_product840_specific_input' => :'paymentProduct840SpecificInput',
+          :'payment_product900_specific_input' => :'paymentProduct900SpecificInput',
           :'redirection_data' => :'redirectionData'
         }
       end
@@ -52,6 +55,7 @@ module PCPServerSDK
           :'tokenize' => :'Boolean',
           :'payment_product_id' => :'Integer',
           :'payment_product840_specific_input' => :'RedirectPaymentProduct840SpecificInput',
+          :'payment_product900_specific_input' => :'RedirectPaymentProduct900SpecificInput',
           :'redirection_data' => :'RedirectionData'
         }
       end
@@ -101,6 +105,10 @@ module PCPServerSDK
           self.payment_product840_specific_input = attributes[:'payment_product840_specific_input']
         end
 
+        if attributes.key?(:'payment_product900_specific_input')
+          self.payment_product900_specific_input = attributes[:'payment_product900_specific_input']
+        end
+
         if attributes.key?(:'redirection_data')
           self.redirection_data = attributes[:'redirection_data']
         end
@@ -117,6 +125,7 @@ module PCPServerSDK
             tokenize == o.tokenize &&
             payment_product_id == o.payment_product_id &&
             payment_product840_specific_input == o.payment_product840_specific_input &&
+            payment_product900_specific_input == o.payment_product900_specific_input &&
             redirection_data == o.redirection_data
       end
 
@@ -129,7 +138,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [requires_approval, payment_processing_token, reporting_token, tokenize, payment_product_id, payment_product840_specific_input, redirection_data].hash
+        [requires_approval, payment_processing_token, reporting_token, tokenize, payment_product_id, payment_product840_specific_input, payment_product900_specific_input, redirection_data].hash
       end
 
       # Builds the object from hash
