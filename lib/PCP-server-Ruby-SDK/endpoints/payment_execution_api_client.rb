@@ -6,6 +6,7 @@ require_relative '../models/cancel_payment_response'
 require_relative '../models/capture_payment_response'
 require_relative '../models/complete_payment_response'
 require_relative '../models/create_payment_response'
+require_relative '../models/fund_split_response'
 require_relative '../models/refund_payment_response'
 module PCPServerSDK
   module Endpoints
@@ -174,6 +175,31 @@ module PCPServerSDK
 
         response = make_api_call(url.to_s, request_init)
         deserialize_json(response, PCPServerSDK::Models::PaymentExecution)
+      end
+
+      # Create a fund split for a payment event
+      # @param merchant_id [String] The merchant identifier
+      # @param commerce_case_id [String] The commerce case identifier
+      # @param checkout_id [String] The checkout identifier
+      # @param payment_execution_id [String] The payment execution identifier
+      # @param event_id [String] The payment event identifier
+      # @param payload [PCPServerSDK::Models::FundSplitRequest] The fund split request
+      # @return [PCPServerSDK::Models::FundSplitResponse] The fund split response
+      def create_fund_split(merchant_id, commerce_case_id, checkout_id, payment_execution_id, event_id, payload)
+        validate_ids(merchant_id, commerce_case_id, checkout_id)
+        raise TypeError, PAYMENT_EXECUTION_ID_REQUIRED_ERROR if payment_execution_id.nil? || payment_execution_id.empty?
+        raise TypeError, 'Event ID is required' if event_id.nil? || event_id.empty?
+
+        url = URI.join(get_config.host, "/v1/#{merchant_id}/commerce-cases/#{commerce_case_id}/checkouts/#{checkout_id}/payment-executions/#{payment_execution_id}/events/#{event_id}/fund-splits")
+
+        request_init = {
+          method: 'POST',
+          headers: { 'Content-Type' => 'application/json' },
+          body: JSON.generate(payload)
+        }
+
+        response = make_api_call(url.to_s, request_init)
+        deserialize_json(response, PCPServerSDK::Models::FundSplitResponse)
       end
 
 

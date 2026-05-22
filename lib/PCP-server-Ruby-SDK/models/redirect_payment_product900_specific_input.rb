@@ -1,15 +1,11 @@
 
 require 'date'
 require 'time'
+
 module PCPServerSDK
   module Models
-    class CancelPaymentRequest
-      attr_accessor :cancellation_reason
-
-      # Here you can specify the amount that you want to cancel (specified in cents, where single digit currencies
-      # are presumed to have 2 digits). The amount can be lower than the amount that was authorized, but not higher. 
-      # If left empty, the remaining open amount will be cancelled.
-      attr_accessor :amount
+    class RedirectPaymentProduct900SpecificInput
+      attr_accessor :capture_trigger
 
       class EnumAttributeValidator
         attr_reader :datatype
@@ -33,81 +29,57 @@ module PCPServerSDK
         end
       end
 
-      # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
-          :'cancellation_reason' => :'cancellationReason',
-          :'amount' => :'amount'
+          :'capture_trigger' => :'captureTrigger'
         }
       end
 
-      # Returns all the JSON keys this model knows about
       def self.acceptable_attributes
         attribute_map.values
       end
 
-      # Attribute type mapping.
       def self.openapi_types
         {
-          :'cancellation_reason' => :'CancellationReason',
-          :'amount' => :'Integer'
+          :'capture_trigger' => :'String'
         }
       end
 
-      # List of attributes with nullable: true
       def self.openapi_nullable
-        Set.new([
-        ])
+        Set.new([])
       end
 
-      # Initializes the object
-      # @param [Hash] attributes Model attributes in the form of hash
       def initialize(attributes = {})
         if (!attributes.is_a?(Hash))
-          fail ArgumentError, "The input argument (attributes) must be a hash in `CancelPaymentRequest` initialize method"
+          fail ArgumentError, "The input argument (attributes) must be a hash in `RedirectPaymentProduct900SpecificInput` initialize method"
         end
 
-        # check to see if the attribute exists and convert string to symbol for hash key
         attributes = attributes.each_with_object({}) { |(k, v), h|
           if (!self.class.attribute_map.key?(k.to_sym))
-            fail ArgumentError, "`#{k}` is not a valid attribute in `CancelPaymentRequest`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+            fail ArgumentError, "`#{k}` is not a valid attribute in `RedirectPaymentProduct900SpecificInput`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
           end
           h[k.to_sym] = v
         }
 
-        if attributes.key?(:'cancellation_reason')
-          self.cancellation_reason = attributes[:'cancellation_reason']
-        end
-
-        if attributes.key?(:'amount')
-          self.amount = attributes[:'amount']
+        if attributes.key?(:'capture_trigger')
+          self.capture_trigger = attributes[:'capture_trigger']
         end
       end
 
-      # Checks equality by comparing each attribute.
-      # @param [Object] Object to be compared
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
-            cancellation_reason == o.cancellation_reason &&
-            amount == o.amount
+          capture_trigger == o.capture_trigger
       end
 
-      # @see the `==` method
-      # @param [Object] Object to be compared
       def eql?(o)
         self == o
       end
 
-      # Calculates hash code according to all attributes.
-      # @return [Integer] Hash code
       def hash
-        [cancellation_reason, amount].hash
+        [capture_trigger].hash
       end
 
-      # Builds the object from hash
-      # @param [Hash] attributes Model attributes in the form of hash
-      # @return [Object] Returns the model itself
       def self.build_from_hash(attributes)
         return nil unless attributes.is_a?(Hash)
         attributes = attributes.transform_keys(&:to_sym)
@@ -116,8 +88,6 @@ module PCPServerSDK
           if attributes.key?(attribute_map[key]) && attributes[attribute_map[key]].nil?
             transformed_hash["#{key}"] = nil
           elsif type =~ /\AArray<(.*)>/i
-            # check to ensure the input is an array given that the attribute
-            # is documented as an array but the input is not
             if attributes[attribute_map[key]].is_a?(Array)
               transformed_hash["#{key}"] = attributes[attribute_map[key]].map { |v| _deserialize($1, v) }
             end
@@ -128,10 +98,6 @@ module PCPServerSDK
         new(transformed_hash)
       end
 
-      # Deserializes the data based on type
-      # @param string type Data type
-      # @param string value Value to be deserialized
-      # @return [Object] Deserialized data
       def self._deserialize(type, value)
         case type.to_sym
         when :Time
@@ -151,7 +117,6 @@ module PCPServerSDK
             false
           end
         when :Object
-          # generic object (usually a Hash), return directly
           value
         when /\AArray<(?<inner_type>.+)>\z/
           inner_type = Regexp.last_match[:inner_type]
@@ -164,27 +129,20 @@ module PCPServerSDK
               hash[_deserialize(k_type, k)] = _deserialize(v_type, v)
             end
           end
-        else # model
-          # models (e.g. Pet) or oneOf
+        else
           klass = PCPServerSDK::Models.const_get(type)
           klass.respond_to?(:openapi_any_of) || klass.respond_to?(:openapi_one_of) ? klass.build(value) : klass.build_from_hash(value)
         end
       end
 
-      # Returns the string representation of the object
-      # @return [String] String presentation of the object
       def to_s
         to_hash.to_s
       end
 
-      # to_body is an alias to to_hash (backward compatibility)
-      # @return [Hash] Returns the object in the form of hash
       def to_body
         to_hash
       end
 
-      # Returns the object in the form of hash
-      # @return [Hash] Returns the object in the form of hash
       def to_hash
         hash = {}
         self.class.attribute_map.each_pair do |attr, param|
@@ -199,10 +157,6 @@ module PCPServerSDK
         hash
       end
 
-      # Outputs non-array value in the form of hash
-      # For object, use to_hash. Otherwise, just return the value
-      # @param [Object] value Any valid value
-      # @return [Hash] Returns the value in the form of hash
       def _to_hash(value)
         if value.is_a?(Array)
           value.compact.map { |v| _to_hash(v) }
@@ -215,6 +169,14 @@ module PCPServerSDK
         else
           value
         end
+      end
+
+      def capture_trigger=(capture_trigger)
+        validator = EnumAttributeValidator.new('String', ['shipping', 'delivery', 'availability', 'serviceFulfillment', 'other'])
+        unless validator.valid?(capture_trigger)
+          fail ArgumentError, "invalid value for \"capture_trigger\", must be one of #{validator.allowable_values}."
+        end
+        @capture_trigger = capture_trigger
       end
     end
   end
