@@ -5,7 +5,8 @@ module PCPServerSDK
   module Models
     # Object containing the line items of the invoice or shopping cart.
     class CartItemInvoiceData
-      # Shopping cart item description. The description will also be displayed in the portal as the product name. 
+      # Shopping cart item description. The description will also be displayed in the portal as the product name 
+      # if orderLineDetails.productName is not set. 
       attr_accessor :description
 
       # Attribute mapping from ruby-style variable name to JSON key.
