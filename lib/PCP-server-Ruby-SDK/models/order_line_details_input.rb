@@ -34,6 +34,9 @@ module PCPServerSDK
       # Optional parameter to define the delivery shop or touchpoint where an item has been collected (e.g. for Click & Collect or Click & Reserve).
       attr_accessor :merchant_shop_delivery_reference
 
+      # The name of the product, will be displayed in Portal if set.
+      attr_accessor :product_name
+
       class EnumAttributeValidator
         attr_reader :datatype
         attr_reader :allowable_values
@@ -68,7 +71,8 @@ module PCPServerSDK
           :'product_url' => :'productUrl',
           :'product_image_url' => :'productImageUrl',
           :'product_category_path' => :'productCategoryPath',
-          :'merchant_shop_delivery_reference' => :'merchantShopDeliveryReference'
+          :'merchant_shop_delivery_reference' => :'merchantShopDeliveryReference',
+          :'product_name' => :'productName'
         }
       end
 
@@ -89,7 +93,8 @@ module PCPServerSDK
           :'product_url' => :'String',
           :'product_image_url' => :'String',
           :'product_category_path' => :'String',
-          :'merchant_shop_delivery_reference' => :'String'
+          :'merchant_shop_delivery_reference' => :'String',
+          :'product_name' => :'String'
         }
       end
 
@@ -157,6 +162,10 @@ module PCPServerSDK
         if attributes.key?(:'merchant_shop_delivery_reference')
           self.merchant_shop_delivery_reference = attributes[:'merchant_shop_delivery_reference']
         end
+
+        if attributes.key?(:'product_name')
+          self.product_name = attributes[:'product_name']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -173,7 +182,8 @@ module PCPServerSDK
             product_url == o.product_url &&
             product_image_url == o.product_image_url &&
             product_category_path == o.product_category_path &&
-            merchant_shop_delivery_reference == o.merchant_shop_delivery_reference
+            merchant_shop_delivery_reference == o.merchant_shop_delivery_reference &&
+            product_name == o.product_name
       end
 
       # @see the `==` method
@@ -185,7 +195,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [product_code, product_price, product_type, quantity, tax_amount, tax_amount_per_unit, product_url, product_image_url, product_category_path, merchant_shop_delivery_reference].hash
+        [product_code, product_price, product_type, quantity, tax_amount, tax_amount_per_unit, product_url, product_image_url, product_category_path, merchant_shop_delivery_reference, product_name].hash
       end
 
       # Builds the object from hash
