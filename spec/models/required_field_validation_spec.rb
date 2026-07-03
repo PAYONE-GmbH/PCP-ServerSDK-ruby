@@ -459,6 +459,70 @@ RSpec.describe 'required field validation' do
     end
   end
 
+  describe PCPServerSDK::Models::CancelPaymentRequest do
+    let(:fund_split) do
+      PCPServerSDK::Models::FundSplit.new(
+        fund_distributions: [
+          PCPServerSDK::Models::FundDistribution.new(account_id: 'account-1', amount: 100, type: 'MARKETPLACE')
+        ]
+      )
+    end
+
+    it 'serializes fund_split using the API field name' do
+      request = described_class.new(amount: 100, fund_split: fund_split)
+
+      expect(request.to_hash).to include(
+        amount: 100,
+        fundSplit: {
+          fundDistributions: [
+            {
+              accountId: 'account-1',
+              amount: 100,
+              type: 'MARKETPLACE'
+            }
+          ]
+        }
+      )
+    end
+
+    it 'deserializes fundSplit into a FundSplit model' do
+      request = described_class.build_from_hash({
+        'amount' => 100,
+        'fundSplit' => {
+          'fundDistributions' => [
+            {
+              'accountId' => 'account-1',
+              'amount' => 100,
+              'type' => 'MARKETPLACE'
+            }
+          ]
+        }
+      })
+
+      expect(request.fund_split).to be_a(PCPServerSDK::Models::FundSplit)
+      expect(request.fund_split.fund_distributions.first.account_id).to eq('account-1')
+    end
+  end
+
+  describe PCPServerSDK::Models::CancelPaymentResponse do
+    it 'deserializes fundSplit into a FundSplit model' do
+      response = described_class.build_from_hash({
+        'fundSplit' => {
+          'fundDistributions' => [
+            {
+              'accountId' => 'account-1',
+              'amount' => 100,
+              'type' => 'MARKETPLACE'
+            }
+          ]
+        }
+      })
+
+      expect(response.fund_split).to be_a(PCPServerSDK::Models::FundSplit)
+      expect(response.fund_split.fund_distributions.first.amount).to eq(100)
+    end
+  end
+
   describe PCPServerSDK::Models::DeliverItem do
     it 'rejects partially initialized item models missing required fields' do
       expect do
