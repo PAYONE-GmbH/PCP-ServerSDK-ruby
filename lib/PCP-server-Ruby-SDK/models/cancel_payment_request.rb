@@ -11,6 +11,8 @@ module PCPServerSDK
       # If left empty, the remaining open amount will be cancelled.
       attr_accessor :amount
 
+      attr_accessor :fund_split
+
       class EnumAttributeValidator
         attr_reader :datatype
         attr_reader :allowable_values
@@ -37,7 +39,8 @@ module PCPServerSDK
       def self.attribute_map
         {
           :'cancellation_reason' => :'cancellationReason',
-          :'amount' => :'amount'
+          :'amount' => :'amount',
+          :'fund_split' => :'fundSplit'
         }
       end
 
@@ -50,7 +53,8 @@ module PCPServerSDK
       def self.openapi_types
         {
           :'cancellation_reason' => :'CancellationReason',
-          :'amount' => :'Integer'
+          :'amount' => :'Integer',
+          :'fund_split' => :'FundSplit'
         }
       end
 
@@ -82,6 +86,10 @@ module PCPServerSDK
         if attributes.key?(:'amount')
           self.amount = attributes[:'amount']
         end
+
+        if attributes.key?(:'fund_split')
+          self.fund_split = attributes[:'fund_split']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -90,7 +98,8 @@ module PCPServerSDK
         return true if self.equal?(o)
         self.class == o.class &&
             cancellation_reason == o.cancellation_reason &&
-            amount == o.amount
+            amount == o.amount &&
+            fund_split == o.fund_split
       end
 
       # @see the `==` method
@@ -102,7 +111,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [cancellation_reason, amount].hash
+        [cancellation_reason, amount, fund_split].hash
       end
 
       # Builds the object from hash

@@ -6,10 +6,13 @@ module PCPServerSDK
     class CancelPaymentResponse
       attr_accessor :payment
 
+      attr_accessor :fund_split
+
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
         {
-          :'payment' => :'payment'
+          :'payment' => :'payment',
+          :'fund_split' => :'fundSplit'
         }
       end
 
@@ -21,7 +24,8 @@ module PCPServerSDK
       # Attribute type mapping.
       def self.openapi_types
         {
-          :'payment' => :'PaymentResponse'
+          :'payment' => :'PaymentResponse',
+          :'fund_split' => :'FundSplit'
         }
       end
 
@@ -49,6 +53,10 @@ module PCPServerSDK
         if attributes.key?(:'payment')
           self.payment = attributes[:'payment']
         end
+
+        if attributes.key?(:'fund_split')
+          self.fund_split = attributes[:'fund_split']
+        end
       end
 
       # Checks equality by comparing each attribute.
@@ -56,7 +64,8 @@ module PCPServerSDK
       def ==(o)
         return true if self.equal?(o)
         self.class == o.class &&
-            payment == o.payment
+            payment == o.payment &&
+            fund_split == o.fund_split
       end
 
       # @see the `==` method
@@ -68,7 +77,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [payment].hash
+        [payment, fund_split].hash
       end
 
       # Builds the object from hash
