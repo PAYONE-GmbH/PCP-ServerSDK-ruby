@@ -23,6 +23,14 @@ RSpec.describe 'OpenAPI model conformance' do
     expect(missing).to be_empty
   end
 
+  it 'uses ModelBase for every non-composed object schema' do
+    ineligible = schemas.select { |_name, schema| schema.key?('oneOf') || schema.key?('anyOf') }.keys
+    eligible = schemas.select { |name, schema| schema['type'] == 'object' && !ineligible.include?(name) }.keys
+    mismatches = eligible.reject { |name| PCPServerSDK::Models.const_get(name) <= PCPServerSDK::Models::ModelBase }
+
+    expect(mismatches).to be_empty
+  end
+
   it 'maps every flattened schema property' do
     mismatches = schemas.filter_map do |name, schema|
       next unless schema['type'] == 'object'
