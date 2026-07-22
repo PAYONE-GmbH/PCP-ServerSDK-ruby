@@ -1,15 +1,13 @@
 require 'date'
 require 'time'
+require_relative 'payment_references'
 
 # Object that holds all reference properties that are linked to this refund transaction.
 # Extends the standard PaymentReferences with an additional captureReference field to support
 # scenarios where a Checkout may contain multiple partial captures from different sellers.
 module PCPServerSDK
   module Models
-    class PaymentReferencesForRefund
-      # Unique reference of the Commerce Case that is also returned for reporting and reconciliation purposes.
-      attr_accessor :merchant_reference
-
+    class PaymentReferencesForRefund < PaymentReferences
       # Merchant-provided reference of the capture that this refund should be applied to.
       #          A single Checkout can contain multiple partial captures.
       #          By supplying the captureReference the merchant ensures the refund is allocated to the correct
@@ -20,10 +18,7 @@ module PCPServerSDK
 
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
-        {
-          :'merchant_reference' => :'merchantReference',
-          :'capture_reference' => :'captureReference'
-        }
+        super.merge(:'capture_reference' => :'captureReference')
       end
 
       # Returns all the JSON keys this model knows about
@@ -33,10 +28,7 @@ module PCPServerSDK
 
       # Attribute type mapping.
       def self.openapi_types
-        {
-          :'merchant_reference' => :'String',
-          :'capture_reference' => :'String'
-        }
+        super.merge(:'capture_reference' => :'String')
       end
 
       # List of attributes with nullable: true
@@ -44,37 +36,23 @@ module PCPServerSDK
         Set.new([])
       end
 
+      def self.openapi_all_of
+        [:'PaymentReferences']
+      end
+
       # Initializes the object
       # @param [Hash] attributes Model attributes in the form of hash
       def initialize(attributes = {})
-        if (!attributes.is_a?(Hash))
-          fail ArgumentError, "The input argument (attributes) must be a hash in `PaymentReferencesForRefund` initialize method"
-        end
-
-        # check to see if the attribute exists and convert string to symbol for hash key
-        attributes = attributes.each_with_object({}) { |(k, v), h|
-          if (!self.class.attribute_map.key?(k.to_sym))
-            fail ArgumentError, "`#{k}` is not a valid attribute in `PaymentReferencesForRefund`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
-          end
-          h[k.to_sym] = v
-        }
-
-        if attributes.key?(:'merchant_reference')
-          self.merchant_reference = attributes[:'merchant_reference']
-        end
-
-        if attributes.key?(:'capture_reference')
-          self.capture_reference = attributes[:'capture_reference']
-        end
+        attributes = attributes.transform_keys(&:to_sym) if attributes.is_a?(Hash)
+        super
+        self.capture_reference = attributes[:'capture_reference'] if attributes.key?(:'capture_reference')
       end
 
       # Checks equality by comparing each attribute.
       # @param [Object] Object to be compared
       def ==(o)
         return true if self.equal?(o)
-        self.class == o.class &&
-            merchant_reference == o.merchant_reference &&
-            capture_reference == o.capture_reference
+        super && capture_reference == o.capture_reference
       end
 
       # @see the `==` method
@@ -86,7 +64,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [merchant_reference, capture_reference].hash
+        [super, capture_reference].hash
       end
 
       # Builds the object from hash

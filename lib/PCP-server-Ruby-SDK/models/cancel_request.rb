@@ -11,6 +11,8 @@ module PCPServerSDK
 
       attr_accessor :cancel_items
 
+      attr_accessor :fund_split
+
       class EnumAttributeValidator
         attr_reader :datatype
         attr_reader :allowable_values
@@ -38,7 +40,8 @@ module PCPServerSDK
         {
           :'cancel_type' => :'cancelType',
           :'cancellation_reason' => :'cancellationReason',
-          :'cancel_items' => :'cancelItems'
+          :'cancel_items' => :'cancelItems',
+          :'fund_split' => :'fundSplit'
         }
       end
 
@@ -52,7 +55,8 @@ module PCPServerSDK
         {
           :'cancel_type' => :'CancelType',
           :'cancellation_reason' => :'CancellationReason',
-          :'cancel_items' => :'Array<CancelItem>'
+          :'cancel_items' => :'Array<CancelItem>',
+          :'fund_split' => :'FundSplit'
         }
       end
 
@@ -90,6 +94,8 @@ module PCPServerSDK
             self.cancel_items = value
           end
         end
+
+        self.fund_split = attributes[:'fund_split'] if attributes.key?(:'fund_split')
       end
 
       # Checks equality by comparing each attribute.
@@ -99,7 +105,8 @@ module PCPServerSDK
         self.class == o.class &&
             cancel_type == o.cancel_type &&
             cancellation_reason == o.cancellation_reason &&
-            cancel_items == o.cancel_items
+            cancel_items == o.cancel_items &&
+            fund_split == o.fund_split
       end
 
       # @see the `==` method
@@ -111,7 +118,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [cancel_type, cancellation_reason, cancel_items].hash
+        [cancel_type, cancellation_reason, cancel_items, fund_split].hash
       end
 
       # Builds the object from hash

@@ -1,46 +1,16 @@
 
 require 'date'
 require 'time'
+require_relative 'order_line_details_input'
 
 # Object containing additional information that when supplied can have a beneficial effect on the discountrates. 
 module PCPServerSDK
   module Models
-    class OrderLineDetailsPatch
+    class OrderLineDetailsPatch < OrderLineDetailsInput
       # Unique identifier of a cart item
       attr_accessor :id
 
       attr_accessor :status
-
-      # Product or UPC Code
-      attr_accessor :product_code
-
-      # The price of one unit of the product, the value should be zero or greater.
-      attr_accessor :product_price
-
-      attr_accessor :product_type
-
-      # Quantity of the units being purchased, should be greater than zero Note: Must not be all spaces or all zeros
-      attr_accessor :quantity
-
-      # Tax on the line item, with the last two digits implied as decimal places
-      attr_accessor :tax_amount
-
-      # Indicates if the taxAmount is to be interpreted as the tax amount per unit rather than for the entire line item.
-      attr_accessor :tax_amount_per_unit
-
-      # URL of the product in shop.   Used for PAYONE Buy Now, Pay Later (BNPL).
-      attr_accessor :product_url
-
-      # URL of a product image.   Used for PAYONE Buy Now, Pay Later (BNPL).
-      attr_accessor :product_image_url
-
-      # Category path of the item.   Used for PAYONE Buy Now, Pay Later (BNPL).
-      attr_accessor :product_category_path
-
-      # Optional parameter to define the delivery shop or touchpoint where an item has been collected (e.g. for Click & Collect or Click & Reserve).
-      attr_accessor :merchant_shop_delivery_reference
-
-
 
       class EnumAttributeValidator
         attr_reader :datatype
@@ -66,20 +36,7 @@ module PCPServerSDK
 
       # Attribute mapping from ruby-style variable name to JSON key.
       def self.attribute_map
-        {
-          :'id' => :'id',
-          :'status' => :'status',
-          :'product_code' => :'productCode',
-          :'product_price' => :'productPrice',
-          :'product_type' => :'productType',
-          :'quantity' => :'quantity',
-          :'tax_amount' => :'taxAmount',
-          :'tax_amount_per_unit' => :'taxAmountPerUnit',
-          :'product_url' => :'productUrl',
-          :'product_image_url' => :'productImageUrl',
-          :'product_category_path' => :'productCategoryPath',
-          :'merchant_shop_delivery_reference' => :'merchantShopDeliveryReference'
-        }
+        super.merge(:'id' => :'id', :'status' => :'status')
       end
 
       # Returns all the JSON keys this model knows about
@@ -89,20 +46,7 @@ module PCPServerSDK
 
       # Attribute type mapping.
       def self.openapi_types
-        {
-          :'id' => :'String',
-          :'status' => :'Array<CartItemOrderStatus>',
-          :'product_code' => :'String',
-          :'product_price' => :'Integer',
-          :'product_type' => :'ProductType',
-          :'quantity' => :'Integer',
-          :'tax_amount' => :'Integer',
-          :'tax_amount_per_unit' => :'Boolean',
-          :'product_url' => :'String',
-          :'product_image_url' => :'String',
-          :'product_category_path' => :'String',
-          :'merchant_shop_delivery_reference' => :'String'
-        }
+        super.merge(:'id' => :'String', :'status' => :'Array<CartItemOrderStatus>')
       end
 
       # List of attributes with nullable: true
@@ -122,90 +66,17 @@ module PCPServerSDK
       # Initializes the object
       # @param [Hash] attributes Model attributes in the form of hash
       def initialize(attributes = {})
-        if (!attributes.is_a?(Hash))
-          fail ArgumentError, "The input argument (attributes) must be a hash in `OrderLineDetailsPatch` initialize method"
-        end
-
-        # check to see if the attribute exists and convert string to symbol for hash key
-        attributes = attributes.each_with_object({}) { |(k, v), h|
-          if (!self.class.attribute_map.key?(k.to_sym))
-            fail ArgumentError, "`#{k}` is not a valid attribute in `OrderLineDetailsPatch`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
-          end
-          h[k.to_sym] = v
-        }
-
-        if attributes.key?(:'id')
-          self.id = attributes[:'id']
-        end
-
-        if attributes.key?(:'status')
-          if (value = attributes[:'status']).is_a?(Array)
-            self.status = value
-          end
-        end
-
-        if attributes.key?(:'product_code')
-          self.product_code = attributes[:'product_code']
-        end
-
-        if attributes.key?(:'product_price')
-          self.product_price = attributes[:'product_price']
-        else
-          self.product_price = nil
-        end
-
-        if attributes.key?(:'product_type')
-          self.product_type = attributes[:'product_type']
-        end
-
-        if attributes.key?(:'quantity')
-          self.quantity = attributes[:'quantity']
-        else
-          self.quantity = nil
-        end
-
-        if attributes.key?(:'tax_amount')
-          self.tax_amount = attributes[:'tax_amount']
-        end
-
-        if attributes.key?(:'tax_amount_per_unit')
-          self.tax_amount_per_unit = attributes[:'tax_amount_per_unit']
-        end
-
-        if attributes.key?(:'product_url')
-          self.product_url = attributes[:'product_url']
-        end
-
-        if attributes.key?(:'product_image_url')
-          self.product_image_url = attributes[:'product_image_url']
-        end
-
-        if attributes.key?(:'product_category_path')
-          self.product_category_path = attributes[:'product_category_path']
-        end
-
-        if attributes.key?(:'merchant_shop_delivery_reference')
-          self.merchant_shop_delivery_reference = attributes[:'merchant_shop_delivery_reference']
-        end
+        attributes = attributes.transform_keys(&:to_sym) if attributes.is_a?(Hash)
+        super
+        self.id = attributes[:'id'] if attributes.key?(:'id')
+        self.status = attributes[:'status'] if attributes[:'status'].is_a?(Array)
       end
 
       # Checks equality by comparing each attribute.
       # @param [Object] Object to be compared
       def ==(o)
         return true if self.equal?(o)
-        self.class == o.class &&
-            id == o.id &&
-            status == o.status &&
-            product_code == o.product_code &&
-            product_price == o.product_price &&
-            product_type == o.product_type &&
-            quantity == o.quantity &&
-            tax_amount == o.tax_amount &&
-            tax_amount_per_unit == o.tax_amount_per_unit &&
-            product_url == o.product_url &&
-            product_image_url == o.product_image_url &&
-            product_category_path == o.product_category_path &&
-            merchant_shop_delivery_reference == o.merchant_shop_delivery_reference
+        super && id == o.id && status == o.status
       end
 
       # @see the `==` method
@@ -217,7 +88,7 @@ module PCPServerSDK
       # Calculates hash code according to all attributes.
       # @return [Integer] Hash code
       def hash
-        [id, status, product_code, product_price, product_type, quantity, tax_amount, tax_amount_per_unit, product_url, product_image_url, product_category_path, merchant_shop_delivery_reference].hash
+        [super, id, status].hash
       end
 
       # Builds the object from hash
