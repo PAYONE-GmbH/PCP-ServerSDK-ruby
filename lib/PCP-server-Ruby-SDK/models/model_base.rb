@@ -7,18 +7,32 @@ module PCPServerSDK
     class ModelBase
       @attribute_map = {}
       @openapi_types = {}
+      @attribute_defaults = {}
+      @attribute_enums = {}
 
       class << self
         def inherited(subclass)
           subclass.instance_variable_set(:@attribute_map, attribute_map.dup)
           subclass.instance_variable_set(:@openapi_types, openapi_types.dup)
+          subclass.instance_variable_set(:@attribute_defaults, attribute_defaults.dup)
+          subclass.instance_variable_set(:@attribute_enums, attribute_enums.dup)
           super
         end
 
-        def attribute(name, json_name, type)
-          attr_accessor name
+        def attribute(name, json_name, type, default: nil, enum: nil)
+          define_method(name) { instance_variable_get("@#{name}") }
+          define_method("#{name}=") do |value|
+            allowed_values = self.class.attribute_enums[name]
+            if !value.nil? && allowed_values && !allowed_values.include?(value)
+              raise ArgumentError, "invalid value for \"#{name}\", must be one of #{allowed_values.inspect}."
+            end
+
+            instance_variable_set("@#{name}", value)
+          end
           @attribute_map[name] = json_name
           @openapi_types[name] = type
+          @attribute_defaults[name] = default unless default.nil?
+          @attribute_enums[name] = enum if enum
         end
 
         def attribute_map
@@ -27,6 +41,14 @@ module PCPServerSDK
 
         def openapi_types
           @openapi_types
+        end
+
+        def attribute_defaults
+          @attribute_defaults
+        end
+
+        def attribute_enums
+          @attribute_enums
         end
 
         def acceptable_attributes
@@ -48,6 +70,8 @@ module PCPServerSDK
         end
 
         def _deserialize(type, value)
+          return nil if value.nil?
+
           type_name = type.to_s
 
           case type_name
@@ -59,12 +83,17 @@ module PCPServerSDK
           when 'Boolean' then value.to_s.match?(/\A(true|t|yes|y|1)\z/i)
           when 'Object' then value
           when /\AArray<(?<inner_type>.+)>\z/
-            value.map { |item| _deserialize(Regexp.last_match[:inner_type], item) }
+            inner_type = Regexp.last_match[:inner_type]
+            value.map { |item| _deserialize(inner_type, item) }
           when /\AHash<(?<key_type>.+?), (?<value_type>.+)>\z/
+            key_type = Regexp.last_match[:key_type]
+            value_type = Regexp.last_match[:value_type]
             value.each_with_object({}) do |(key, item), result|
-              result[_deserialize(Regexp.last_match[:key_type], key)] = _deserialize(Regexp.last_match[:value_type], item)
+              result[_deserialize(key_type, key)] = _deserialize(value_type, item)
             end
-          else PCPServerSDK::Models.const_get(type_name).build_from_hash(value)
+          else
+            klass = PCPServerSDK::Models.const_get(type_name)
+            klass.respond_to?(:openapi_any_of) || klass.respond_to?(:openapi_one_of) ? klass.build(value) : klass.build_from_hash(value)
           end
         end
       end
@@ -72,6 +101,7 @@ module PCPServerSDK
       def initialize(attributes = {})
         raise ArgumentError, "The input argument must be a hash" unless attributes.is_a?(Hash)
 
+        self.class.attribute_defaults.each { |name, value| public_send("#{name}=", value) }
         attributes.each do |name, value|
           name = name.to_sym
           raise ArgumentError, "`#{name}` is not a valid attribute" unless self.class.attribute_map.key?(name)
@@ -106,7 +136,8 @@ module PCPServerSDK
       private
 
         def to_value(value)
-          return value.map { |item| to_value(item) } if value.is_a?(Array)
+          return value.compact.map { |item| to_value(item) } if value.is_a?(Array)
+          return value.transform_values { |item| to_value(item) } if value.is_a?(Hash)
           return value.to_hash if value.respond_to?(:to_hash)
 
           value
