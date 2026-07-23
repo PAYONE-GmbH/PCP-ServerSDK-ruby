@@ -275,7 +275,7 @@ RSpec.describe 'required field validation' do
   describe PCPServerSDK::Models::FundDistribution do
     it 'rejects partially initialized models missing the first required field' do
       expect do
-        described_class.new(amount: 100, type: 'COMMISSION')
+        described_class.new(amount: 100, type: 'COMMISSION_FEE')
       end.to raise_error(ArgumentError, 'account_id cannot be nil')
     end
 
@@ -463,7 +463,7 @@ RSpec.describe 'required field validation' do
     let(:fund_split) do
       PCPServerSDK::Models::FundSplit.new(
         fund_distributions: [
-          PCPServerSDK::Models::FundDistribution.new(account_id: 'account-1', amount: 100, type: 'MARKETPLACE')
+          PCPServerSDK::Models::FundDistribution.new(account_id: 'account-1', amount: 100, type: 'COMMISSION_FEE')
         ]
       )
     end
@@ -478,7 +478,7 @@ RSpec.describe 'required field validation' do
             {
               accountId: 'account-1',
               amount: 100,
-              type: 'MARKETPLACE'
+              type: 'COMMISSION_FEE'
             }
           ]
         }
@@ -493,7 +493,7 @@ RSpec.describe 'required field validation' do
             {
               'accountId' => 'account-1',
               'amount' => 100,
-              'type' => 'MARKETPLACE'
+              'type' => 'COMMISSION_FEE'
             }
           ]
         }
@@ -512,7 +512,7 @@ RSpec.describe 'required field validation' do
             {
               'accountId' => 'account-1',
               'amount' => 100,
-              'type' => 'MARKETPLACE'
+              'type' => 'COMMISSION_FEE'
             }
           ]
         }
