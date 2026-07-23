@@ -1,3 +1,11 @@
+# [1.13.0](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v1.12.0...v1.13.0) (2026-07-23)
+
+### Features
+
+* feat: update API version to 1.59.0 ([ea64ca9e4cf232bc1dc90c563038e79d415e83af](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/commit/ea64ca9e4cf232bc1dc90c563038e79d415e83af))
+* feat: update API version to 1.60.0 ([9b5ebe858a46e671c57c85902445543dbbddcec2](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/commit/9b5ebe858a46e671c57c85902445543dbbddcec2))
+* feat: update API version to 1.61.0 ([a2f143cfd34405f1c23450932069f7fb8106c0f9](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/commit/a2f143cfd34405f1c23450932069f7fb8106c0f9))
+
 # [1.12.0](https://github.com/PAYONE-GmbH/PCP-ServerSDK-ruby/compare/v1.11.0...v1.12.0) (2026-07-08)
 
 ### Features
