@@ -15,7 +15,8 @@ module PCPServerSDK
                     :include_payment_product_id, :include_checkout_status,
                     :include_extended_checkout_status, :include_payment_channel,
                     :payment_reference, :payment_id, :first_name, :surname,
-                    :email, :phone_number, :date_of_birth, :company_information, :terminal_id, :reporting_token
+                    :email, :phone_number, :date_of_birth, :company_information, :terminal_id, :reporting_token,
+                    :card_authorization_id, :receipt_number, :trace_number
     
       def initialize
         @include_payment_product_id = []
@@ -60,6 +61,9 @@ module PCPServerSDK
         query['companyInformation'] = @company_information if @company_information
         query['terminalId'] = @terminal_id if @terminal_id
         query['reportingToken'] = @reporting_token if @reporting_token
+        query['cardAuthorizationId'] = @card_authorization_id if @card_authorization_id
+        query['receiptNumber'] = @receipt_number if @receipt_number
+        query['traceNumber'] = @trace_number if @trace_number
     
         query
       end

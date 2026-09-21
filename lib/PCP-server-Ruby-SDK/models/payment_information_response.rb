@@ -22,6 +22,10 @@ module PCPServerSDK
       # or terminal will be used. It is always the reference for external transactions.
       # (e.g. card present payments, cash payments or payments processed by other payment providers).
       attribute :merchant_reference, :merchantReference, :String
+      # Trace number assigned by the payment terminal.
+      attribute :trace_number, :traceNumber, :String
+      # Receipt number assigned by the payment terminal.
+      attribute :receipt_number, :receiptNumber, :String
       # The date and time when the payment was created.
       #
       # Format will be in one of the following formats:

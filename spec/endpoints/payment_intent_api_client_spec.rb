@@ -8,7 +8,9 @@ RSpec.describe PCPServerSDK::Endpoints::PaymentIntentApiClient do
 
   describe '#create_payment_intent' do
     it 'posts the payload and deserializes the response' do
-      payload = PCPServerSDK::Models::CreatePaymentIntentRequest.new
+      payload = PCPServerSDK::Models::CreatePaymentIntentRequest.new(
+        references: PCPServerSDK::Models::PaymentReferencesForPaymentIntent.new(merchant_reference: 'order-123')
+      )
       response = double('Response', body: '{"paymentIntentOutput":{"paymentIntentId":"intent-1"}}', code: '201')
       allow(client).to receive(:get_response).and_return(response)
 
