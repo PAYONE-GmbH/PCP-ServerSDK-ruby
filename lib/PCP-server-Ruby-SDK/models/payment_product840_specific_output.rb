@@ -1,13 +1,12 @@
-require_relative 'payment_product840_specific_output_data'
+require_relative 'model_base'
 
 module PCPServerSDK
   module Models
-    class PaymentProduct840SpecificOutput < PaymentProduct840SpecificOutputData
+    class PaymentProduct840SpecificOutput < ModelBase
+      attribute :billing_address, :billingAddress, :Address
+      attribute :customer_account, :customerAccount, :PaymentProduct840CustomerAccount
+      attribute :pay_pal_transaction_id, :payPalTransactionId, :String
       attribute :shipping_address, :shippingAddress, :Address
-
-      def self.openapi_all_of
-        [:PaymentProduct840SpecificOutputData]
-      end
     end
   end
 end

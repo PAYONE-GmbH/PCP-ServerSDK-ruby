@@ -17,8 +17,13 @@ RSpec.describe PCPServerSDK::Endpoints::PaymentInformationApiClient do
     let(:payload) { double('PCPServerSDK::Models::PaymentInformationRequest') }
 
     context 'when request is successful' do
-      let(:response) { double('Response', body: '{}', code: '200') }
-      let(:expected_response) { PCPServerSDK::Models::PaymentInformationResponse.new }
+      let(:response) { double('Response', body: '{"traceNumber":"trace-123","receiptNumber":"receipt-123"}', code: '200') }
+      let(:expected_response) do
+        PCPServerSDK::Models::PaymentInformationResponse.new(
+          trace_number: 'trace-123',
+          receipt_number: 'receipt-123'
+        )
+      end
 
       before do
         allow(client).to receive(:get_response).and_return(response)
@@ -27,6 +32,8 @@ RSpec.describe PCPServerSDK::Endpoints::PaymentInformationApiClient do
       it 'returns a successful response' do
         result = client.create_payment_information('1', '2', '3', payload)
         expect(result).to eq(expected_response)
+        expect(result.trace_number).to eq('trace-123')
+        expect(result.receipt_number).to eq('receipt-123')
       end
     end
 

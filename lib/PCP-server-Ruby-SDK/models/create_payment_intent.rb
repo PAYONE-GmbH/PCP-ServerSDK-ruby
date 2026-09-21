@@ -4,7 +4,7 @@ module PCPServerSDK
   module Models
     class CreatePaymentIntent < ModelBase
       attribute :amount_of_money, :amountOfMoney, :AmountOfMoney
-      attribute :references, :references, :PaymentReferences
+      attribute :references, :references, :PaymentReferencesForPaymentIntent
       attribute :shopping_cart, :shoppingCart, :ShoppingCartData
     end
   end
