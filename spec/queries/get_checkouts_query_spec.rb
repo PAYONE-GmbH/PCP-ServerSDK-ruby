@@ -181,4 +181,19 @@ RSpec.describe PCPServerSDK::Queries::GetCheckoutsQuery do
     @query.company_information = 'Company XYZ'
     expect(@query.to_query_map).to eq({ 'companyInformation' => 'Company XYZ' })
   end
+
+  it 'should return query map with card_authorization_id' do
+    @query.card_authorization_id = 'authorization-123'
+    expect(@query.to_query_map).to eq({ 'cardAuthorizationId' => 'authorization-123' })
+  end
+
+  it 'should return query map with receipt_number' do
+    @query.receipt_number = 'receipt-123'
+    expect(@query.to_query_map).to eq({ 'receiptNumber' => 'receipt-123' })
+  end
+
+  it 'should return query map with trace_number' do
+    @query.trace_number = 'trace-123'
+    expect(@query.to_query_map).to eq({ 'traceNumber' => 'trace-123' })
+  end
 end
