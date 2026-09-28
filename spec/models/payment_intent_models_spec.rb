@@ -48,4 +48,46 @@ RSpec.describe 'Payment intent models' do
     expect(output.customer_account).to be_a(PCPServerSDK::Models::PaymentProduct840CustomerAccount)
     expect(output.customer_account.payer_id).to eq('payer-123')
   end
+
+  it 'serializes the patch request with the updated amount and shopping cart' do
+    request = PCPServerSDK::Models::PatchPaymentIntentRequest.build_from_hash(
+      'amountOfMoney' => { 'amount' => 1500, 'currencyCode' => 'EUR' },
+      'shoppingCart' => { 'items' => [{ 'invoiceData' => { 'description' => 'Updated item' } }] }
+    )
+
+    expect(request.amount_of_money).to be_a(PCPServerSDK::Models::AmountOfMoney)
+    expect(request.shopping_cart.items.first).to be_a(PCPServerSDK::Models::CartItemData)
+    expect(request.to_hash).to eq(
+      amountOfMoney: { amount: 1500, currencyCode: 'EUR' },
+      shoppingCart: { items: [{ invoiceData: { description: 'Updated item' } }] }
+    )
+  end
+
+  it 'deserializes the patch response using the create response structure' do
+    response = PCPServerSDK::Models::PatchPaymentIntentResponse.build_from_hash(
+      'paymentIntentOutput' => { 'paymentIntentId' => 'intent-1' },
+      'shoppingCart' => { 'items' => [] }
+    )
+
+    expect(response).to be_a(PCPServerSDK::Models::CreatePaymentIntentResponse)
+    expect(response.payment_intent_output.payment_intent_id).to eq('intent-1')
+    expect(response.shopping_cart).to be_a(PCPServerSDK::Models::ShoppingCartData)
+    expect(response.to_hash.dig(:paymentIntentOutput, :paymentIntentId)).to eq('intent-1')
+  end
+
+  it 'uses redirectData in created payment intent output' do
+    response = PCPServerSDK::Models::CreatePaymentIntentResponse.build_from_hash(
+      'paymentIntentOutput' => {
+        'redirectPaymentMethodSpecificOutput' => {
+          'redirectData' => { 'redirectURL' => 'https://example.com/redirect' }
+        }
+      }
+    )
+    redirect_output = response.payment_intent_output.redirect_payment_method_specific_output
+
+    expect(redirect_output.redirect_data).to be_a(PCPServerSDK::Models::RedirectData)
+    expect(redirect_output.redirect_data.redirect_url).to eq('https://example.com/redirect')
+    expect(response.to_hash.dig(:paymentIntentOutput, :redirectPaymentMethodSpecificOutput, :redirectData))
+      .to eq(redirectURL: 'https://example.com/redirect')
+  end
 end
