@@ -44,6 +44,34 @@ RSpec.describe 'OpenAPI model conformance' do
     expect(mismatches).to be_empty
   end
 
+  it 'uses the referenced object model for every object-valued schema property' do
+    mismatches = schemas.flat_map do |name, schema|
+      next [] unless schema['type'] == 'object'
+
+      model = PCPServerSDK::Models.const_get(name)
+      schema_properties_with_definitions(schema).filter_map do |property, definition|
+        reference = definition['$ref'] || definition.dig('items', '$ref')
+        next unless reference
+
+        referenced_name = reference.split('/').last
+        next unless schemas.fetch(referenced_name)['type'] == 'object'
+
+        expected = definition['type'] == 'array' ? "Array<#{referenced_name}>" : referenced_name
+        actual = model.openapi_types.fetch(model.attribute_map.key(property.to_sym)).to_s
+        "#{name}.#{property}: expected #{expected}, got #{actual}" unless actual == expected
+      end
+    end
+
+    expect(mismatches).to be_empty
+  end
+
+  def schema_properties_with_definitions(schema)
+    inherited = Array(schema['allOf']).each_with_object({}) do |parent, result|
+      result.merge!(schema_properties_with_definitions(parent['$ref'] ? schemas.fetch(parent['$ref'].split('/').last) : parent))
+    end
+    inherited.merge(schema.fetch('properties', {}))
+  end
+
   it 'declares each direct allOf parent' do
     mismatches = schemas.filter_map do |name, schema|
       expected = Array(schema['allOf']).filter_map { |parent| parent['$ref']&.split('/')&.last }.sort
